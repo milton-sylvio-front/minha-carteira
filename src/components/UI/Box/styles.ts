@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import {
   border,
   background,
@@ -7,9 +7,9 @@ import {
   position,
   shadow,
   space,
-} from 'styled-system'
+} from 'styled-system';
 
-import { IBox } from './types'
+import { IBox } from './types';
 
 export const Box = styled('div')<IBox>(
   border,
@@ -18,5 +18,5 @@ export const Box = styled('div')<IBox>(
   layout,
   position,
   shadow,
-  space,
-)
+  space
+);

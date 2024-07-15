@@ -27,4 +27,4 @@ export const NEW_REGISTER_ARR = {
       label: 'Eventual',
     },
   ],
-}
+};

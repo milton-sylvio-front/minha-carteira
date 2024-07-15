@@ -1,5 +1,5 @@
-import { Container } from './styles'
-import type { IHistoryFinances } from './types'
+import { Container } from './styles';
+import type { IHistoryFinances } from './types';
 
 export const HistoryFinances = ({
   borderColor,
@@ -14,4 +14,4 @@ export const HistoryFinances = ({
     </div>
     <h3>{amount}</h3>
   </Container>
-)
+);

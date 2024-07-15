@@ -6,7 +6,7 @@ import {
   PositionProps,
   SpaceProps,
   TypographyProps,
-} from 'styled-system'
+} from 'styled-system';
 
 export interface ICloseButton
   extends BorderProps,
@@ -16,5 +16,5 @@ export interface ICloseButton
     PositionProps,
     SpaceProps,
     TypographyProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }

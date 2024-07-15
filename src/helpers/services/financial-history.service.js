@@ -1,30 +1,30 @@
-import firebase from 'firebase'
+import firebase from 'firebase';
 
-const db = firebase.firestore()
-const usersPerPage = 10
+const db = firebase.firestore();
+const usersPerPage = 10;
 
 function getAll() {
   const response = db
     .collection('FinancialRegister')
     .where('type', '==', 'gains')
     // .orderBy("type", "asc")
-    .limit(usersPerPage)
+    .limit(usersPerPage);
 
   try {
-    const resp = response.get()
-    const arr = []
+    const resp = response.get();
+    const arr = [];
     // const arrGains = [];
     // const arrExpenses = [];
 
-    resp.docs.forEach(_data => {
+    resp.docs.forEach((_data) => {
       // console.log("_data.id:", _data.id);
       arr.push({
         id: _data.id, // because id field in separate function in firestore
         ..._data.data(), // the remaining fields
-      })
-    })
+      });
+    });
 
-    return arr
+    return arr;
 
     // arr.forEach((items) => {
     //   if (items.type === "gains") {
@@ -34,11 +34,11 @@ function getAll() {
     //   }
     // });
   } catch (error) {
-    console.log('ERRO: ', error)
-    throw error
+    console.log('ERRO: ', error);
+    throw error;
   }
 }
 
 export const financialHistoryService = {
   getAll,
-}
+};

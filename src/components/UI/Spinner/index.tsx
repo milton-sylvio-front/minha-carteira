@@ -1,11 +1,11 @@
-import { Bullet, Container } from './styles'
+import { Bullet, Container } from './styles';
 
 const Spinner = () => (
   <Container>
     <Bullet />
-    <Bullet className='middle' />
+    <Bullet className="middle" />
     <Bullet />
   </Container>
-)
+);
 
-export default Spinner
+export default Spinner;

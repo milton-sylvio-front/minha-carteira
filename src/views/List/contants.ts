@@ -1,4 +1,4 @@
-import { colors } from '../../styles/themes/general'
+import { colors } from '../../styles/themes/general';
 
 export const CONSTANTS = {
   routeEntrance: 'entradas',
@@ -7,4 +7,4 @@ export const CONSTANTS = {
   colorEntry: colors.danger,
   colorOutput: colors.warning,
   dateNow: new Date(),
-}
+};

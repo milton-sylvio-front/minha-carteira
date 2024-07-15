@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-import Card from '../../../components/UI/Card/styles'
+import styled, { keyframes } from 'styled-components';
+import Card from '../../../components/UI/Card/styles';
 
 const animate = keyframes`
   0% {
@@ -13,7 +13,7 @@ const animate = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled(Card)`
   animation: ${animate} 0.5s;
@@ -24,7 +24,7 @@ export const Container = styled(Card)`
     height: 200px;
     width: 100%;
   }
-`
+`;
 
 export const SideLeft = styled.aside`
   display: flex;
@@ -33,17 +33,17 @@ export const SideLeft = styled.aside`
   justify-content: space-between;
   flex-wrap: wrap;
   width: 38%;
-`
+`;
 
 export const SideRight = styled.aside`
   flex: 1;
   justify-content: center;
   width: 58%;
-`
+`;
 
 export const LegendContainer = styled.ul`
   list-style: none;
-`
+`;
 
 export const Legend = styled.li`
   align-items: center;
@@ -83,4 +83,4 @@ export const Legend = styled.li`
   @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
     font-size: ${(props) => props.theme.general.fontSizes[1]};
   }
-`
+`;

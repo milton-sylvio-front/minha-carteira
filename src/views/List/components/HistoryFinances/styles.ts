@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components'
-import Card from '../../../../components/UI/Card/styles'
-import { IContainerProps } from './types'
+import styled, { keyframes } from 'styled-components';
+import Card from '../../../../components/UI/Card/styles';
+import { IContainerProps } from './types';
 
 const animateLeft = keyframes`
   0% {
@@ -14,7 +14,7 @@ const animateLeft = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 const animateRight = keyframes`
   0% {
@@ -28,7 +28,7 @@ const animateRight = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled(Card)<IContainerProps>`
   align-items: center;
@@ -57,4 +57,4 @@ export const Container = styled(Card)<IContainerProps>`
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
     transform: translateX(10px);
   }
-`
+`;

@@ -9,14 +9,14 @@ const colors = {
   info: '#3867d6',
   warning: '#ffa800',
   danger: '#dd427c',
-}
+};
 
 const bordersRadius = {
   small: '2px',
   normal: '4px',
   large: '8px',
   rounded: '50%',
-}
+};
 
 const fontSizes = [
   '12px',
@@ -27,18 +27,18 @@ const fontSizes = [
   '32px',
   '40px',
   '48px',
-]
+];
 
 const fontWeights = {
   normal: 400,
   bold: 700,
-}
+};
 
 const lineHeights = {
   condensedUltra: 1,
   condensed: 1.25,
   default: 1.5,
-}
+};
 
 const space = [
   '0',
@@ -57,13 +57,13 @@ const space = [
   '96px',
   '112px',
   '128px',
-]
+];
 
 const sizes = {
   large: '1012px',
   medium: '768px',
   small: '544px',
-}
+};
 
 const general = {
   colors,
@@ -73,7 +73,7 @@ const general = {
   lineHeights,
   space,
   sizes,
-}
+};
 
-export default general
-export { colors }
+export default general;
+export { colors };

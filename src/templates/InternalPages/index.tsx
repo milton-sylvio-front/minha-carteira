@@ -1,9 +1,9 @@
-import Header from '../../components/Header'
-import Aside from '../../components/Aside'
-import Content from '../../components/Content'
+import Header from '../../components/Header';
+import Aside from '../../components/Aside';
+import Content from '../../components/Content';
 
-import { IInternalPagesTemplate } from './types'
-import { Grid } from './styles'
+import { IInternalPagesTemplate } from './types';
+import { Grid } from './styles';
 
 const InternalPagesTemplate = ({ children }: IInternalPagesTemplate) => (
   <Grid>
@@ -11,6 +11,6 @@ const InternalPagesTemplate = ({ children }: IInternalPagesTemplate) => (
     <Aside />
     <Content>{children}</Content>
   </Grid>
-)
+);
 
-export default InternalPagesTemplate
+export default InternalPagesTemplate;

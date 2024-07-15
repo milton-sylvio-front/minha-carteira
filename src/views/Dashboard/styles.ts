@@ -1,14 +1,14 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 export const Content = styled.section`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
-  @media (max-width: ${props => props.theme.general.sizes.medium}) {
+  @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
     justify-content: center;
   }
-`
+`;
 
 const animate = keyframes`
   0% {
@@ -22,7 +22,7 @@ const animate = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 export const ContainerColorsCards = styled.div`
   align-items: center;
@@ -32,8 +32,8 @@ export const ContainerColorsCards = styled.div`
   position: relative;
   width: 100%;
 
-  @media (max-width: ${props => props.theme.general.sizes.medium}) {
+  @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
     align-items: flex-stretch;
     flex-direction: column;
   }
-`
+`;

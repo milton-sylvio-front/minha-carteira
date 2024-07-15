@@ -1,34 +1,34 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo } from 'react';
 
-import { BarBox, LineBox, PieBox } from '../../components/Charts'
-import ColorCard from '../../components/ColorCard'
-import ContentHeader from '../../components/ContentHeader'
-import MessageCard from '../../components/MessageCard'
-import { UiContainer, UiDropdown } from '../../components/UI'
+import { BarBox, LineBox, PieBox } from '../../components/Charts';
+import ColorCard from '../../components/ColorCard';
+import ContentHeader from '../../components/ContentHeader';
+import MessageCard from '../../components/MessageCard';
+import { UiContainer, UiDropdown } from '../../components/UI';
 
-import gains from '../../repositories/gains'
-import expenses from '../../repositories/expenses'
+import gains from '../../repositories/gains';
+import expenses from '../../repositories/expenses';
 
-import monthsList from '../../helpers/utils/months'
-import formatCurrency from '../../helpers/utils/formatCurrency'
+import monthsList from '../../helpers/utils/months';
+import formatCurrency from '../../helpers/utils/formatCurrency';
 
-import happyIcon from '../../assets/happy.svg'
-import sadIcon from '../../assets/sad.svg'
-import opsIcon from '../../assets/ops.svg'
+import happyIcon from '../../assets/happy.svg';
+import sadIcon from '../../assets/sad.svg';
+import opsIcon from '../../assets/ops.svg';
 
-import { colors } from '../../styles/themes/general'
+import { colors } from '../../styles/themes/general';
 
-import { Content, ContainerColorsCards } from './styles'
+import { Content, ContainerColorsCards } from './styles';
 
 const Dashboard = () => {
-  const dateNow = new Date()
+  const dateNow = new Date();
 
   const [monthSelected, setMonthSelected] = useState<number>(
-    dateNow.getMonth() + 1,
-  )
+    dateNow.getMonth() + 1
+  );
   const [yearSelected, setYearSelected] = useState<number>(
-    dateNow.getFullYear(),
-  )
+    dateNow.getFullYear()
+  );
 
   const months = useMemo(
     () =>
@@ -36,70 +36,70 @@ const Dashboard = () => {
         value: index + 1,
         label: month,
       })),
-    [],
-  )
+    []
+  );
 
   const years = useMemo(() => {
-    const uniqueYears: number[] = []
-    ;[...expenses, ...gains].forEach((item) => {
-      const date = new Date(item?.date || '')
-      const year = date.getFullYear()
+    const uniqueYears: number[] = [];
+    [...expenses, ...gains].forEach((item) => {
+      const date = new Date(item?.date || '');
+      const year = date.getFullYear();
 
       if (!uniqueYears.includes(year)) {
-        uniqueYears.push(year)
+        uniqueYears.push(year);
       }
-    })
+    });
 
     return uniqueYears.map((year) => ({
       value: year,
       label: year,
-    }))
-  }, [])
+    }));
+  }, []);
 
   const totalExpenses = useMemo(() => {
-    let total = 0
+    let total = 0;
 
     expenses.forEach((item) => {
-      const date = new Date(item?.date || '')
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
+      const date = new Date(item?.date || '');
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
 
       if (month === monthSelected && year === yearSelected) {
         try {
-          total += Number(item?.amount)
+          total += Number(item?.amount);
         } catch (error) {
-          throw new Error(`Valor inválido: ${error}`)
+          throw new Error(`Valor inválido: ${error}`);
         }
       }
-    })
+    });
 
-    return total
-  }, [monthSelected, yearSelected])
+    return total;
+  }, [monthSelected, yearSelected]);
 
   const totalGains = useMemo(() => {
-    let total = 0
+    let total = 0;
 
     gains.forEach((item) => {
-      const date = new Date(item.date)
-      const year = date.getFullYear()
-      const month = date.getMonth() + 1
+      const date = new Date(item.date);
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
 
       if (month === monthSelected && year === yearSelected) {
         try {
-          total += Number(item.amount)
+          total += Number(item.amount);
         } catch (error) {
-          throw new Error(`Valor inválido: ${error}`)
+          throw new Error(`Valor inválido: ${error}`);
         }
       }
-    })
+    });
 
-    return total
-  }, [monthSelected, yearSelected])
+    return total;
+  }, [monthSelected, yearSelected]);
 
   const totalBalance = useMemo(
     () => totalGains - totalExpenses,
-    [totalGains, totalExpenses],
-  )
+    [totalGains, totalExpenses]
+  );
 
   const message = useMemo(() => {
     if (totalBalance < 0) {
@@ -108,7 +108,7 @@ const Dashboard = () => {
         description: 'Neste mês, você gastou mais que deveria!',
         footerTxt: 'Verifique seus gastos e tente economizar.',
         icon: sadIcon,
-      }
+      };
     }
     if (totalBalance === 0 && totalExpenses === 0) {
       return {
@@ -116,7 +116,7 @@ const Dashboard = () => {
         description: 'Neste mês, não hã registros de entradas e saídas!',
         footerTxt: 'Parece que nesse mês não há registros.',
         icon: opsIcon,
-      }
+      };
     }
     if (totalBalance === 0) {
       return {
@@ -124,21 +124,21 @@ const Dashboard = () => {
         description: 'Neste mês, você gastou exatamente o que ganhou!',
         footerTxt: 'Tenha cuidado no próximo mês.',
         icon: opsIcon,
-      }
+      };
     }
     return {
       title: ' Muito bem!',
       description: 'Sua carteira está positiva!',
       footerTxt: 'Continue assim. Considere investir o seu saldo.',
       icon: happyIcon,
-    }
-  }, [totalBalance, totalExpenses])
+    };
+  }, [totalBalance, totalExpenses]);
 
   const relationExpensesVersusGains = useMemo(() => {
-    const total = totalGains + totalExpenses
+    const total = totalGains + totalExpenses;
 
-    const gainsPercent = (totalGains / total) * 100
-    const expensesPercent = (totalExpenses / total) * 100
+    const gainsPercent = (totalGains / total) * 100;
+    const expensesPercent = (totalExpenses / total) * 100;
 
     const data = [
       {
@@ -155,97 +155,97 @@ const Dashboard = () => {
         color: colors.primary,
         type: 'output',
       },
-    ]
+    ];
 
-    return data
-  }, [totalGains, totalExpenses])
+    return data;
+  }, [totalGains, totalExpenses]);
 
   const historyData = useMemo(
     () =>
       monthsList
         .map((_, month) => {
-          let amountEntry = 0
+          let amountEntry = 0;
 
           gains.forEach((gain) => {
-            const date = new Date(gain.date)
-            const gainMonth = date.getMonth()
-            const gainYear = date.getFullYear()
+            const date = new Date(gain.date);
+            const gainMonth = date.getMonth();
+            const gainYear = date.getFullYear();
 
             if (gainMonth === month && gainYear === yearSelected) {
               try {
-                amountEntry += Number(gain.amount)
+                amountEntry += Number(gain.amount);
               } catch {
                 throw new Error(
-                  'O valor de entrada é inválido, por favor, verifique o valor',
-                )
+                  'O valor de entrada é inválido, por favor, verifique o valor'
+                );
               }
             }
-          })
+          });
 
-          let amountOutput = 0
+          let amountOutput = 0;
 
           expenses.forEach((expense) => {
-            const date = new Date(expense?.date || '')
-            const expenseMonth = date.getMonth()
-            const expenseYear = date.getFullYear()
+            const date = new Date(expense?.date || '');
+            const expenseMonth = date.getMonth();
+            const expenseYear = date.getFullYear();
 
             if (expenseMonth === month && expenseYear === yearSelected) {
               try {
-                amountOutput += Number(expense?.amount)
+                amountOutput += Number(expense?.amount);
               } catch {
                 throw new Error(
-                  'O valor de saída é inválido, por favor, verifique o valor',
-                )
+                  'O valor de saída é inválido, por favor, verifique o valor'
+                );
               }
             }
-          })
+          });
 
           return {
             monthNumber: month,
             month: monthsList[month].substr(0, 3),
             amountEntry,
             amountOutput,
-          }
+          };
         })
         .filter((item) => {
-          const currentMonth = new Date().getMonth()
-          const currentYear = new Date().getFullYear()
+          const currentMonth = new Date().getMonth();
+          const currentYear = new Date().getFullYear();
           return (
             (yearSelected === currentYear &&
               item.monthNumber <= currentMonth) ||
             yearSelected < currentYear
-          )
+          );
         }),
-    [yearSelected],
-  )
+    [yearSelected]
+  );
 
   const relationExpensevesRecurrentVersusEventual = useMemo(() => {
-    let amountRecurrent = 0
-    let amountEventual = 0
+    let amountRecurrent = 0;
+    let amountEventual = 0;
 
     expenses
       .filter((expense) => {
-        const date = new Date(expense?.date || '')
-        const year = date.getFullYear()
-        const month = date.getMonth() + 1
+        const date = new Date(expense?.date || '');
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
 
-        return month === monthSelected && year === yearSelected
+        return month === monthSelected && year === yearSelected;
       })
       .forEach((expense) => {
         if (expense?.frequency === 'recorrente') {
-          return (amountRecurrent += Number(expense?.amount))
+          return (amountRecurrent += Number(expense?.amount));
         }
 
         if (expense?.frequency === 'eventual') {
-          return (amountEventual += Number(expense?.amount))
+          return (amountEventual += Number(expense?.amount));
         }
-      })
+      });
 
-    const total = amountRecurrent + amountEventual
+    const total = amountRecurrent + amountEventual;
     const calcPercents = (value, totalValue) =>
-      Number(((value / totalValue) * 100).toFixed(1)) | 0
-    const recurrentPercent = calcPercents(amountRecurrent, total)
-    const eventualPercent = calcPercents(amountEventual, total)
+      Number(((value / totalValue) * 100).toFixed(1)) | 0;
+    const recurrentPercent = calcPercents(amountRecurrent, total);
+    const eventualPercent = calcPercents(amountEventual, total);
 
     return [
       {
@@ -264,37 +264,37 @@ const Dashboard = () => {
         color: colors.warning,
         type: 'eventual',
       },
-    ]
-  }, [monthSelected, yearSelected])
+    ];
+  }, [monthSelected, yearSelected]);
 
   const relationGainsRecurrentVersusEventual = useMemo(() => {
-    let amountRecurrent = 0
-    let amountEventual = 0
+    let amountRecurrent = 0;
+    let amountEventual = 0;
 
     gains
       .filter((gain) => {
-        const date = new Date(gain.date)
-        const year = date.getFullYear()
-        const month = date.getMonth() + 1
+        const date = new Date(gain.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
 
-        return month === monthSelected && year === yearSelected
+        return month === monthSelected && year === yearSelected;
       })
       .forEach((gain) => {
         if (gain.frequency === 'recorrente') {
-          return (amountRecurrent += Number(gain.amount))
+          return (amountRecurrent += Number(gain.amount));
         }
 
         if (gain.frequency === 'eventual') {
-          return (amountEventual += Number(gain.amount))
+          return (amountEventual += Number(gain.amount));
         }
-      })
+      });
 
     const calcPercents = (value, totalValue) =>
-      Number(((value / totalValue) * 100).toFixed(1)) | 0
+      Number(((value / totalValue) * 100).toFixed(1)) | 0;
 
-    const total = amountRecurrent + amountEventual
-    const recurrentPercent = calcPercents(amountRecurrent, total)
-    const eventualPercent = calcPercents(amountEventual, total)
+    const total = amountRecurrent + amountEventual;
+    const recurrentPercent = calcPercents(amountRecurrent, total);
+    const eventualPercent = calcPercents(amountEventual, total);
 
     return [
       {
@@ -313,30 +313,30 @@ const Dashboard = () => {
         color: colors.warning,
         type: 'eventual',
       },
-    ]
-  }, [monthSelected, yearSelected])
+    ];
+  }, [monthSelected, yearSelected]);
 
   const handleMonthSelected = (month: string) => {
     try {
-      setMonthSelected(Number(month))
+      setMonthSelected(Number(month));
     } catch (error) {
       throw new Error(
-        `Valor inválido do mês. Aceito somente de 0 - 23: ${error}`,
-      )
+        `Valor inválido do mês. Aceito somente de 0 - 23: ${error}`
+      );
     }
-  }
+  };
 
   const handleYearSelected = (year: string) => {
     try {
-      setYearSelected(Number(year))
+      setYearSelected(Number(year));
     } catch (error) {
-      throw new Error('Valor inválido do mês. Aceito somente de 0 - 23')
+      throw new Error('Valor inválido do mês. Aceito somente de 0 - 23');
     }
-  }
+  };
 
   return (
     <UiContainer>
-      <ContentHeader title='Dashboard'>
+      <ContentHeader title="Dashboard">
         <UiDropdown
           options={months}
           onChange={(e) => handleMonthSelected(e.target.value)}
@@ -352,25 +352,25 @@ const Dashboard = () => {
       <Content>
         <ContainerColorsCards>
           <ColorCard
-            title='saldo'
+            title="saldo"
             amount={totalBalance}
-            description='atualizado com base nas entradas e saídas'
-            icon='dollar'
-            color='balance'
+            description="atualizado com base nas entradas e saídas"
+            icon="dollar"
+            color="balance"
           />
           <ColorCard
-            title='entradas'
+            title="entradas"
             amount={totalGains}
-            description='última movimentação em 18/07/2020 às 11h40'
-            icon='arrowUp'
-            color='entry'
+            description="última movimentação em 18/07/2020 às 11h40"
+            icon="arrowUp"
+            color="entry"
           />
           <ColorCard
-            title='saídas'
+            title="saídas"
             amount={totalExpenses}
-            description='última movimentação em 18/07/2020 às 11h40'
-            icon='arrowDown'
-            color='output'
+            description="última movimentação em 18/07/2020 às 11h40"
+            icon="arrowDown"
+            color="output"
           />
         </ContainerColorsCards>
 
@@ -385,18 +385,18 @@ const Dashboard = () => {
 
         <LineBox
           data={historyData}
-          lineColorAmountEntry='#1bc5bd'
-          lineColorAmountOutput='#8950fc'
+          lineColorAmountEntry="#1bc5bd"
+          lineColorAmountOutput="#8950fc"
         />
 
-        <BarBox title='Entradas' data={relationGainsRecurrentVersusEventual} />
+        <BarBox title="Entradas" data={relationGainsRecurrentVersusEventual} />
         <BarBox
-          title='Saídas'
+          title="Saídas"
           data={relationExpensevesRecurrentVersusEventual}
         />
       </Content>
     </UiContainer>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

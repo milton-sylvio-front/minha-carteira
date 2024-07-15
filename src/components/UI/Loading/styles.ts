@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-import { darken } from 'polished'
+import styled, { keyframes } from 'styled-components';
+import { darken } from 'polished';
 
 const text = keyframes`
   0% {
@@ -26,7 +26,7 @@ const text = keyframes`
     letter-spacing: 1px;
     transform: translateX(0px);
   }
-`
+`;
 
 const loading = keyframes`
   0% {
@@ -53,7 +53,7 @@ const loading = keyframes`
     transform: translateX(0px);
     width: 16px;
   }
-`
+`;
 
 const loadingBefore = keyframes`
   0% {
@@ -79,7 +79,7 @@ const loadingBefore = keyframes`
     transform: translateX(0px);
     width: 16px;
   }
-`
+`;
 
 export const Container = styled.main`
   align-items: center;
@@ -87,27 +87,27 @@ export const Container = styled.main`
   height: 100vh;
   justify-content: center;
   width: 100%;
-`
+`;
 
 export const Content = styled.div`
   height: 50px;
   position: relative;
   width: 80px;
-`
+`;
 
 export const Title = styled.p`
   animation: ${text} 3.5s ease both infinite;
-  color: ${props => props.theme.general.colors.secondary};
+  color: ${(props) => props.theme.general.colors.secondary};
   font-size: 12px;
   letter-spacing: 1px;
   margin: 0;
   padding: 0;
   top: 0;
-`
+`;
 
 export const BarLoading = styled.span`
   animation: ${loading} 3.5s ease both infinite;
-  background-color: ${props => props.theme.general.colors.secondary};
+  background-color: ${(props) => props.theme.general.colors.secondary};
   border-radius: 50px;
   bottom: 0;
   display: block;
@@ -118,7 +118,7 @@ export const BarLoading = styled.span`
 
   &:before {
     animation: ${loadingBefore} 3.5s ease both infinite;
-    background-color: ${props =>
+    background-color: ${(props) =>
       darken(0.15, props.theme.general.colors.secondary)};
     border-radius: inherit;
     content: '';
@@ -126,4 +126,4 @@ export const BarLoading = styled.span`
     position: absolute;
     width: 100%;
   }
-`
+`;

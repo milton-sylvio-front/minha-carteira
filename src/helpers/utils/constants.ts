@@ -8,8 +8,8 @@ export const ERROR_MESSAGES = {
   PASSWORD_FAILED: 'Não foi possível atualizar a senha. Tente novamente.',
   BALANCE_FAILED: 'Não foi possível carregar o saldo. Tente novamente.',
   EXTRACT_FAILED: 'Não foi possível carregar o extrato. Tente novamente.',
-}
+};
 
-export const TIMEOUT = 1500
+export const TIMEOUT = 3500;
 
-export const REQUIRED_FIELD = 'Campo obrigatório'
+export const REQUIRED_FIELD = 'Campo obrigatório';

@@ -1,7 +1,7 @@
-import { Container } from './styles'
+import { Container } from './styles';
 
-import { IUiCard } from './types'
+import { IUiCard } from './types';
 
 export const UiCard = ({ children }: IUiCard) => (
-  <Container className='card'>{children}</Container>
-)
+  <Container className="card">{children}</Container>
+);

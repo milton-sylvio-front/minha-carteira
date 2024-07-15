@@ -1,3 +1,3 @@
-export { BarBox } from './BarBox'
-export { LineBox } from './LineBox'
-export { PieBox } from './PieBox'
+export { BarBox } from './BarBox';
+export { LineBox } from './LineBox';
+export { PieBox } from './PieBox';

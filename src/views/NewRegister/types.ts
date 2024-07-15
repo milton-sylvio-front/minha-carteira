@@ -1,7 +1,15 @@
+export type IProps = {
+  amount: number;
+  date: string;
+  description: string;
+  frequency: string;
+  type: string;
+};
+
 export type NewRegisterProps = {
-  amount: number
-  date: string
-  description: string
-  frequency: string
-  type: string
-}
+  amount: string;
+  date: string;
+  description: string;
+  frequency: string;
+  type: string;
+};

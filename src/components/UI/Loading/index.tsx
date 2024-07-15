@@ -1,4 +1,4 @@
-import { Container, Content, Title, BarLoading } from './styles'
+import { Container, Content, Title, BarLoading } from './styles';
 
 export const UiLoading = () => (
   <Container>
@@ -7,4 +7,4 @@ export const UiLoading = () => (
       <BarLoading />
     </Content>
   </Container>
-)
+);

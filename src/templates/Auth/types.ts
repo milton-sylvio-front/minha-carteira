@@ -1,3 +1,3 @@
 export interface IAuthTemplate {
-  children: React.ReactNode
+  children: React.ReactNode;
 }

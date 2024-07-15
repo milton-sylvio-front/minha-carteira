@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
-import { UiCloseButton } from '../CloseButton'
+import { UiCloseButton } from '../CloseButton';
 
-import general from '../../../styles/themes/general'
+import general from '../../../styles/themes/general';
 
-import { AlertIcon } from './Icon'
+import { AlertIcon } from './Icon';
 
-import { IAlert } from './types'
-import { AlertContainer } from './styles'
-import { Box } from '../Box/styles'
+import { IAlert } from './types';
+import { AlertContainer } from './styles';
+import { Box } from '../Box/styles';
 
 export const UiAlert = ({
   type = 'success',
@@ -16,37 +16,37 @@ export const UiAlert = ({
   message = '',
   ...rest
 }: IAlert) => {
-  const [alert, setAlert] = useState<string>('')
+  const [alert, setAlert] = useState<string>('');
 
   useEffect(() => {
-    setAlert(message)
-  }, [message])
+    setAlert(message);
+  }, [message]);
 
   const handleClose = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    setAlert('')
-  }
+    e.preventDefault();
+    setAlert('');
+  };
 
   return alert ? (
     <AlertContainer
-      alignItems='center'
+      alignItems="center"
       borderRadius={general.bordersRadius.normal}
       color={general.colors.black}
-      display='flex'
-      justifyContent='space-between'
-      overflow='hidden'
+      display="flex"
+      justifyContent="space-between"
+      overflow="hidden"
       p={3}
-      position='relative'
+      position="relative"
       type={type}
-      width='100%'
+      width="100%"
       {...rest}
     >
-      <Box display='flex' alignItems='center'>
+      <Box display="flex" alignItems="center">
         <AlertIcon type={type} />
         {message}
       </Box>
 
       {closeBtn && <UiCloseButton onClick={handleClose} />}
     </AlertContainer>
-  ) : null
-}
+  ) : null;
+};

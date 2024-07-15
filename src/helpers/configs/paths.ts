@@ -28,4 +28,4 @@ export const PATHS = {
     title: 'Saídas',
     url: '/listagem/saidas',
   },
-}
+};

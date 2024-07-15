@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-import Card from '../../../components/UI/Card/styles'
+import styled, { keyframes } from 'styled-components';
+import Card from '../../../components/UI/Card/styles';
 
 const animateLeft = keyframes`
   0% {
@@ -13,7 +13,7 @@ const animateLeft = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 const animateRight = keyframes`
   0% {
@@ -27,7 +27,7 @@ const animateRight = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled(Card)`
   animation: ${animateLeft} 0.5s ease-in;
@@ -47,7 +47,7 @@ export const Container = styled(Card)`
   @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
     width: 100%;
   }
-`
+`;
 
 export const SideLeft = styled.aside`
   align-content: space-between;
@@ -56,7 +56,7 @@ export const SideLeft = styled.aside`
   > * {
     flex: 1;
   }
-`
+`;
 
 export const SideRight = styled.aside`
   align-items: flex-end;
@@ -66,11 +66,11 @@ export const SideRight = styled.aside`
   @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
     justify-content: baseline;
   }
-`
+`;
 
 export const LegendContainer = styled.ul`
   list-style: none;
-`
+`;
 
 export const Legend = styled.li`
   align-items: center;
@@ -101,4 +101,4 @@ export const Legend = styled.li`
       background-color: ${(props) => props.theme.general.colors.warning};
     }
   }
-`
+`;

@@ -539,6 +539,6 @@ const expenses = [
     date: '2020-11-12',
   },
   ,
-]
+];
 
-export default expenses
+export default expenses;

@@ -1,10 +1,10 @@
-import { Container } from './styles'
+import { Container } from './styles';
 
 interface IMessageCard {
-  title: string
-  description: string
-  footerTxt: string
-  icon: string
+  title: string;
+  description: string;
+  footerTxt: string;
+  icon: string;
 }
 
 const MessageCard = ({ title, description, footerTxt, icon }: IMessageCard) => (
@@ -12,7 +12,7 @@ const MessageCard = ({ title, description, footerTxt, icon }: IMessageCard) => (
     <header>
       <h2>
         {title}
-        <img src={icon} alt='' />
+        <img src={icon} alt="" />
       </h2>
       <h3>{description}</h3>
     </header>
@@ -20,6 +20,6 @@ const MessageCard = ({ title, description, footerTxt, icon }: IMessageCard) => (
       <small>{footerTxt}</small>
     </footer>
   </Container>
-)
+);
 
-export default MessageCard
+export default MessageCard;

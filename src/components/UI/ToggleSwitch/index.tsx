@@ -4,9 +4,9 @@ import {
   ToggleSwitchLabel,
   ToggleSwitchSpan,
   ToggleSwitchInput,
-} from './styles'
+} from './styles';
 
-import { IToggleSwitchProps } from './types'
+import { IToggleSwitchProps } from './types';
 
 export const UiToggleSwitch = ({
   checked,
@@ -18,15 +18,15 @@ export const UiToggleSwitch = ({
   <Container className={className}>
     <ToggleSwitchLabel>{labelLeft}</ToggleSwitchLabel>
 
-    <ToggleSwitchContainer className='switch'>
+    <ToggleSwitchContainer className="switch">
       <ToggleSwitchInput
-        type='checkbox'
+        type="checkbox"
         checked={checked}
         onChange={onChange}
       />
-      <ToggleSwitchSpan className='switch-slider' />
+      <ToggleSwitchSpan className="switch-slider" />
     </ToggleSwitchContainer>
 
     <ToggleSwitchLabel>{labelRight}</ToggleSwitchLabel>
   </Container>
-)
+);

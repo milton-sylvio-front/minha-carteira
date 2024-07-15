@@ -6,15 +6,15 @@ import {
   PositionProps,
   SpaceProps,
   TypographyProps,
-} from 'styled-system'
+} from 'styled-system';
 
 interface ITypeAlert {
-  type: 'info' | 'success' | 'error' | 'warning'
+  type: 'info' | 'success' | 'error' | 'warning';
 }
 
 export interface IAlert extends BorderProps, ITypeAlert, SpaceProps {
-  closeBtn?: boolean
-  message?: string
+  closeBtn?: boolean;
+  message?: string;
 }
 
 export interface IAlertContainer

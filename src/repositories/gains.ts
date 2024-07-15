@@ -118,6 +118,6 @@ const gains = [
     frequency: 'eventual',
     date: '2020-11-15',
   },
-]
+];
 
-export default gains
+export default gains;

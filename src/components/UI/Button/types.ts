@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes } from 'react';
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: string
-  isLoading?: boolean
+  icon?: string;
+  isLoading?: boolean;
 }

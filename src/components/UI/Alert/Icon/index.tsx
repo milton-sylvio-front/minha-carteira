@@ -1,8 +1,8 @@
-import { MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md'
+import { MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md';
 
-import general from '../../../../styles/themes/general'
+import general from '../../../../styles/themes/general';
 
-import { IAlertIcon } from './types'
+import { IAlertIcon } from './types';
 
 export const AlertIcon = ({ type }: IAlertIcon) => {
   const setTypeIcon = (type: string) => {
@@ -11,10 +11,10 @@ export const AlertIcon = ({ type }: IAlertIcon) => {
       warning: <MdWarning fill={general.colors.warning} />,
       success: <MdCheckCircle fill={general.colors.success} />,
       error: <MdError fill={general.colors.danger} />,
-    }
+    };
 
-    return types[type] ?? null
-  }
+    return types[type] ?? null;
+  };
 
-  return setTypeIcon(type)
-}
+  return setTypeIcon(type);
+};

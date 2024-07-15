@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { MdEmail, MdLock } from 'react-icons/md'
-import { useNavigate, Link } from 'react-router-dom'
-import { useForm, Controller } from 'react-hook-form'
+import { useState, useEffect } from 'react';
+import { MdEmail, MdLock } from 'react-icons/md';
+import { useNavigate, Link } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
 
 import {
   FormContainer,
@@ -11,68 +11,68 @@ import {
   UiAlert,
   UiButton,
   UiInput,
-} from '../../components/UI'
+} from '../../components/UI';
 
-import AuthTemplate from '../../templates/Auth'
+import AuthTemplate from '../../templates/Auth';
 
-import { PATHS } from '../../helpers/configs/paths'
-import { REQUIRED_FIELD } from '../../helpers/utils/constants'
+import { PATHS } from '../../helpers/configs/paths';
+import { REQUIRED_FIELD } from '../../helpers/utils/constants';
 
-import { useSignIn } from './useSignIn'
-import { IUserData } from './types'
+import { useSignIn } from './useSignIn';
+import { IUserData } from './types';
 
-const { DASHBOARD, SIGN_UP } = PATHS
+const { DASHBOARD, SIGN_UP } = PATHS;
 
 const SignIn = () => {
-  const navigate = useNavigate()
-  const [passwordShow, setPasswordShow] = useState<boolean>(false)
+  const navigate = useNavigate();
+  const [passwordShow, setPasswordShow] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IUserData>()
-  const { login, loader, error, user, loading } = useSignIn()
+  } = useForm<IUserData>();
+  const { login, loader, error, user, loading } = useSignIn();
 
   useEffect(() => {
     if (loading) {
       // maybe trigger a loading screen
-      return
+      return;
     }
 
     if (user) {
-      navigate(DASHBOARD.url)
+      navigate(DASHBOARD.url);
     }
-  }, [user, loading, navigate])
+  }, [user, loading, navigate]);
 
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true)
-  }
+    setPasswordShow(passwordShow ? false : true);
+  };
 
   const onSubmit = (values: IUserData) => {
     if (values.email && values.password) {
-      login(values.email, values.password)
+      login(values.email, values.password);
     }
-  }
+  };
 
   const inputPassw = (field) => (
     <UiInput
       className={errors?.password && 'error'}
       icon={MdLock}
-      id='passw'
+      id="passw"
       type={passwordShow ? 'text' : 'password'}
       {...field}
     />
-  )
+  );
 
   const inputEmail = (field) => (
     <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
-  )
+  );
 
   const showAlert = () => {
     if (error && !loading && !loader) {
-      return <UiAlert closeBtn mb={4} message={error} type='error' />
+      return <UiAlert closeBtn mb={4} message={error} type="error" />;
     }
-  }
+  };
 
   return (
     <AuthTemplate>
@@ -81,12 +81,12 @@ const SignIn = () => {
       {showAlert()}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer className='form-vertical'>
+        <FormContainer className="form-vertical">
           <FormGroup>
-            <FormLabel htmlFor='email'>E-mail</FormLabel>
+            <FormLabel htmlFor="email">E-mail</FormLabel>
 
             <Controller
-              name='email'
+              name="email"
               render={({ field }) => inputEmail(field)}
               control={control}
               rules={{
@@ -102,7 +102,7 @@ const SignIn = () => {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor='passw'>
+            <FormLabel htmlFor="passw">
               <span>Senha</span>
               <small onClick={toggleType}>
                 {passwordShow ? 'Ocultar' : 'Mostrar'}
@@ -110,7 +110,7 @@ const SignIn = () => {
             </FormLabel>
 
             <Controller
-              name='password'
+              name="password"
               render={({ field }) => inputPassw(field)}
               control={control}
               rules={{
@@ -122,9 +122,9 @@ const SignIn = () => {
           </FormGroup>
 
           <UiButton
-            type='submit'
-            icon=''
-            className='block'
+            type="submit"
+            icon=""
+            className="block"
             isLoading={loader}
             disabled={loader}
           >
@@ -135,12 +135,12 @@ const SignIn = () => {
 
       <p>
         Não tem cadastro?
-        <Link to={SIGN_UP.url} title='Clique aqui e cadastre-se'>
+        <Link to={SIGN_UP.url} title="Clique aqui e cadastre-se">
           Clique aqui
         </Link>
       </p>
     </AuthTemplate>
-  )
-}
+  );
+};
 
-export default SignIn
+export default SignIn;

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 import {
   border,
   color,
@@ -6,9 +6,9 @@ import {
   position,
   space,
   typography,
-} from 'styled-system'
+} from 'styled-system';
 
-import { ICloseButton } from './types'
+import { ICloseButton } from './types';
 
 export const CloseButton = styled.button<ICloseButton>`
   ${border}
@@ -32,4 +32,4 @@ export const CloseButton = styled.button<ICloseButton>`
   &:focus {
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.6);
   }
-`
+`;

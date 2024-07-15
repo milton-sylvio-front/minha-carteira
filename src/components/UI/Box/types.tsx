@@ -6,7 +6,7 @@ import {
   PositionProps,
   ShadowProps,
   SpaceProps,
-} from 'styled-system'
+} from 'styled-system';
 
 export interface IBox
   extends BorderProps,
@@ -18,5 +18,5 @@ export interface IBox
     SpaceProps {}
 
 export interface IUiBox extends IBox {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }

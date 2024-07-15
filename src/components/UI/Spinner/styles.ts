@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components';
 
 const animateBullets = keyframes`
   50% {
@@ -10,7 +10,7 @@ const animateBullets = keyframes`
     transform: scale(1);
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled.span`
   align-items: center;
@@ -19,7 +19,7 @@ export const Container = styled.span`
   line-height: normal;
   margin-inline-end: 0px;
   position: absolute;
-`
+`;
 
 export const Bullet = styled.span`
   animation: 0.7s linear 0s infinite normal both running ${animateBullets};
@@ -33,4 +33,4 @@ export const Bullet = styled.span`
   &.middle {
     animation: 0.7s linear 0.35s infinite normal both running ${animateBullets};
   }
-`
+`;

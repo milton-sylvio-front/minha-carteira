@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Forms = styled.form`
   display: flex;
@@ -9,9 +9,9 @@ export const Forms = styled.form`
     margin-left: 0;
   }
 
-  @media (max-width: ${props => props.theme.general.sizes.small}) {
+  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
     button {
       width: 100%;
     }
   }
-`
+`;

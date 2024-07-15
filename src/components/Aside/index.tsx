@@ -1,20 +1,20 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MdDashboard,
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
   MdNoteAdd,
-} from 'react-icons/md'
+} from 'react-icons/md';
 
-import { auth, signOut } from '../../helpers/utils/firebase'
-import { PATHS } from '../../helpers/configs/paths'
+import { auth, signOut } from '../../helpers/utils/firebase';
+import { PATHS } from '../../helpers/configs/paths';
 
-import Logo from '../../components/Logo'
+import Logo from '../../components/Logo';
 
-import { useMenuMobile } from '../../hooks/menu'
-import { useTheme } from '../../hooks/theme'
+import { useMenuMobile } from '../../hooks/menu';
+import { useTheme } from '../../hooks/theme';
 
 import {
   Container,
@@ -23,17 +23,17 @@ import {
   MenuItem,
   MenuTitle,
   Toggle,
-} from './styles'
+} from './styles';
 
-const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS
+const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS;
 
 const Aside = () => {
-  const navigate = useNavigate()
-  const { toggleTheme, theme } = useTheme()
+  const navigate = useNavigate();
+  const { toggleTheme, theme } = useTheme();
   const [getTheme, setTheme] = useState<boolean>(() =>
-    theme.mode === 'dark' ? true : false,
-  )
-  const { toggleMenu } = useMenuMobile()
+    theme.mode === 'dark' ? true : false
+  );
+  const { toggleMenu } = useMenuMobile();
 
   const menu = [
     {
@@ -56,23 +56,23 @@ const Aside = () => {
       text: OUTPUT.title,
       icon: <MdArrowDownward />,
     },
-  ]
+  ];
 
   const handleSignOut = (event: { preventDefault: () => void }) => {
-    event.preventDefault()
+    event.preventDefault();
     signOut(auth)
       .then(() => {
-        navigate(SIGN_IN.url)
+        navigate(SIGN_IN.url);
       })
       .catch((error) => {
-        console.log('Erro ao sair:', error)
-      })
-  }
+        console.log('Erro ao sair:', error);
+      });
+  };
 
   const handleChangeTheme = () => {
-    setTheme(!getTheme)
-    toggleTheme()
-  }
+    setTheme(!getTheme);
+    toggleTheme();
+  };
 
   return (
     <Container menuIsOpen={toggleMenu}>
@@ -95,21 +95,21 @@ const Aside = () => {
           </MenuItem>
         ))}
 
-        <MenuItem onClick={handleSignOut} title='Sair' to={''}>
+        <MenuItem onClick={handleSignOut} title="Sair" to={''}>
           <MdExitToApp />
           Sair
         </MenuItem>
       </MenuContainer>
 
       <Toggle
-        labelLeft='Light'
-        labelRight='Dark'
+        labelLeft="Light"
+        labelRight="Dark"
         checked={getTheme}
-        className='header'
+        className="header"
         onChange={handleChangeTheme}
       />
     </Container>
-  )
-}
+  );
+};
 
-export default Aside
+export default Aside;

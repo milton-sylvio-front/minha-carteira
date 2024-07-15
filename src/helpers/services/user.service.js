@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { auth, db, signInWithEmailAndPassword } from 'helpers/utils/firebase'
+import { auth, db, signInWithEmailAndPassword } from 'helpers/utils/firebase';
 
 // import { ERROR_MESSAGES } from "helpers/utils/constants";
 
@@ -30,10 +30,10 @@ import { auth, db, signInWithEmailAndPassword } from 'helpers/utils/firebase'
 
 const signIn = async (email, password) => {
   try {
-    await signInWithEmailAndPassword(auth, email, password)
+    await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
-    console.error(err)
-    alert(err.message)
+    console.error(err);
+    alert(err.message);
   }
 
   // return auth
@@ -42,25 +42,25 @@ const signIn = async (email, password) => {
   //     return res?.user;
   //   })
   //   .catch((errors) => errors);
-}
+};
 
 function getInfo() {
   return db
     .collection('Users')
     .doc(auth?.currentUser?.uid)
     .get()
-    .then(res => {
-      return res.data()
+    .then((res) => {
+      return res.data();
     })
-    .catch(errors => errors)
+    .catch((errors) => errors);
 }
 
 const signOut = () => {
-  signOut(auth)
-}
+  signOut(auth);
+};
 
 export const userService = {
   getInfo,
   signIn,
   signOut,
-}
+};

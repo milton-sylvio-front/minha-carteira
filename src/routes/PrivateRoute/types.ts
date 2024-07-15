@@ -1,3 +1,3 @@
 export interface IPrivateRoute {
-  component: any
+  component: any;
 }

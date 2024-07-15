@@ -1,10 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Container = styled.div``
+export const Container = styled.div``;
 
 export const Content = styled(Container)`
   list-style: none;
-`
+`;
 
 export const Filters = styled(Container)`
   display: flex;
@@ -27,7 +27,7 @@ export const Filters = styled(Container)`
       display: block;
       height: 5px;
       transition: width 0.3s;
-      width: 50%;
+      width: 10%;
     }
 
     &.tag-filter-recurrent:after {
@@ -54,4 +54,4 @@ export const Filters = styled(Container)`
       }
     }
   }
-`
+`;

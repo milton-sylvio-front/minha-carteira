@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app'
+import { initializeApp } from 'firebase/app';
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -6,7 +6,7 @@ import {
   sendPasswordResetEmail,
   signOut,
   onAuthStateChanged,
-} from 'firebase/auth'
+} from 'firebase/auth';
 
 import {
   getFirestore,
@@ -15,13 +15,13 @@ import {
   collection,
   where,
   addDoc,
-} from 'firebase/firestore'
+} from 'firebase/firestore';
 
-import firebaseConfig from '../../helpers/configs/firebase.config'
+import firebaseConfig from '../../helpers/configs/firebase.config';
 
-const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-const db = getFirestore(app)
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 export {
   auth,
@@ -37,4 +37,4 @@ export {
   signInWithEmailAndPassword,
   signOut,
   where,
-}
+};

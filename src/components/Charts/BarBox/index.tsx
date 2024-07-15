@@ -1,4 +1,4 @@
-import { ResponsiveContainer, BarChart, Bar, Cell, XAxis } from 'recharts'
+import { ResponsiveContainer, BarChart, Bar, Cell, XAxis } from 'recharts';
 
 import {
   Container,
@@ -6,9 +6,9 @@ import {
   SideRight,
   LegendContainer,
   Legend,
-} from './styles'
+} from './styles';
 
-import { IBarBoxProps } from './types'
+import { IBarBoxProps } from './types';
 
 export const BarBox = ({ title, data }: IBarBoxProps) => (
   <Container>
@@ -28,14 +28,14 @@ export const BarBox = ({ title, data }: IBarBoxProps) => (
     <SideRight>
       <ResponsiveContainer>
         <BarChart data={data}>
-          <Bar dataKey='amount'>
+          <Bar dataKey="amount">
             {data.map((d) => (
               <Cell key={d.amount} fill={d.color} />
             ))}
           </Bar>
-          <XAxis dataKey='legend' stroke='#cecece' />
+          <XAxis dataKey="legend" stroke="#cecece" />
         </BarChart>
       </ResponsiveContainer>
     </SideRight>
   </Container>
-)
+);

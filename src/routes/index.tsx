@@ -23,19 +23,19 @@
 
 // export default Routes
 
-import { Route, Routes as Switch } from 'react-router-dom'
+import { Route, Routes as Switch } from 'react-router-dom';
 
-import Dashboard from '../views/Dashboard'
-import List from '../views/List'
-import NewRegister from '../views/NewRegister'
-import SignIn from '../views/SignIn'
-import SignUp from '../views/SignUp'
+import Dashboard from '../views/Dashboard';
+import List from '../views/List';
+import NewRegister from '../views/NewRegister';
+import SignIn from '../views/SignIn';
+import SignUp from '../views/SignUp';
 
-import { PATHS } from '../helpers/configs/paths'
+import { PATHS } from '../helpers/configs/paths';
 
-import { PrivateRoute } from './PrivateRoute'
+import { PrivateRoute } from './PrivateRoute';
 
-const { DASHBOARD, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS
+const { DASHBOARD, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS;
 
 const Routes = () => (
   <Switch>
@@ -51,6 +51,6 @@ const Routes = () => (
     <Route path={SIGN_IN.url} Component={SignIn} />
     <Route path={SIGN_UP.url} Component={SignUp} />
   </Switch>
-)
+);
 
-export default Routes
+export default Routes;

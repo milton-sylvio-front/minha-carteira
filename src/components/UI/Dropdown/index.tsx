@@ -1,5 +1,5 @@
-import { Container } from './styles'
-import { IDropdownProps } from './types'
+import { Container } from './styles';
+import { IDropdownProps } from './types';
 
 export const UiDropdown = ({
   defaultValue,
@@ -14,7 +14,7 @@ export const UiDropdown = ({
     onChange={onChange}
     defaultValue={defaultValue}
     required={required}
-    className='dropdown'
+    className="dropdown"
     {...rest}
   >
     {options.map((option) => (
@@ -23,4 +23,4 @@ export const UiDropdown = ({
       </option>
     ))}
   </Container>
-)
+);

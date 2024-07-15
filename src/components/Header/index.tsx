@@ -1,8 +1,8 @@
-import { useMemo, useState, useEffect } from 'react'
-import { MdMenu, MdClose } from 'react-icons/md'
-import { useAuthState } from 'react-firebase-hooks/auth'
+import { useMemo, useState, useEffect } from 'react';
+import { MdMenu, MdClose } from 'react-icons/md';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-import emojiList from '../../helpers/utils/emojis'
+import emojiList from '../../helpers/utils/emojis';
 import {
   auth,
   collection,
@@ -10,12 +10,12 @@ import {
   query,
   getDocs,
   where,
-} from '../../helpers/utils/firebase'
+} from '../../helpers/utils/firebase';
 
-import { useTheme } from '../../hooks/theme'
-import { useMenuMobile } from '../../hooks/menu'
+import { useTheme } from '../../hooks/theme';
+import { useMenuMobile } from '../../hooks/menu';
 
-import Logo from '../../components/Logo'
+import Logo from '../../components/Logo';
 
 import {
   Container,
@@ -26,46 +26,46 @@ import {
   MenuMobile,
   Toggle,
   ContainerActionsMobile,
-} from './styles'
+} from './styles';
 
 const Header = () => {
-  const [user, loading] = useAuthState(auth)
-  const [name, seName] = useState<string>('')
+  const [user, loading] = useAuthState(auth);
+  const [name, seName] = useState<string>('');
 
   const emoji = useMemo(() => {
-    const index = Math.floor(Math.random() * emojiList.length)
-    return emojiList[index]
-  }, [])
+    const index = Math.floor(Math.random() * emojiList.length);
+    return emojiList[index];
+  }, []);
 
-  const { handleToggleMenu, toggleMenu } = useMenuMobile()
+  const { handleToggleMenu, toggleMenu } = useMenuMobile();
 
-  const { toggleTheme, theme } = useTheme()
-  const [getTheme, setTheme] = useState(() => theme.mode === 'dark')
+  const { toggleTheme, theme } = useTheme();
+  const [getTheme, setTheme] = useState(() => theme.mode === 'dark');
 
   const handleChangeTheme = () => {
-    setTheme(!getTheme)
-    toggleTheme()
-  }
+    setTheme(!getTheme);
+    toggleTheme();
+  };
 
   useEffect(() => {
-    if (loading) return
+    if (loading) return;
 
     const fetchUserName = async () => {
       try {
-        const usersRef = collection(db, 'Users')
-        const q = query(usersRef, where('uid', '==', user?.uid))
-        const doc = await getDocs(q)
-        const data = doc.docs[0].data()
-        const fullname = data.name.split(' ')
-        seName(fullname[0])
+        const usersRef = collection(db, 'Users');
+        const q = query(usersRef, where('uid', '==', user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        const fullname = data.name.split(' ');
+        seName(fullname[0]);
       } catch (err) {
-        console.error(err)
-        alert('Erro ao acessar os dados do usuário!')
+        console.error(err);
+        alert('Erro ao acessar os dados do usuário!');
       }
-    }
+    };
 
-    fetchUserName()
-  }, [loading, user?.uid])
+    fetchUserName();
+  }, [loading, user?.uid]);
 
   return (
     <Container>
@@ -75,21 +75,21 @@ const Header = () => {
         <MenuMobile
           onClick={handleToggleMenu}
           className={toggleMenu ? 'open' : ''}
-          type='button'
+          type="button"
         >
           {toggleMenu ? (
-            <MdClose className='icon-close' />
+            <MdClose className="icon-close" />
           ) : (
-            <MdMenu className='icon-menu' />
+            <MdMenu className="icon-menu" />
           )}
         </MenuMobile>
       </ContainerActionsMobile>
 
       <Toggle
-        labelLeft='Light'
-        labelRight='Dark'
+        labelLeft="Light"
+        labelRight="Dark"
         checked={getTheme}
-        className='header'
+        className="header"
         onChange={handleChangeTheme}
       />
 
@@ -102,7 +102,7 @@ const Header = () => {
         </Welcome>
       </Profile>
     </Container>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components'
-import Card from '../../../components/UI/Card/styles'
+import styled, { keyframes } from 'styled-components';
+import Card from '../../../components/UI/Card/styles';
 
 const animate = keyframes`
   0% {
@@ -13,7 +13,7 @@ const animate = keyframes`
     transform: translateX(0);
     opacity: 1;
   }
-`
+`;
 
 export const Container = styled(Card)`
   align-content: space-between;
@@ -25,7 +25,7 @@ export const Container = styled(Card)`
     height: 100%;
     min-height: 250px;
   }
-`
+`;
 
 export const Header = styled.header`
   align-items: center;
@@ -40,11 +40,11 @@ export const Header = styled.header`
       margin-bottom: ${(props) => props.theme.general.space[3]};
     }
   }
-`
+`;
 
 export const Legends = styled.ul`
   list-style: none;
-`
+`;
 
 export const LegendItem = styled.li`
   display: inline;
@@ -72,4 +72,4 @@ export const LegendItem = styled.li`
   }
 
   @media(max-width: ${(props) => props.theme.general.sizes.medium}) {}
-`
+`;

@@ -1,3 +1,3 @@
 export interface IInternalPagesTemplate {
-  children: React.ReactNode
+  children: React.ReactNode;
 }

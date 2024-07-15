@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import MaskedInput from 'react-text-mask'
-import { Link, useNavigate } from 'react-router-dom'
-import { MdEmail, MdLock, MdPerson, MdPhone } from 'react-icons/md'
-import { useForm, Controller } from 'react-hook-form'
+import { useState, useEffect } from 'react';
+import MaskedInput from 'react-text-mask';
+import { Link, useNavigate } from 'react-router-dom';
+import { MdEmail, MdLock, MdPerson, MdPhone } from 'react-icons/md';
+import { useForm, Controller } from 'react-hook-form';
 
 import {
   FormContainer,
@@ -12,56 +12,56 @@ import {
   UiAlert,
   UiButton,
   UiInput,
-} from '../../components/UI'
+} from '../../components/UI';
 
-import { PATHS } from '../../helpers/configs/paths'
-import { REQUIRED_FIELD } from '../../helpers/utils/constants'
+import { PATHS } from '../../helpers/configs/paths';
+import { REQUIRED_FIELD } from '../../helpers/utils/constants';
 
-import { IUserData } from './types'
-import { useSignUp } from './useSignUp'
+import { IUserData } from './types';
+import { useSignUp } from './useSignUp';
 
-const { DASHBOARD, SIGN_IN } = PATHS
+const { DASHBOARD, SIGN_IN } = PATHS;
 
 const SignUp = () => {
-  const navigate = useNavigate()
-  const { register, loader, error, loading, user } = useSignUp()
+  const navigate = useNavigate();
+  const { register, loader, error, loading, user } = useSignUp();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<IUserData>()
-  const [passwordShow, setPasswordShow] = useState(false)
+  } = useForm<IUserData>();
+  const [passwordShow, setPasswordShow] = useState(false);
 
   useEffect(() => {
-    if (loading) return
-    if (user) navigate(DASHBOARD.url)
-  }, [user, loading])
+    if (loading) return;
+    if (user) navigate(DASHBOARD.url);
+  }, [user, loading]);
 
   const toggleType = () => {
-    setPasswordShow(passwordShow ? false : true)
-  }
+    setPasswordShow(passwordShow ? false : true);
+  };
 
   const showAlert = () => {
     if (error && !loading && !loader) {
-      return <UiAlert closeBtn mb={4} message={error} type='error' />
+      return <UiAlert closeBtn mb={4} message={error} type="error" />;
     }
-  }
+  };
 
   const onSubmit = (values) => {
     if (values.email && values.password && values.name && values.phone) {
-      register(values.email, values.password, values.name, values.phone)
+      register(values.email, values.password, values.name, values.phone);
     }
-  }
+  };
 
   const inputPassw = (field) => (
     <UiInput
       className={errors?.password && 'error'}
       icon={MdLock}
-      id='passw'
+      id="passw"
       type={passwordShow ? 'text' : 'password'}
       {...field}
     />
-  )
+  );
 
   const inputPhone = (field) => (
     <UiInput
@@ -85,21 +85,21 @@ const SignUp = () => {
         /\d/,
         /\d/,
       ]}
-      type='text'
-      id='phone'
+      type="text"
+      id="phone"
       {...field}
     />
-  )
+  );
 
   const inputName = (field) => (
     <UiInput
       className={errors?.name && 'error'}
       icon={MdPerson}
       {...field}
-      id='name'
-      type='text'
+      id="name"
+      type="text"
     />
-  )
+  );
 
   return (
     <>
@@ -108,12 +108,12 @@ const SignUp = () => {
       {showAlert()}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer className='form-vertical'>
+        <FormContainer className="form-vertical">
           <FormGroup>
-            <FormLabel htmlFor='name'>Nome completo</FormLabel>
+            <FormLabel htmlFor="name">Nome completo</FormLabel>
 
             <Controller
-              name='name'
+              name="name"
               render={({ field }) => inputName(field)}
               control={control}
               rules={{
@@ -125,9 +125,9 @@ const SignUp = () => {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor='email'>E-mail</FormLabel>
+            <FormLabel htmlFor="email">E-mail</FormLabel>
             <Controller
-              name='email'
+              name="email"
               render={({ field }) => (
                 <UiInput
                   className={errors?.email && 'error'}
@@ -149,10 +149,10 @@ const SignUp = () => {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor='phone'>Telefone</FormLabel>
+            <FormLabel htmlFor="phone">Telefone</FormLabel>
 
             <Controller
-              name='phone'
+              name="phone"
               render={({ field }) => inputPhone(field)}
               control={control}
               rules={{
@@ -164,7 +164,7 @@ const SignUp = () => {
           </FormGroup>
 
           <FormGroup>
-            <FormLabel htmlFor='passw'>
+            <FormLabel htmlFor="passw">
               <span>Senha</span>
               <small onClick={toggleType}>
                 {passwordShow ? 'Ocultar' : 'Mostrar'}
@@ -172,7 +172,7 @@ const SignUp = () => {
             </FormLabel>
 
             <Controller
-              name='password'
+              name="password"
               render={({ field }) => inputPassw(field)}
               control={control}
               rules={{
@@ -185,8 +185,8 @@ const SignUp = () => {
 
           <FormGroup>
             <UiButton
-              type='submit'
-              className='block'
+              type="submit"
+              className="block"
               isLoading={loader}
               disabled={loader}
             >
@@ -198,12 +198,12 @@ const SignUp = () => {
 
       <p>
         Já tem cadastro?
-        <Link to={SIGN_IN.url} title='Clique aqui para entrar'>
+        <Link to={SIGN_IN.url} title="Clique aqui para entrar">
           Clique aqui.
         </Link>
       </p>
     </>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

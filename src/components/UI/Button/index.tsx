@@ -1,16 +1,16 @@
-import Spinner from '../Spinner'
+import Spinner from '../Spinner';
 
-import { Container } from './styles'
-import { IButtonProps } from './types'
+import { Container } from './styles';
+import { IButtonProps } from './types';
 
 export const UiButton = ({
   icon,
-  isLoading,
+  isLoading = true,
   children,
   ...rest
 }: IButtonProps) => (
   <Container {...rest}>
-    {icon && <img src={icon} alt='' />}
+    {icon && <img src={icon} alt="" />}
     {isLoading ? <Spinner /> : children}
   </Container>
-)
+);
