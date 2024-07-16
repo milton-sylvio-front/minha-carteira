@@ -13,7 +13,7 @@ import {
 } from '../../helpers/utils/firebase';
 
 import { useTheme } from '../../hooks/theme';
-import { useMenuMobile } from '../../hooks/menu';
+import { useMenuMobile } from '../../hooks/Menu/useMenuMobile';
 
 import Logo from '../../components/Logo';
 

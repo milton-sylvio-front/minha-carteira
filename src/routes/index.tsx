@@ -35,19 +35,15 @@ import { PATHS } from '../helpers/configs/paths';
 
 import { PrivateRoute } from './PrivateRoute';
 
-const { DASHBOARD, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS;
+const { DASHBOARD, HOME, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS;
 
 const Routes = () => (
   <Switch>
-    <Route
-      path={DASHBOARD.url}
-      element={<PrivateRoute component={Dashboard} />}
-    />
-    <Route path={LISTING.url} element={<PrivateRoute component={List} />} />
-    <Route
-      path={NEW_REGISTER.url}
-      element={<PrivateRoute component={NewRegister} />}
-    />
+    <Route path={HOME.url} element={<PrivateRoute />}>
+      <Route path={DASHBOARD.url} element={<Dashboard />} />
+      <Route path={LISTING.url} element={<List />} />
+      <Route path={NEW_REGISTER.url} element={<NewRegister />} />
+    </Route>
     <Route path={SIGN_IN.url} Component={SignIn} />
     <Route path={SIGN_UP.url} Component={SignUp} />
   </Switch>

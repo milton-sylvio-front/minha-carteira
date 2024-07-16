@@ -1,21 +1,19 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 import InternalPagesTemplate from '../../templates/InternalPages';
 
 import { auth } from '../../helpers/utils/firebase';
 import { PATHS } from '../../helpers/configs/paths';
 
-import { IPrivateRoute } from './types';
-
 const { SIGN_IN } = PATHS;
 
-export const PrivateRoute = ({ component: Component }: IPrivateRoute) => {
+export const PrivateRoute = () => {
   const [user] = useAuthState(auth);
 
   const PrivateComponents = () => (
     <InternalPagesTemplate>
-      <Component />
+      <Outlet />
     </InternalPagesTemplate>
   );
 

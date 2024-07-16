@@ -2,7 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ContentHeader from '../../components/ContentHeader';
-import { UiDropdown } from '../../components/UI';
+import { UiAlert, UiDropdown } from '../../components/UI';
 
 import formatCurrency from '../../helpers/utils/formatCurrency';
 import formatDate from '../../helpers/utils/formatDate';
@@ -138,6 +138,8 @@ const List = () => {
 
   return (
     <Container>
+      {error && <UiAlert closeBtn message={error} type="error" />}
+
       <ContentHeader title={changes.title}>
         <UiDropdown
           options={months}

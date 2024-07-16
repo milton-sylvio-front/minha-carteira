@@ -1,4 +1,4 @@
-import { useMenuMobile } from '../../hooks/menu';
+import { useMenuMobile } from '../../hooks/Menu/useMenuMobile';
 
 import { Container, Overlay } from './styles';
 import { IContent } from './types';

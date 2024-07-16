@@ -65,9 +65,6 @@ const NewRegister = () => {
     }
   };
 
-  const handlerDropdowns = (values: any) =>
-    console.log('handlerDropdowns:', values);
-
   const inputDesc = (field: FieldValues) => (
     <UiInput
       className={errors?.description && 'error'}
@@ -83,7 +80,7 @@ const NewRegister = () => {
       id="type"
       className={errors?.type && 'error'}
       options={types}
-      onChange={handlerDropdowns}
+      onChange={() => {}}
       defaultValue="Selecione"
       {...field}
     />
@@ -104,7 +101,7 @@ const NewRegister = () => {
       id="frequency"
       className={errors?.frequency && 'error'}
       options={frequencies}
-      onChange={handlerDropdowns}
+      onChange={() => {}}
       defaultValue="Selecione"
       {...field}
     />

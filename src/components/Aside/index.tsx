@@ -13,7 +13,7 @@ import { PATHS } from '../../helpers/configs/paths';
 
 import Logo from '../../components/Logo';
 
-import { useMenuMobile } from '../../hooks/menu';
+import { useMenuMobile } from '../../hooks/Menu/useMenuMobile';
 import { useTheme } from '../../hooks/theme';
 
 import {
