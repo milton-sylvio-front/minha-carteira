@@ -5,7 +5,7 @@ import { ICurrencyInput } from './types';
 
 const defaultMaskOptions = {
   prefix: 'R$ ',
-  suffix: '00',
+  suffix: '',
   includeThousandsSeparator: true,
   thousandsSeparatorSymbol: '.',
   allowDecimal: true,

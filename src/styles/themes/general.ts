@@ -1,14 +1,14 @@
 const colors = {
-  black: '#343a40',
-  white: '#fff',
-  gray: ['#f5f6f8', '#e1e4e8', '#bfbfbf'],
-  blue: ['#313862', '#252a48', '#1b1f38'],
-  primary: '#8950fc',
-  secondary: '#f64e60',
-  success: '#1bc5bd',
-  info: '#3867d6',
-  warning: '#ffa800',
-  danger: '#dd427c',
+  black: '#343A40',
+  blue: ['#313862', '#252A48', '#1B1F38'],
+  danger: '#DD427C',
+  gray: ['#F5F6F8', '#E1E4E8', '#BFBFBF'],
+  info: '#3867D6',
+  primary: '#F64E60',
+  secondary: '#8950FC',
+  success: '#1BC5BD',
+  warning: '#FFA800',
+  white: '#FFF',
 };
 
 const bordersRadius = {

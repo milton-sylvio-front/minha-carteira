@@ -78,7 +78,7 @@ export default createGlobalStyle`
   }
 
   a {
-    color: ${(props) => props.theme.general.colors.secondary};
+    color: ${(props) => props.theme.general.colors.primary};
     text-decoration: none;
 
     &:hover {

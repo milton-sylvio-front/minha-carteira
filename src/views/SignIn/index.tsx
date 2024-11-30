@@ -122,11 +122,10 @@ const SignIn = () => {
           </FormGroup>
 
           <UiButton
-            type="submit"
-            icon=""
-            className="block"
-            isLoading={loader}
             disabled={loader}
+            fullWidth
+            isLoading={loader}
+            type="submit"
           >
             Acessar
           </UiButton>
