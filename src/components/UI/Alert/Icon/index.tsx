@@ -2,7 +2,7 @@ import { MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md';
 
 import general from '../../../../styles/themes/general';
 
-import { IAlertIcon } from './types';
+import type { IAlertIcon } from './types';
 
 export const AlertIcon = ({ type }: IAlertIcon) => {
   const setTypeIcon = (type: string) => {

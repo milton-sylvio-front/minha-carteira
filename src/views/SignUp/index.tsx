@@ -5,20 +5,22 @@ import { MdEmail, MdLock, MdPerson, MdPhone } from 'react-icons/md';
 import { useForm, Controller } from 'react-hook-form';
 
 import {
-  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
   UiAlert,
   UiButton,
   UiInput,
+  UiVStack,
 } from '../../components/UI';
 
 import { PATHS } from '../../helpers/configs/paths';
 import { REQUIRED_FIELD } from '../../helpers/utils/constants';
+import AuthTemplate from '../../templates/Auth';
 
-import { IUserData } from './types';
+import type { IUserData } from './types';
 import { useSignUp } from './useSignUp';
+import { REGEX_MASK_PHONE } from './constants';
 
 const { DASHBOARD, SIGN_IN } = PATHS;
 
@@ -68,23 +70,7 @@ const SignUp = () => {
       icon={MdPhone}
       className={errors?.phone && 'error'}
       maskInput={MaskedInput}
-      mask={[
-        '(',
-        /\d/,
-        /\d/,
-        ')',
-        ' ',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        '-',
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-      ]}
+      mask={REGEX_MASK_PHONE}
       type="text"
       id="phone"
       {...field}
@@ -102,13 +88,13 @@ const SignUp = () => {
   );
 
   return (
-    <>
+    <AuthTemplate>
       <h1>Cadastre-se</h1>
 
       {showAlert()}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer className="form-vertical">
+        <UiVStack>
           <FormGroup>
             <FormLabel htmlFor="name">Nome completo</FormLabel>
 
@@ -186,14 +172,14 @@ const SignUp = () => {
           <FormGroup>
             <UiButton
               type="submit"
-              className="block"
               isLoading={loader}
               disabled={loader}
+              fullWidth
             >
               Cadastrar
             </UiButton>
           </FormGroup>
-        </FormContainer>
+        </UiVStack>
       </form>
 
       <p>
@@ -202,7 +188,7 @@ const SignUp = () => {
           Clique aqui.
         </Link>
       </p>
-    </>
+    </AuthTemplate>
   );
 };
 

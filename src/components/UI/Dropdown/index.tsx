@@ -1,5 +1,5 @@
 import { Container } from './styles';
-import { IDropdownProps } from './types';
+import type { IDropdownProps } from './types';
 
 export const UiDropdown = ({
   defaultValue,

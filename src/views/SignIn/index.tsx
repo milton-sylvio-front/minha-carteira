@@ -4,13 +4,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 
 import {
-  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
   UiAlert,
   UiButton,
   UiInput,
+  UiVStack,
 } from '../../components/UI';
 
 import AuthTemplate from '../../templates/Auth';
@@ -19,7 +19,7 @@ import { PATHS } from '../../helpers/configs/paths';
 import { REQUIRED_FIELD } from '../../helpers/utils/constants';
 
 import { useSignIn } from './useSignIn';
-import { IUserData } from './types';
+import type { IUserData } from './types';
 
 const { DASHBOARD, SIGN_UP } = PATHS;
 
@@ -81,7 +81,7 @@ const SignIn = () => {
       {showAlert()}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormContainer className="form-vertical">
+        <UiVStack>
           <FormGroup>
             <FormLabel htmlFor="email">E-mail</FormLabel>
 
@@ -129,7 +129,7 @@ const SignIn = () => {
           >
             Acessar
           </UiButton>
-        </FormContainer>
+        </UiVStack>
       </form>
 
       <p>

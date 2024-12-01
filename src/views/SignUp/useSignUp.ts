@@ -29,32 +29,35 @@ export const useSignUp = () => {
     return type[code] ?? '';
   };
 
-  const register = useCallback(async (email, password, name, phone) => {
-    setLoader(true);
-    setError('');
+  const register = useCallback(
+    async (email: string, password: string, name: string, phone: string ) => {
+      setLoader(true);
+      setError('');
 
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((res) => {
-        console.log('Successfully signed up!', res);
-        const user = res?.user;
-        addDoc(collection(db, 'Users'), {
-          uid: user?.uid,
-          name,
-          phone,
-          authProvider: 'local',
-          email,
-        });
-      })
-      .catch((err) => {
-        console.error('Erro no register > code:', err.code);
-        console.error('Erro no register > message:', err.message);
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+          console.log('Successfully signed up!', res);
+          const user = res?.user;
+          addDoc(collection(db, 'Users'), {
+            uid: user?.uid,
+            name,
+            phone,
+            authProvider: 'local',
+            email,
+          });
+        })
+        .catch((err) => {
+          console.error('Erro no register > code:', err.code);
+          console.error('Erro no register > message:', err.message);
 
-        const msg = getError(err.code);
+          const msg = getError(err.code);
 
-        setError(msg);
-      })
-      .finally(timeout);
-  }, []);
+          setError(msg);
+        })
+        .finally(timeout);
+    },
+    []
+  );
 
   return {
     register,

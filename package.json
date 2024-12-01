@@ -1,7 +1,7 @@
 {
   "name": "minha-carteira",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,9 @@
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md}\" --config ./.prettierrc.json",
     "preview": "vite preview",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "type-check": "tsc --project tsconfig.ci.json --pretty",
+    "type-check:watch": "npm run type-check -- --watch --preserveWatchOutput"
   },
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",

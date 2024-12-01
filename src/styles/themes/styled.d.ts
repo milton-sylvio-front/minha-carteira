@@ -4,6 +4,12 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     mode: string;
     general: {
+      animations: {
+        spin: string;
+        ping: string;
+        pulse: string;
+        bounce: string;
+      };
       bordersRadius: {
         small: string;
         normal: string;

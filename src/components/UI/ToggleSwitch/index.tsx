@@ -6,7 +6,7 @@ import {
   ToggleSwitchInput,
 } from './styles';
 
-import { IToggleSwitchProps } from './types';
+import type { IToggleSwitchProps } from './types';
 
 export const UiToggleSwitch = ({
   checked,

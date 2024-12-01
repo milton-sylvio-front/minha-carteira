@@ -17,7 +17,7 @@ export const useSignIn = () => {
     return type[code] ?? '';
   };
 
-  const login = async (email, password) => {
+  const login = async (email: string, password: string) => {
     setLoader(true);
     setError('');
 

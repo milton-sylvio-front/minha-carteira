@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { Container } from './styles';
-import { IInputProps } from './types';
+import type { IInputProps } from './types';
 
 export const UiInput = ({
   icon: Icon,

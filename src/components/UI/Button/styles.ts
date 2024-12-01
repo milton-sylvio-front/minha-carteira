@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import { darken, rgba } from 'polished';
-
 import type { IButtonProps } from './types';
 
 const COLOR = {
@@ -51,6 +50,7 @@ export const Container = styled.button<IButtonProps>`
   font-weight: ${(props) => props.theme.general.fontWeights.normal};
   height: 2.5rem;
   justify-content: center;
+  letter-spacing: 0.25px;
   line-height: 1.5;
   padding: ${(props) => props.theme.general.space[2]}
     ${(props) => props.theme.general.space[5]};
@@ -60,7 +60,7 @@ export const Container = styled.button<IButtonProps>`
   vertical-align: middle;
 
   ${(props) => props.color && COLOR[props.color]};
-  ${(props) => props.disabled && FULL_WIDTH}
+  ${(props) => props.fullWidth && FULL_WIDTH}
 
   &[disabled] {
     cursor: not-allowed;

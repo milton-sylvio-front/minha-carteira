@@ -32,6 +32,7 @@ export const FormGroup = styled.div`
   padding: ${(props) => props.theme.general.space[0]}
     ${(props) => props.theme.general.space[1]};
   margin-bottom: ${(props) => props.theme.general.space[3]};
+  width: 100%;
 `;
 
 export const FormErrorMessage = styled.div`

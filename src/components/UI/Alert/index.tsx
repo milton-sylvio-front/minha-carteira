@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 
 import { UiCloseButton } from '../CloseButton';
 
-import general from '../../../styles/themes/general';
+import general, { colors } from '../../../styles/themes/general';
 
 import { AlertIcon } from './Icon';
 
-import { IAlert } from './types';
+import type { IAlert } from './types';
 import { AlertContainer } from './styles';
 import { Box } from '../Box/styles';
 
@@ -31,7 +31,7 @@ export const UiAlert = ({
     <AlertContainer
       alignItems="center"
       borderRadius={general.bordersRadius.normal}
-      color={general.colors.black}
+      color={colors.black}
       display="flex"
       justifyContent="space-between"
       overflow="hidden"
