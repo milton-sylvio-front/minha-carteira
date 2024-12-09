@@ -8,7 +8,7 @@ import type {
   TypographyProps,
 } from 'styled-system';
 
-interface ITypeAlert {
+export interface ITypeAlert {
   type: 'info' | 'success' | 'error' | 'warning';
 }
 

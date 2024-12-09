@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { lighten } from 'polished';
 import {
   border,
   color,
@@ -10,24 +9,20 @@ import {
   typography,
 } from 'styled-system';
 
-import { IAlertContainer } from './types';
-
-const light = 0.4;
+import type { IAlertContainer } from './types';
 
 const TYPE = {
   error: css`
-    background: ${(props) => lighten(light, props.theme.general.colors.danger)};
+    background: ${(props) => props.theme.general.colors.danger};
   `,
   success: css`
-    background: ${(props) =>
-      lighten(light, props.theme.general.colors.success)};
+    background: ${(props) => props.theme.general.colors.success};
   `,
   warning: css`
-    background: ${(props) =>
-      lighten(light, props.theme.general.colors.warning)};
+    background: ${(props) => props.theme.general.colors.warning};
   `,
   info: css`
-    background: ${(props) => lighten(light, props.theme.general.colors.info)};
+    background: ${(props) => props.theme.general.colors.info};
   `,
 };
 
@@ -39,6 +34,9 @@ export const AlertContainer = styled.div<IAlertContainer>`
   ${position}
   ${space}
   ${typography}
+
+  color: ${(props) => props.theme.general.colors.white};
+  font-size: ${(props) => props.theme.general.fontSizes[1]};
 
   svg {
     margin-right: ${(props) => props.theme.general.space[2]};

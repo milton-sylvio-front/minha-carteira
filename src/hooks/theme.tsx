@@ -1,77 +1,15 @@
-import { createContext, ReactNode, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 
 import dark from '../styles/themes/dark';
 import light from '../styles/themes/light';
 
 import strings from '../helpers/utils/strings';
 
-interface IThemeContext {
-  toggleTheme(): void;
-  theme: ThemeProps;
-}
-
-interface ThemeProps {
-  mode: string;
-  general: {
-    bordersRadius: {
-      small: string;
-      normal: string;
-      large: string;
-      rounded: string;
-    };
-    colors: {
-      black: string;
-      white: string;
-      gray: string[];
-      blue: string[];
-      primary: string;
-      secondary: string;
-      success: string;
-      info: string;
-      warning: string;
-      danger: string;
-    };
-    fontSizes: string[];
-    fontWeights: {
-      normal: number;
-      bold: number;
-    };
-    lineHeights: {
-      condensedUltra: number;
-      condensed: number;
-      default: number;
-    };
-    space: string[];
-    sizes: {
-      large: string;
-      medium: string;
-      small: string;
-    };
-  };
-  backoundColor: string;
-  textColor: string;
-  card: string;
-  scrollbar: {
-    thumb: string;
-    track: string;
-  };
-  dropdown: string;
-  aside: string;
-  header: string;
-  input: {
-    borderColor: string;
-    bg: string;
-    color: string;
-  };
-}
+import type { IThemeContext, IThemeProvider, ThemeProps } from './theme.types';
 
 const ThemeContext = createContext<IThemeContext>({} as IThemeContext);
 
-interface IThemeProvider {
-  children: ReactNode;
-}
-
-const ThemeProvider = ({ children }: IThemeProvider) => {
+export const ThemeProvider = ({ children }: IThemeProvider) => {
   const [theme, setTheme] = useState<ThemeProps>(() => {
     const savedTheme = localStorage.getItem(strings.minhaCarteira);
 
@@ -100,4 +38,4 @@ function useTheme(): IThemeContext {
   return context;
 }
 
-export { ThemeProvider, useTheme };
+export { useTheme };

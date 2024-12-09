@@ -11,10 +11,11 @@ export const useSignIn = () => {
 
   const getError = (code: string) => {
     const type = {
-      'auth/user-not-found': 'Dados inválidos',
+      'auth/user-not-found': 'Dados inválidos!',
+      'auth/invalid-credential': 'Dados inválidos!',
     };
 
-    return type[code] ?? '';
+    return type[code] ?? 'Erro no sistema, tente mais tarde!';
   };
 
   const login = async (email: string, password: string) => {

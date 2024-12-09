@@ -27,26 +27,31 @@ export const UiAlert = ({
     setAlert('');
   };
 
-  return alert ? (
-    <AlertContainer
-      alignItems="center"
-      borderRadius={general.bordersRadius.normal}
-      color={colors.black}
-      display="flex"
-      justifyContent="space-between"
-      overflow="hidden"
-      p={3}
-      position="relative"
-      type={type}
-      width="100%"
-      {...rest}
-    >
-      <Box display="flex" alignItems="center">
-        <AlertIcon type={type} />
-        {message}
-      </Box>
+  return (
+    alert && (
+      <AlertContainer
+        alignItems="center"
+        borderRadius={general.bordersRadius.normal}
+        color={colors.black}
+        display="flex"
+        justifyContent="space-between"
+        overflow="hidden"
+        px={3}
+        py={1}
+        position="relative"
+        type={type}
+        width="100%"
+        {...rest}
+      >
+        <Box display="flex" alignItems="center">
+          <AlertIcon type={type} />
+          {message}
+        </Box>
 
-      {closeBtn && <UiCloseButton onClick={handleClose} />}
-    </AlertContainer>
-  ) : null;
+        {closeBtn && (
+          <UiCloseButton onClick={handleClose} color={general.colors.white} />
+        )}
+      </AlertContainer>
+    )
+  );
 };

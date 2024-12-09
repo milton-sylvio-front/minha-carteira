@@ -89,7 +89,7 @@ const SignUp = () => {
 
   return (
     <AuthTemplate>
-      <h1>Cadastre-se</h1>
+      <h1>Cadastrar</h1>
 
       {showAlert()}
 

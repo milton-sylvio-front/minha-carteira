@@ -1,35 +1,19 @@
-import { keyframes, css } from 'styled-components';
-
-const pulseAnimation = keyframes`
-  50% {
-    opacity: 0.5;
-  }
-`;
-
-const shineAnimation = keyframes`
-  0% {
-    background-position: 24px 0;
-  }
-  100% {
-    background-position: 0 0;
-  }
-`;
+import { css } from 'styled-components';
 
 export const SkeletonAnimationPulse = css`
   animation: ${(props) => props.theme.general.animations.pulse};
   animation-duration: 1.2s;
-  animation-name: ${pulseAnimation};
-  background: ${(props) => props.theme.general.colors.gray[2]};
+  background: ${(props) => props.theme.general.colors.gray.dark};
 `;
 
 export const SkeletonAnimationShine = css`
-  animation: ${shineAnimation} 5s ease-in-out infinite;
+  animation: bg-position 5s ease-in-out infinite;
   background-image: linear-gradient(
     270deg,
-    ${(props) => props.theme.general.colors.gray[0]},
-    ${(props) => props.theme.general.colors.gray[2]},
-    ${(props) => props.theme.general.colors.gray[2]},
-    ${(props) => props.theme.general.colors.gray[0]}
+    ${(props) => props.theme.general.colors.gray.dark},
+    ${(props) => props.theme.general.colors.gray.light},
+    ${(props) => props.theme.general.colors.gray.light},
+    ${(props) => props.theme.general.colors.gray.dark}
   );
   background-size: 400% 100%;
 `;

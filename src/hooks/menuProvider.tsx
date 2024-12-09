@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { IMenuMobileProvider } from './menu.types';
+import type { IMenuMobileProvider } from './menu.types';
 import { MenuMobileContext } from './menuContext';
 
 export const MenuMobileProvider = ({ children }: IMenuMobileProvider) => {

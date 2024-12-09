@@ -1,8 +1,16 @@
 const colors = {
   black: '#343A40',
-  blue: ['#313862', '#252A48', '#1B1F38'],
+  blue: {
+    light: '#313862',
+    normal: '#252A48',
+    dark: '#1B1F38',
+  },
   danger: '#DD427C',
-  gray: ['#F5F6F8', '#E1E4E8', '#BFBFBF'],
+  gray: {
+    light: '#F5F6F8',
+    normal: '#E1E4E8',
+    dark: '#BFBFBF',
+  },
   info: '#3867D6',
   primary: '#F64E60',
   secondary: '#8950FC',

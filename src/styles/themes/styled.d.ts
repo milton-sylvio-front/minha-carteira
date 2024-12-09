@@ -19,8 +19,16 @@ declare module 'styled-components' {
       colors: {
         black: string;
         white: string;
-        gray: string[];
-        blue: string[];
+        gray: {
+          light: string;
+          normal: string;
+          dark: string;
+        };
+        blue: {
+          light: string;
+          normal: string;
+          dark: string;
+        };
         primary: string;
         secondary: string;
         success: string;
