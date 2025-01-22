@@ -7,6 +7,10 @@ export const PATHS = {
     title: 'Cadastre-se',
     url: '/cadastrar',
   },
+  RECOVERY_PASSWORD: {
+    title: 'Recuperar senha',
+    url: '/recuperar-senha',
+  },
 
   HOME: {
     title: 'Início',

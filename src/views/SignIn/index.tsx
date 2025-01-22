@@ -20,8 +20,9 @@ import { REQUIRED_FIELD } from '../../helpers/utils/constants';
 
 import { useSignIn } from './useSignIn';
 import type { IUserData } from './types';
+import { ContainerLinkToGo, LinkToGo } from './styles';
 
-const { DASHBOARD, SIGN_UP } = PATHS;
+const { DASHBOARD, RECOVERY_PASSWORD, SIGN_UP } = PATHS;
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -120,6 +121,15 @@ const SignIn = () => {
 
             <FormErrorMessage>{errors?.password?.message}</FormErrorMessage>
           </FormGroup>
+
+          <ContainerLinkToGo>
+            <LinkToGo
+              to={RECOVERY_PASSWORD.url}
+              title="Clique aqui para recuperar a sua senha"
+            >
+              Recuperar Senha
+            </LinkToGo>
+          </ContainerLinkToGo>
 
           <UiButton
             disabled={loader}

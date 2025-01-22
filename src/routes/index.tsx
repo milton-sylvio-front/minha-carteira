@@ -30,12 +30,21 @@ import List from '../views/List';
 import NewRegister from '../views/NewRegister';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
+import RecoveryPassword from '../views/RecoveryPassword';
 
 import { PATHS } from '../helpers/configs/paths';
 
 import { PrivateRoute } from './PrivateRoute';
 
-const { DASHBOARD, HOME, LISTING, NEW_REGISTER, SIGN_IN, SIGN_UP } = PATHS;
+const {
+  DASHBOARD,
+  HOME,
+  LISTING,
+  NEW_REGISTER,
+  RECOVERY_PASSWORD,
+  SIGN_IN,
+  SIGN_UP,
+} = PATHS;
 
 const Routes = () => (
   <Switch>
@@ -46,6 +55,7 @@ const Routes = () => (
     </Route>
     <Route path={SIGN_IN.url} Component={SignIn} />
     <Route path={SIGN_UP.url} Component={SignUp} />
+    <Route path={RECOVERY_PASSWORD.url} Component={RecoveryPassword} />
   </Switch>
 );
 
