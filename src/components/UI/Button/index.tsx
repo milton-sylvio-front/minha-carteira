@@ -8,7 +8,7 @@ export const UiButton = ({
   children,
   fullWidth,
   icon,
-  isLoading = true,
+  isLoading = false,
   ...rest
 }: IButtonProps) => (
   <Container color={color} fullWidth={fullWidth} {...rest}>

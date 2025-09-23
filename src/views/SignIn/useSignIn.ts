@@ -10,9 +10,10 @@ export const useSignIn = () => {
   const [user, loading] = useAuthState(auth);
 
   const getError = (code: string) => {
-    const type = {
+    const type: Record<string, string> = {
       'auth/user-not-found': 'Dados inválidos!',
       'auth/invalid-credential': 'Dados inválidos!',
+      'auth/network-request-failed': 'Sistema indisponível!',
     };
 
     return type[code] ?? 'Erro no sistema, tente mais tarde!';

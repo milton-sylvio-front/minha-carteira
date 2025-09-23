@@ -8,7 +8,7 @@ import type {
   TypographyProps,
 } from 'styled-system';
 
-export interface ICloseButton
+export interface IFlex
   extends BorderProps,
     ColorProps,
     FlexboxProps,

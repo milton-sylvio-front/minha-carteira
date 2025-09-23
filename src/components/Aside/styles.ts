@@ -1,22 +1,32 @@
 import styled, { css } from 'styled-components';
 import { darken, rgba } from 'polished';
 import { Link } from 'react-router-dom';
-
-import { UiToggleSwitch } from '../../components/UI';
+import {
+  bordersRadius,
+  colors,
+  fontSizes,
+  fontWeights,
+  sizes,
+  space,
+} from '@/styles/themes/general';
 
 interface IContainerProps {
   menuIsOpen: boolean;
 }
 
 export const Container = styled.aside<IContainerProps>`
-  background-color: ${(props) => darken(0.025, props.theme.aside)};
-  box-shadow: 0 5px 10px
-    ${(props) => rgba(props.theme.general.colors.black, 0.05)};
+  align-items: center;
+  background-color: ${(props) => props.theme.aside};
+  box-shadow: 0 5px 10px ${rgba(colors.black, 0.05)};
   display: flex;
   flex-direction: column;
   grid-area: AS;
+  height: 100vh;
+  max-width: 250px;
+  justify-content: space-between;
+  overflow-x: hidden;
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
+  @media (max-width: ${sizes.small}) {
     align-items: center;
     height: 100%;
     justify-content: space-between;
@@ -41,11 +51,10 @@ export const Container = styled.aside<IContainerProps>`
 export const Header = styled.header`
   align-items: center;
   display: flex;
-  padding: ${(props) => props.theme.general.space[7]}
-    ${(props) => props.theme.general.space[4]};
+  padding: ${space[7]} ${space[1]};
   height: 70px;
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
+  @media (max-width: ${sizes.small}) {
     display: none;
   }
 `;
@@ -53,42 +62,36 @@ export const Header = styled.header`
 export const MenuContainer = styled.nav`
   display: flex;
   flex-direction: column;
-  margin-top: ${(props) => props.theme.general.space[8]};
-  padding-left: 20px;
-  width: 100%;
+  margin-top: ${space[8]};
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
-    margin-top: ${(props) => props.theme.general.space[5]};
+  @media (max-width: ${sizes.small}) {
+    margin-top: ${space[5]};
   }
-`;
-
-export const MenuTitle = styled.span`
-  color: ${(props) => rgba(props.theme.textColor, 0.7)};
-  font-size: ${(props) => props.theme.general.fontSizes[0]};
-  margin-bottom: ${(props) => props.theme.general.space[3]};
-  text-transform: uppercase;
 `;
 
 export const MenuItem = styled(Link)`
   align-items: center;
-  border-radius: ${(props) => props.theme.general.bordersRadius.normal};
+  border-radius: ${bordersRadius.normal};
   color: ${(props) => rgba(props.theme.textColor, 0.7)};
   display: flex;
-  margin-bottom: ${(props) => props.theme.general.space[1]};
-  padding: ${(props) => props.theme.general.space[2]}
-    ${(props) => props.theme.general.space[3]};
+  margin-bottom: ${space[1]};
+  padding: ${space[2]} ${space[3]};
   text-decoration: none;
   transition: all 0.3s;
-  width: 90%;
 
   &:hover {
     background-color: ${(props) => darken(0.05, props.theme.aside)};
     padding-left: 20px;
+    text-decoration: none;
   }
 
   &.actived {
-    background-color: ${(props) => darken(0.05, props.theme.aside)};
+    background-color: ${colors.primary};
     color: ${(props) => props.theme.textColor};
+  }
+
+  &.actived:hover {
+    padding-left: ${space[3]};
   }
 
   > svg {
@@ -97,13 +100,43 @@ export const MenuItem = styled(Link)`
   }
 `;
 
-export const Toggle = styled(UiToggleSwitch)`
-  display: none;
-  position: absolute;
-  bottom: 90px;
+export const Profile = styled.section`
+  align-items: center;
+  display: flex;
+  padding: ${space[5]} ${space[0]};
+`;
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
-    align-items: center;
-    display: flex;
+export const UserName = styled.span`
+  display: block;
+  font-size: ${fontSizes[1]};
+  font-weight: ${fontWeights.bold};
+`;
+
+export const UserEmail = styled.span`
+  display: block;
+  font-size: ${fontSizes[0]};
+  font-weight: ${fontWeights.normal};
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const Avatar = styled.div`
+  align-items: center;
+  background-color: ${colors.secondary};
+  border-radius: 50%;
+  border: 1px solid ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.textColor};
+  display: flex;
+  font-size: ${fontSizes[2]};
+  height: 40px;
+  justify-content: center;
+  margin-right: ${space[2]};
+  text-transform: uppercase;
+  width: 40px;
+
+  @media (max-width: ${sizes.small}) {
+    font-size: ${fontSizes[4]};
   }
 `;

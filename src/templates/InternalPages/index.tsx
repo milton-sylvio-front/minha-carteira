@@ -2,7 +2,7 @@ import Header from '../../components/Header';
 import Aside from '../../components/Aside';
 import Content from '../../components/Content';
 
-import { IInternalPagesTemplate } from './types';
+import type { IInternalPagesTemplate } from './types';
 import { Grid } from './styles';
 
 const InternalPagesTemplate = ({ children }: IInternalPagesTemplate) => (

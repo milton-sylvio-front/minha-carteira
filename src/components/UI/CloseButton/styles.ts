@@ -8,7 +8,7 @@ import {
   typography,
 } from 'styled-system';
 
-import { ICloseButton } from './types';
+import type { ICloseButton } from './types';
 
 export const CloseButton = styled.button<ICloseButton>`
   ${border}

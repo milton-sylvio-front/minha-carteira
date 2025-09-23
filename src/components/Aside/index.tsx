@@ -1,37 +1,59 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   MdDashboard,
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
   MdNoteAdd,
+  MdArticle,
+  MdOutlineWbSunny,
 } from 'react-icons/md';
+import { FiMoon } from 'react-icons/fi';
 
-import { auth, signOut } from '../../helpers/utils/firebase';
-import { PATHS } from '../../helpers/configs/paths';
+import { PATHS } from '@/helpers/configs/paths';
 
-import Logo from '../../components/Logo';
+import Logo from '@/components/Logo';
+import { UiRadioButton, UiButtonGroup, UiFlex } from '@/components/UI';
 
-import { useMenuMobile } from '../../hooks/menu';
-import { useTheme } from '../../hooks/theme';
+import { useMenuMobile } from '@/hooks/menu';
+import { useTheme } from '@/hooks/theme';
+import {
+  auth,
+  collection,
+  db,
+  query,
+  getDocs,
+  where,
+  signOut,
+} from '@/helpers/utils/firebase';
 
 import {
+  Avatar,
   Container,
   Header,
   MenuContainer,
   MenuItem,
-  MenuTitle,
-  Toggle,
+  Profile,
+  UserName,
+  UserEmail,
 } from './styles';
 
-const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN } = PATHS;
+import { getFirstAndLastLettersOfName } from './utils';
+
+const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN, TRANSACTIONS } = PATHS;
 
 const Aside = () => {
   const navigate = useNavigate();
+  const [user, loading] = useAuthState(auth);
   const { toggleTheme, theme } = useTheme();
-  const [getTheme, setTheme] = useState<boolean>(() =>
-    theme.mode === 'dark' ? true : false
+  const [name, setName] = useState<string>('');
+  const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+
+  const [getTheme, setTheme] = useState<string>(() =>
+    theme.mode === 'dark' ? 'dark' : 'light'
   );
   const { toggleMenu } = useMenuMobile();
 
@@ -56,7 +78,34 @@ const Aside = () => {
       text: OUTPUT.title,
       icon: <MdArrowDownward />,
     },
+    {
+      path: TRANSACTIONS.url,
+      text: TRANSACTIONS.title,
+      icon: <MdArticle />,
+    },
   ];
+
+  useEffect(() => {
+    if (loading) return;
+
+    const fetchUserName = async () => {
+      try {
+        const usersRef = collection(db, 'Users');
+        const q = query(usersRef, where('uid', '==', user?.uid));
+        const doc = await getDocs(q);
+        const data = doc.docs[0].data();
+        setEmail(data.email);
+        setFullName(data.name);
+        const fullname = data.name.split(' ');
+        setName(fullname[0]);
+      } catch (err) {
+        console.error(err);
+        alert('Erro ao acessar os dados do usuário!');
+      }
+    };
+
+    fetchUserName();
+  }, [loading, user?.uid]);
 
   const handleSignOut = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -70,44 +119,69 @@ const Aside = () => {
   };
 
   const handleChangeTheme = () => {
-    setTheme(!getTheme);
+    setTheme(getTheme);
     toggleTheme();
   };
 
+  const radioOptions = [
+    { label: 'Escuro', value: 'dark', icon: <FiMoon /> },
+    { label: 'Claro', value: 'light', icon: <MdOutlineWbSunny /> },
+  ];
+
+  const lettersOfName = getFirstAndLastLettersOfName(fullName);
+
   return (
     <Container menuIsOpen={toggleMenu}>
-      <Header>
-        <Logo />
-      </Header>
+      <section>
+        <Header>
+          <Logo />
+        </Header>
 
-      <MenuContainer>
-        <MenuTitle>Menu</MenuTitle>
+        <MenuContainer>
+          {menu.map((item) => (
+            <MenuItem
+              key={item.path}
+              to={item.path}
+              className={
+                window.location.pathname === item.path ? 'actived' : ''
+              }
+              title={item.text}
+            >
+              {item.icon}
+              {item.text}
+            </MenuItem>
+          ))}
 
-        {menu.map((item) => (
-          <MenuItem
-            key={item.path}
-            to={item.path}
-            className={window.location.pathname === item.path ? 'actived' : ''}
-            title={item.text}
-          >
-            {item.icon}
-            {item.text}
+          <MenuItem onClick={handleSignOut} title="Sair" to="">
+            <MdExitToApp />
+            Sair
           </MenuItem>
-        ))}
+        </MenuContainer>
+      </section>
 
-        <MenuItem onClick={handleSignOut} title="Sair" to={''}>
-          <MdExitToApp />
-          Sair
-        </MenuItem>
-      </MenuContainer>
+      <UiFlex flexDirection="column" justifyContent="center">
+        <UiButtonGroup
+          className="btn-group-toggle"
+          role="group"
+          aria-label="Basic outlined example"
+        >
+          <UiRadioButton
+            name="myRadioGroup"
+            options={radioOptions}
+            selectedValue={getTheme}
+            onChange={handleChangeTheme}
+          />
+        </UiButtonGroup>
 
-      <Toggle
-        labelLeft="Light"
-        labelRight="Dark"
-        checked={getTheme}
-        className="header"
-        onChange={handleChangeTheme}
-      />
+        <Profile>
+          <Avatar>{lettersOfName}</Avatar>
+
+          <div>
+            <UserName>{name}</UserName>
+            <UserEmail title={email}>{email}</UserEmail>
+          </div>
+        </Profile>
+      </UiFlex>
     </Container>
   );
 };

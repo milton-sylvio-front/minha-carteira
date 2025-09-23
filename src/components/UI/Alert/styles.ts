@@ -9,20 +9,22 @@ import {
   typography,
 } from 'styled-system';
 
+import { colors, fontSizes, space as spacing } from '@/styles/themes/general';
+
 import type { IAlertContainer } from './types';
 
 const TYPE = {
   error: css`
-    background: ${(props) => props.theme.general.colors.danger};
+    background: ${colors.danger};
   `,
   success: css`
-    background: ${(props) => props.theme.general.colors.success};
+    background: ${colors.success};
   `,
   warning: css`
-    background: ${(props) => props.theme.general.colors.warning};
+    background: ${colors.warning};
   `,
   info: css`
-    background: ${(props) => props.theme.general.colors.info};
+    background: ${colors.info};
   `,
 };
 
@@ -35,11 +37,11 @@ export const AlertContainer = styled.div<IAlertContainer>`
   ${space}
   ${typography}
 
-  color: ${(props) => props.theme.general.colors.white};
-  font-size: ${(props) => props.theme.general.fontSizes[1]};
+  color: ${colors.white};
+  font-size: ${fontSizes[1]};
 
   svg {
-    margin-right: ${(props) => props.theme.general.space[2]};
+    margin-right: ${spacing[2]};
   }
 
   ${(props) => props?.type && TYPE[props?.type]}

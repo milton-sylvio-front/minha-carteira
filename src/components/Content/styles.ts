@@ -3,7 +3,7 @@ import { rgba } from 'polished';
 
 export const Container = styled.main`
   grid-area: CT;
-  height: calc(100vh - 70px);
+  height: 100vh;
   overflow-y: auto;
   padding: ${(props) => props.theme.general.space[7]};
   z-index: 1;

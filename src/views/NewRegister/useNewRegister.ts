@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 import { addDoc, collection, db } from '../../helpers/utils/firebase';
 import { TIMEOUT } from '../../helpers/utils/constants';
 
-import { IProps } from './types';
+import type { IProps } from './types';
 
 export const useNewRegister = () => {
   const [loading, setLoading] = useState<boolean>(false);

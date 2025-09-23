@@ -1,4 +1,4 @@
-import symbolLogo from '../../assets/logo.svg';
+import symbolLogo from '../../assets/images/logo.svg';
 
 import { Container } from './styles';
 

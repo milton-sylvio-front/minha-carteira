@@ -4,10 +4,15 @@ import { darken, rgba } from 'polished';
 import { UiToggleSwitch } from '../../components/UI';
 
 export const Container = styled.header`
+  display: none;
+
+  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
+    display: flex;
+  }
+
   align-items: center;
   background-color: ${(props) => props.theme.header};
   box-shadow: 0 5px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
   grid-area: MH;
   justify-content: space-between;
   padding: 0 15px;
