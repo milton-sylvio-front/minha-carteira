@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import { UiCloseButton } from '../CloseButton';
+import { bordersRadius, colors } from '@/styles/themes/general';
 
-import general, { colors } from '../../../styles/themes/general';
+import { UiCloseButton } from '../CloseButton';
 
 import { AlertIcon } from './Icon';
 
@@ -16,7 +16,7 @@ export const UiAlert = ({
   message = '',
   ...rest
 }: IAlert) => {
-  const [alert, setAlert] = useState<string>('');
+  const [alert, setAlert] = useState<string>(message);
 
   useEffect(() => {
     setAlert(message);
@@ -31,12 +31,13 @@ export const UiAlert = ({
     alert && (
       <AlertContainer
         alignItems="center"
-        borderRadius={general.bordersRadius.normal}
+        borderRadius={bordersRadius.normal}
         color={colors.black}
         display="flex"
         justifyContent="space-between"
         overflow="hidden"
-        px={3}
+        pl={3}
+        pr={1}
         py={1}
         position="relative"
         type={type}
@@ -49,7 +50,7 @@ export const UiAlert = ({
         </Box>
 
         {closeBtn && (
-          <UiCloseButton onClick={handleClose} color={general.colors.white} />
+          <UiCloseButton onClick={handleClose} color={colors.white} />
         )}
       </AlertContainer>
     )

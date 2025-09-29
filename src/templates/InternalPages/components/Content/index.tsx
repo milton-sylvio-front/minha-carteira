@@ -1,9 +1,9 @@
-import { useMenuMobile } from '../../hooks/menu';
+import { useMenuMobile } from '@/hooks/menu';
 
 import { Container, Overlay } from './styles';
 import type { IContent } from './types';
 
-const Content = ({ children }: IContent) => {
+export const Content = ({ children }: IContent) => {
   const { toggleMenu } = useMenuMobile();
 
   return (
@@ -13,5 +13,3 @@ const Content = ({ children }: IContent) => {
     </Container>
   );
 };
-
-export default Content;

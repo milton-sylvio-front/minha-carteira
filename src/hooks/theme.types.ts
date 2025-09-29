@@ -53,6 +53,7 @@ export interface ThemeProps {
     };
   };
   backoundColor: string;
+  borderColor: string;
   textColor: string;
   card: string;
   scrollbar: {

@@ -12,9 +12,9 @@ import expenses from '../../repositories/expenses';
 import monthsList from '../../helpers/utils/months';
 import formatCurrency from '../../helpers/utils/formatCurrency';
 
-import happyIcon from '../../assets/happy.svg';
-import sadIcon from '../../assets/sad.svg';
-import opsIcon from '../../assets/ops.svg';
+import happyIcon from '../../assets/icons/happy.svg';
+import sadIcon from '../../assets/icons/sad.svg';
+import opsIcon from '../../assets/icons/ops.svg';
 
 import { colors } from '../../styles/themes/general';
 

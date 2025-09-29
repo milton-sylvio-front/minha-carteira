@@ -1,7 +1,7 @@
 import MaskedInput from 'react-text-mask';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
-import { ICurrencyInput } from './types';
+import type { ICurrencyInput } from './types';
 
 const defaultMaskOptions = {
   prefix: 'R$ ',

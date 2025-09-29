@@ -1,11 +1,11 @@
 import CountUp from 'react-countup';
 
-import dollarIcon from '../../assets/dollar.svg';
-import arrowDownIcon from '../../assets/arrow-down.svg';
-import arrowUpIcon from '../../assets/arrow-up.svg';
+import dollarIcon from '../../assets/icons/dollar.svg';
+import arrowDownIcon from '../../assets/icons/arrow-down.svg';
+import arrowUpIcon from '../../assets/icons/arrow-up.svg';
 
 import { Container } from './styles';
-import { IColorCard } from './types';
+import type { IColorCard } from './types';
 
 const ColorCard = ({ title, amount, description, icon, color }: IColorCard) => {
   const iconFormated = {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {
-  border,
   background,
+  border,
   flexbox,
   layout,
   position,
@@ -9,7 +9,7 @@ import {
   space,
 } from 'styled-system';
 
-import { IBox } from './types';
+import type { IBox } from './types';
 
 export const Box = styled('div')<IBox>(
   border,

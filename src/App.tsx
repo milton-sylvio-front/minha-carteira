@@ -1,10 +1,10 @@
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 
-import GlobalStyles from './styles/GlobalStyles';
-import { useTheme } from './hooks/theme';
+import GlobalStyles from '@/styles/GlobalStyles';
+import { useTheme } from '@/hooks/theme';
 
-import Routes from './routes';
+import Routes from '@/routes';
 
 const App = () => {
   const { theme } = useTheme();

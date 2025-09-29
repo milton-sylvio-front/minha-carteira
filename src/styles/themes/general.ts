@@ -16,7 +16,7 @@ const colors = {
   secondary: '#8950FC',
   success: '#1BC5BD',
   warning: '#FFA800',
-  white: '#FFF',
+  white: '#FFFFFF',
 };
 
 const bordersRadius = {
@@ -92,4 +92,13 @@ const general = {
 };
 
 export default general;
-export { colors };
+export {
+  animations,
+  colors,
+  bordersRadius,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  space,
+  sizes,
+};

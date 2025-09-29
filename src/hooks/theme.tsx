@@ -1,9 +1,9 @@
 import { createContext, useState, useContext } from 'react';
 
-import dark from '../styles/themes/dark';
-import light from '../styles/themes/light';
+import dark from '@/styles/themes/dark';
+import light from '@/styles/themes/light';
 
-import strings from '../helpers/utils/strings';
+import strings from '@/helpers/utils/strings';
 
 import type { IThemeContext, IThemeProvider, ThemeProps } from './theme.types';
 

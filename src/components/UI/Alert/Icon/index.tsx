@@ -1,6 +1,6 @@
 import { MdCheckCircle, MdError, MdInfo, MdWarning } from 'react-icons/md';
 
-import { colors } from '../../../../styles/themes/general';
+import { colors } from '@/styles/themes/general';
 
 import type { ITypeAlert } from '../types';
 

@@ -11,12 +11,12 @@ import {
   UiButton,
   UiInput,
   UiVStack,
-} from '../../components/UI';
+} from '@/components/UI';
 
-import AuthTemplate from '../../templates/Auth';
+import AuthTemplate from '@/templates/Auth';
 
-import { PATHS } from '../../helpers/configs/paths';
-import { REQUIRED_FIELD } from '../../helpers/utils/constants';
+import { PATHS } from '@/helpers/configs/paths';
+import { REQUIRED_FIELD } from '@/helpers/utils/constants';
 
 import { useSignIn } from './useSignIn';
 import type { IUserData } from './types';
@@ -69,17 +69,11 @@ const SignIn = () => {
     <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
   );
 
-  const showAlert = () => {
-    if (error && !loading && !loader) {
-      return <UiAlert closeBtn mb={4} message={error} type="error" />;
-    }
-  };
-
   return (
     <AuthTemplate>
       <h1>Entrar</h1>
 
-      {showAlert()}
+      {error && <UiAlert closeBtn mb={4} message={error} type="error" />}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <UiVStack>

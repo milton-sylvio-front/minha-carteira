@@ -1,4 +1,4 @@
-import { IUiBox } from './types';
+import type { IUiBox } from './types';
 import { Box } from './styles';
 
 export const UiBox = ({ children, ...rest }: IUiBox) => (

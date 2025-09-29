@@ -36,4 +36,8 @@ export const PATHS = {
     title: 'Saídas',
     url: '/listagem/saidas',
   },
+  TRANSACTIONS: {
+    title: 'Transações',
+    url: '/transacoes',
+  },
 };
