@@ -2,20 +2,31 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  MdDashboard,
   MdArrowDownward,
   MdArrowUpward,
-  MdExitToApp,
-  MdNoteAdd,
   MdArticle,
+  MdDashboard,
+  MdExitToApp,
+  MdMoreVert,
+  MdNoteAdd,
   MdOutlineWbSunny,
+  MdPersonOutline,
+  MdSettingsSuggest,
 } from 'react-icons/md';
 import { FiMoon } from 'react-icons/fi';
 
 import { PATHS } from '@/helpers/configs/paths';
 
 import Logo from '@/components/Logo';
-import { UiRadioButton, UiButtonGroup, UiFlex } from '@/components/UI';
+import {
+  UiBox,
+  UiButtonGroup,
+  UiDivider,
+  UiFlex,
+  UiMenuItem,
+  UiMenuList,
+  UiRadioButton,
+} from '@/components/UI';
 
 import { useMenuMobile } from '@/hooks/menu';
 import { useTheme } from '@/hooks/theme';
@@ -33,6 +44,7 @@ import {
   Avatar,
   Container,
   Header,
+  Menu,
   MenuContainer,
   MenuItem,
   Profile,
@@ -44,18 +56,18 @@ import { getFirstAndLastLettersOfName } from './utils';
 
 const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN, TRANSACTIONS } = PATHS;
 
-const Aside = () => {
+export const Aside = () => {
   const navigate = useNavigate();
+  const { toggleMenu } = useMenuMobile();
   const [user, loading] = useAuthState(auth);
   const { toggleTheme, theme } = useTheme();
   const [name, setName] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-
-  const [getTheme, setTheme] = useState<string>(() =>
+  const [toggleMenuProfile, setToggleMenuProfile] = useState<boolean>(false);
+  const [getTheme, setTheme] = useState<string>(
     theme.mode === 'dark' ? 'dark' : 'light'
   );
-  const { toggleMenu } = useMenuMobile();
 
   const menu = [
     {
@@ -123,12 +135,17 @@ const Aside = () => {
     toggleTheme();
   };
 
-  const radioOptions = [
+  const themeOptions = [
     { label: 'Escuro', value: 'dark', icon: <FiMoon /> },
     { label: 'Claro', value: 'light', icon: <MdOutlineWbSunny /> },
   ];
 
   const lettersOfName = getFirstAndLastLettersOfName(fullName);
+
+  const handlerMenuProfile = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    setToggleMenuProfile(!toggleMenuProfile);
+  };
 
   return (
     <Container menuIsOpen={toggleMenu}>
@@ -151,11 +168,6 @@ const Aside = () => {
               {item.text}
             </MenuItem>
           ))}
-
-          <MenuItem onClick={handleSignOut} title="Sair" to="">
-            <MdExitToApp />
-            Sair
-          </MenuItem>
         </MenuContainer>
       </section>
 
@@ -167,7 +179,7 @@ const Aside = () => {
         >
           <UiRadioButton
             name="myRadioGroup"
-            options={radioOptions}
+            options={themeOptions}
             selectedValue={getTheme}
             onChange={handleChangeTheme}
           />
@@ -176,14 +188,44 @@ const Aside = () => {
         <Profile>
           <Avatar>{lettersOfName}</Avatar>
 
-          <div>
-            <UserName>{name}</UserName>
+          <UiBox>
+            <UiBox
+              alignItems="center"
+              display="flex"
+              justifyContent="space-between"
+              position="relative"
+            >
+              <UserName>{name}</UserName>
+              <Menu>
+                <MdMoreVert onClick={handlerMenuProfile} />
+              </Menu>
+
+              <UiMenuList
+                bottom="100%"
+                isOpen={toggleMenuProfile}
+                left="150px"
+                marginBottom="-32px"
+                onClose={() => setToggleMenuProfile(false)}
+              >
+                <UiMenuItem icon={<MdPersonOutline />}>Meu perfil</UiMenuItem>
+                <UiMenuItem icon={<MdSettingsSuggest />}>
+                  Configurações
+                </UiMenuItem>
+                <UiDivider />
+                <UiMenuItem
+                  onClick={handleSignOut}
+                  title="Sair"
+                  icon={<MdExitToApp />}
+                >
+                  Sair
+                </UiMenuItem>
+              </UiMenuList>
+            </UiBox>
+
             <UserEmail title={email}>{email}</UserEmail>
-          </div>
+          </UiBox>
         </Profile>
       </UiFlex>
     </Container>
   );
 };
-
-export default Aside;

@@ -1,3 +1,5 @@
+import type { HTMLAttributes } from 'react';
+
 import type {
   BorderProps,
   BackgroundProps,
@@ -8,7 +10,7 @@ import type {
   SpaceProps,
 } from 'styled-system';
 
-export interface IBox
+export interface IMenuItemStyles
   extends BorderProps,
     BackgroundProps,
     FlexboxProps,
@@ -17,6 +19,9 @@ export interface IBox
     ShadowProps,
     SpaceProps {}
 
-export interface IUiBox extends IBox {
-  children?: React.ReactNode;
+export interface IUiMenuItem
+  extends IMenuItemStyles,
+    HTMLAttributes<HTMLAnchorElement> {
+  children: React.ReactNode;
+  icon?: React.ReactElement;
 }

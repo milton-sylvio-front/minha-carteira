@@ -4,6 +4,7 @@ const mode = 'dark';
 
 const backoundColor = general.colors.blue.dark;
 const textColor = general.colors.white;
+const borderColor = general.colors.blue.light;
 
 // COMPONENTES
 const card = general.colors.blue.light;
@@ -21,16 +22,17 @@ const input = {
 };
 
 const dark = {
-  general,
-  mode,
-  backoundColor,
-  textColor,
-  card,
-  scrollbar,
-  dropdown,
   aside,
+  backoundColor,
+  borderColor,
+  card,
+  dropdown,
+  general,
   header,
   input,
+  mode,
+  scrollbar,
+  textColor,
 };
 
 export default dark;

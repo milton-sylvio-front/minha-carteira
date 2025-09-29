@@ -6,6 +6,7 @@ export const Container = styled.main`
   height: 100vh;
   overflow-y: auto;
   padding: ${(props) => props.theme.general.space[7]};
+  position: relative;
   z-index: 1;
 
   ::-webkit-scrollbar {

@@ -1,5 +1,5 @@
 import { Container, Controllers, TitleHeader } from './styles';
-import { IContentHeader } from './types';
+import type { IContentHeader } from './types';
 
 const ContentHeader = ({ title, children }: IContentHeader) => (
   <Container className="content-header">

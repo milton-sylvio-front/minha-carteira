@@ -5,7 +5,7 @@ import Logo from '@/components/Logo';
 
 import { Container, MenuMobile, ContainerActionsMobile } from './styles';
 
-const Header = () => {
+export const Header = () => {
   const { handleToggleMenu, toggleMenu } = useMenuMobile();
 
   return (
@@ -28,5 +28,3 @@ const Header = () => {
     </Container>
   );
 };
-
-export default Header;

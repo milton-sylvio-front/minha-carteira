@@ -22,9 +22,9 @@ export const Container = styled.aside<IContainerProps>`
   flex-direction: column;
   grid-area: AS;
   height: 100vh;
-  max-width: 250px;
   justify-content: space-between;
-  overflow-x: hidden;
+  max-width: 250px;
+  z-index: 2;
 
   @media (max-width: ${sizes.small}) {
     align-items: center;
@@ -126,8 +126,8 @@ export const Avatar = styled.div`
   align-items: center;
   background-color: ${colors.secondary};
   border-radius: 50%;
-  border: 1px solid ${(props) => props.theme.primary};
-  color: ${(props) => props.theme.textColor};
+  border: 0;
+  color: ${colors.white};
   display: flex;
   font-size: ${fontSizes[2]};
   height: 40px;
@@ -139,4 +139,8 @@ export const Avatar = styled.div`
   @media (max-width: ${sizes.small}) {
     font-size: ${fontSizes[4]};
   }
+`;
+
+export const Menu = styled.span`
+  cursor: pointer;
 `;

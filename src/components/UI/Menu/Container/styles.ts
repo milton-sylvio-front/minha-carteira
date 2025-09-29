@@ -9,9 +9,9 @@ import {
   space,
 } from 'styled-system';
 
-import type { IBox } from './types';
+import type { IMenuStyles } from './types';
 
-export const Box = styled('div')<IBox>(
+export const Container = styled('div')<IMenuStyles>(
   border,
   background,
   flexbox,

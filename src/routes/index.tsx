@@ -1,28 +1,3 @@
-//
-// import { BrowserRouter } from 'react-router-dom'
-// import { useAuthState } from 'react-firebase-hooks/auth'
-
-// import { auth } from 'helpers/utils/firebase'
-
-// import { UiLoading } from 'components/UI'
-
-// import App from './app.routes'
-// import Auth from './auth.routes'
-
-// const Routes: React.FC = () => {
-//   const [user, loading] = useAuthState(auth)
-
-//   return (
-//     <BrowserRouter>
-//       {
-//         loading ? <UiLoading /> : (user ? <App /> : <Auth />)
-//       }
-//     </BrowserRouter>
-//   )
-// }
-
-// export default Routes
-
 import { Route, Routes as Switch } from 'react-router-dom';
 
 import Dashboard from '../views/Dashboard';

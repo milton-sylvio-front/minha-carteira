@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { fontSizes, fontWeights, colors } from '@/styles/themes/general';
 
 export default createGlobalStyle`
   * {
@@ -10,7 +11,7 @@ export default createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.backoundColor};
     color: ${(props) => props.theme.textColor};
-    font-size: ${(props) => props.theme.general.fontSizes[2]};
+    font-size: ${fontSizes[2]};
   }
 
   html,
@@ -42,7 +43,7 @@ export default createGlobalStyle`
 
   strong,
   .strong {
-    font-weight: ${(props) => props.theme.general.fontWeights.bold};
+    font-weight: ${fontWeights.bold};
   }
 
   input,
@@ -56,6 +57,7 @@ export default createGlobalStyle`
   input,
   textarea {
     -webkit-appearance: none;
+    appearance: none;
   }
 
   button,
@@ -70,15 +72,15 @@ export default createGlobalStyle`
   h4,
   h5,
   h6 {
-    font-weight: ${(props) => props.theme.general.fontWeights.bold};
+    font-weight: ${fontWeights.bold};
   }
 
   h1 {
-    font-size: ${(props) => props.theme.general.fontSizes[5]};
+    font-size: ${fontSizes[5]};
   }
 
   a {
-    color: ${(props) => props.theme.general.colors.primary};
+    color: ${colors.primary};
     text-decoration: none;
 
     &:hover {
