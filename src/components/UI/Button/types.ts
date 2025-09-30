@@ -2,9 +2,10 @@ import type { ButtonHTMLAttributes } from 'react';
 import React from 'react';
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  borderRadius?: 'sm' | 'md' | 'lg' | 'full';
   children?: React.ReactNode;
-  color?: 'primary' | 'secondary' | 'outline' | 'ghost';
   fullWidth?: boolean;
-  icon?: string;
+  icon?: React.ReactNode;
   isLoading?: boolean;
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
 }

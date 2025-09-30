@@ -14,5 +14,4 @@ export interface IMenuListStyles
 export interface IUiMenuList extends IMenuListStyles {
   children: React.ReactNode;
   isOpen: boolean;
-  onClose?: () => void;
 }

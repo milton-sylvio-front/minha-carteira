@@ -11,7 +11,7 @@ import {
 
 import type { IButtonProps } from './types';
 
-const COLOR = {
+const VARIANT = {
   primary: css`
     background-color: ${colors.primary};
     color: ${colors.white};
@@ -46,9 +46,16 @@ const COLOR = {
 
     &:hover,
     &:focus {
-      color: ${(props) => rgba(props.theme.textColor, 0.1)};
+      color: ${(props) => rgba(props.theme.textColor, 0.5)};
     }
   `,
+};
+
+const BORDER_RADIUS = {
+  sm: bordersRadius.small,
+  md: bordersRadius.normal,
+  lg: bordersRadius.large,
+  full: bordersRadius.rounded,
 };
 
 const FULL_WIDTH = css`
@@ -73,8 +80,11 @@ export const Container = styled.button<IButtonProps>`
   user-select: none;
   vertical-align: middle;
 
-  ${(props) => props.color && COLOR[props.color]};
+  ${(props) => props.variant && VARIANT[props.variant]};
   ${(props) => props.fullWidth && FULL_WIDTH}
+  ${(props) =>
+    props.borderRadius &&
+    `border-radius: ${BORDER_RADIUS[props.borderRadius]}`};
 
   &[disabled] {
     cursor: not-allowed;

@@ -1,32 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
   MdArrowDownward,
   MdArrowUpward,
   MdArticle,
   MdDashboard,
-  MdExitToApp,
-  MdMoreVert,
   MdNoteAdd,
   MdOutlineWbSunny,
-  MdPersonOutline,
-  MdSettingsSuggest,
 } from 'react-icons/md';
 import { FiMoon } from 'react-icons/fi';
 
 import { PATHS } from '@/helpers/configs/paths';
 
 import Logo from '@/components/Logo';
-import {
-  UiBox,
-  UiButtonGroup,
-  UiDivider,
-  UiFlex,
-  UiMenuItem,
-  UiMenuList,
-  UiRadioButton,
-} from '@/components/UI';
+import { UiBox, UiButtonGroup, UiFlex, UiRadioButton } from '@/components/UI';
 
 import { useMenuMobile } from '@/hooks/menu';
 import { useTheme } from '@/hooks/theme';
@@ -37,14 +24,12 @@ import {
   query,
   getDocs,
   where,
-  signOut,
 } from '@/helpers/utils/firebase';
 
 import {
   Avatar,
   Container,
   Header,
-  Menu,
   MenuContainer,
   MenuItem,
   Profile,
@@ -54,17 +39,18 @@ import {
 
 import { getFirstAndLastLettersOfName } from './utils';
 
-const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, SIGN_IN, TRANSACTIONS } = PATHS;
+import { MenuProfile } from './components/MenuProfile';
+
+const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, TRANSACTIONS } = PATHS;
 
 export const Aside = () => {
-  const navigate = useNavigate();
   const { toggleMenu } = useMenuMobile();
   const [user, loading] = useAuthState(auth);
   const { toggleTheme, theme } = useTheme();
+
   const [name, setName] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
-  const [toggleMenuProfile, setToggleMenuProfile] = useState<boolean>(false);
   const [getTheme, setTheme] = useState<string>(
     theme.mode === 'dark' ? 'dark' : 'light'
   );
@@ -119,17 +105,6 @@ export const Aside = () => {
     fetchUserName();
   }, [loading, user?.uid]);
 
-  const handleSignOut = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    signOut(auth)
-      .then(() => {
-        navigate(SIGN_IN.url);
-      })
-      .catch((error) => {
-        console.log('Erro ao sair:', error);
-      });
-  };
-
   const handleChangeTheme = () => {
     setTheme(getTheme);
     toggleTheme();
@@ -141,11 +116,6 @@ export const Aside = () => {
   ];
 
   const lettersOfName = getFirstAndLastLettersOfName(fullName);
-
-  const handlerMenuProfile = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    setToggleMenuProfile(!toggleMenuProfile);
-  };
 
   return (
     <Container menuIsOpen={toggleMenu}>
@@ -196,30 +166,7 @@ export const Aside = () => {
               position="relative"
             >
               <UserName>{name}</UserName>
-              <Menu>
-                <MdMoreVert onClick={handlerMenuProfile} />
-              </Menu>
-
-              <UiMenuList
-                bottom="100%"
-                isOpen={toggleMenuProfile}
-                left="150px"
-                marginBottom="-32px"
-                onClose={() => setToggleMenuProfile(false)}
-              >
-                <UiMenuItem icon={<MdPersonOutline />}>Meu perfil</UiMenuItem>
-                <UiMenuItem icon={<MdSettingsSuggest />}>
-                  Configurações
-                </UiMenuItem>
-                <UiDivider />
-                <UiMenuItem
-                  onClick={handleSignOut}
-                  title="Sair"
-                  icon={<MdExitToApp />}
-                >
-                  Sair
-                </UiMenuItem>
-              </UiMenuList>
+              <MenuProfile />
             </UiBox>
 
             <UserEmail title={email}>{email}</UserEmail>
