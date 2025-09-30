@@ -14,6 +14,7 @@ export { UiContainer } from './Container';
 export { UiDivider } from './Divider';
 export { UiDropdown } from './Dropdown';
 export { UiFlex } from './Flex';
+export { UiIconButton } from './IconButton';
 export { UiInput } from './Input';
 export { UiLoading } from './Loading';
 export { UiMenu, UiMenuItem, UiMenuList } from './Menu';

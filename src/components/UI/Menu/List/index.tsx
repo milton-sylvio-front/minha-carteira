@@ -1,20 +1,18 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
 import type { IUiMenuList } from './types';
 import { Container } from './styles';
 
-export const UiMenuList = ({
-  children,
-  isOpen,
-  onClose,
-  ...rest
-}: IUiMenuList) => {
+export const UiMenuList = ({ children, isOpen, ...rest }: IUiMenuList) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    if (!isOpen) return;
+    setIsFocused(isOpen);
 
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose?.();
+        setIsFocused(false);
       }
     }
 
@@ -22,10 +20,15 @@ export const UiMenuList = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   return (
-    <Container display={isOpen ? 'flex' : 'none'} ref={ref} {...rest}>
+    <Container
+      id="menu-list"
+      display={isFocused ? 'flex' : 'none'}
+      ref={ref}
+      {...rest}
+    >
       {children}
     </Container>
   );

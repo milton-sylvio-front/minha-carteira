@@ -4,15 +4,21 @@ import type { IButtonProps } from './types';
 import { Container } from './styles';
 
 export const UiButton = ({
-  color = 'primary',
+  borderRadius = 'md',
   children,
   fullWidth,
   icon,
   isLoading = false,
+  variant = 'primary',
   ...rest
 }: IButtonProps) => (
-  <Container color={color} fullWidth={fullWidth} {...rest}>
-    {icon && <img src={icon} alt="" />}
+  <Container
+    borderRadius={borderRadius}
+    fullWidth={fullWidth}
+    variant={variant}
+    {...rest}
+  >
+    {icon}
     {isLoading ? <Spinner /> : children}
   </Container>
 );

@@ -140,7 +140,3 @@ export const Avatar = styled.div`
     font-size: ${fontSizes[4]};
   }
 `;
-
-export const Menu = styled.span`
-  cursor: pointer;
-`;
