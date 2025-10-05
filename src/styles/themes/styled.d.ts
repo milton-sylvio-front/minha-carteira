@@ -54,6 +54,7 @@ declare module 'styled-components' {
       };
     };
     backoundColor: string;
+    backoundColorLight: string;
     borderColor: string;
     textColor: string;
     card: string;

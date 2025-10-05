@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import Card from '../../../components/UI/Card/styles';
+import Card from '@/components/UI/Card/styles';
 
 const animateLeft = keyframes`
   0% {

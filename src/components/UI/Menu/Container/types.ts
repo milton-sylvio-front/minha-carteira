@@ -20,6 +20,4 @@ export interface IMenuStyles
 
 export interface IUiMenu extends HTMLAttributes<HTMLDivElement>, IMenuStyles {
   children: React.ReactNode;
-  isOpen: boolean;
-  onClose: () => void;
 }

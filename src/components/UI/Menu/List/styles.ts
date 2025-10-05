@@ -1,22 +1,32 @@
 import styled from 'styled-components';
-import { flexbox, layout, position, space } from 'styled-system';
+import { position, system } from 'styled-system';
+import { rgba } from 'polished';
 
-import { bordersRadius } from '@/styles/themes/general';
+import { bordersRadius, colors } from '@/styles/themes/general';
 
-import type { IMenuListStyles } from './types';
+import type { IUiMenuList } from './types';
 
-export const Container = styled.div<IMenuListStyles>`
-  ${flexbox};
-  ${layout};
+const customTransform = system({
+  transform: {
+    property: 'transform',
+  },
+});
+
+export const Container = styled.div<IUiMenuList>`
   ${position};
-  ${space};
-  background-color: ${(props) => props.theme.backoundColor};
+  ${customTransform}
+
+  background-color: ${({ theme }) => theme.backoundColor};
   border-radius: ${bordersRadius.normal};
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px 0 ${rgba(colors.black, 0.25)};
   flex-direction: column;
-  min-width: 160px;
+  display: flex;
   position: absolute;
   z-index: 5555;
+  left: 0%;
+
+  ${({ position }) => position === 'top' && `bottom: 100%;`};
+  ${({ position }) => position === 'bottom' && `top: 100%;`};
 
   > a:first-child {
     border-top-left-radius: ${bordersRadius.normal};

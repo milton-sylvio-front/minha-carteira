@@ -3,6 +3,7 @@ import general from './general';
 const mode = 'dark';
 
 const backoundColor = general.colors.blue.dark;
+const backoundColorLight = general.colors.blue.light;
 const textColor = general.colors.white;
 const borderColor = general.colors.blue.light;
 
@@ -24,6 +25,7 @@ const input = {
 const dark = {
   aside,
   backoundColor,
+  backoundColorLight,
   borderColor,
   card,
   dropdown,

@@ -1,17 +1,17 @@
-import type {
-  FlexboxProps,
-  LayoutProps,
-  PositionProps,
-  SpaceProps,
-} from 'styled-system';
+import type { HTMLAttributes } from 'react';
 
-export interface IMenuListStyles
-  extends FlexboxProps,
-    LayoutProps,
-    PositionProps,
-    SpaceProps {}
+export type IIMenuListPosition = 'top' | 'bottom';
 
-export interface IUiMenuList extends IMenuListStyles {
+// export interface IDropdownProps {
+//   buttonText?: string;
+//   children: React.ReactNode;
+//   icon?: React.ReactElement;
+//   isOpen: boolean;
+//   onToggle: () => void;
+// }
+
+export interface IUiMenuList extends HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   isOpen: boolean;
+  position?: IIMenuListPosition;
 }

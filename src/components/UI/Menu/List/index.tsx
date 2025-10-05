@@ -3,7 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import type { IUiMenuList } from './types';
 import { Container } from './styles';
 
-export const UiMenuList = ({ children, isOpen, ...rest }: IUiMenuList) => {
+export const UiMenuList = ({
+  children,
+  isOpen,
+  position = 'bottom',
+  ...rest
+}: IUiMenuList) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -23,13 +28,16 @@ export const UiMenuList = ({ children, isOpen, ...rest }: IUiMenuList) => {
   }, [isOpen]);
 
   return (
-    <Container
-      id="menu-list"
-      display={isFocused ? 'flex' : 'none'}
-      ref={ref}
-      {...rest}
-    >
-      {children}
-    </Container>
+    isFocused && (
+      <Container
+        id="menu-list"
+        ref={ref}
+        position={position}
+        isOpen={isOpen}
+        {...rest}
+      >
+        {children}
+      </Container>
+    )
   );
 };
