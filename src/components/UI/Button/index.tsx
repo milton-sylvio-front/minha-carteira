@@ -16,9 +16,9 @@ export const UiButton = ({
 }: IButtonProps) => {
   const ButtonContent = () => (
     <>
-      {leftIcon && !rightIcon && <ButtonIcon mr={2}>{leftIcon}</ButtonIcon>}
+      {leftIcon && <ButtonIcon mr={2}>{leftIcon}</ButtonIcon>}
       {children}
-      {rightIcon && !leftIcon && <ButtonIcon ml={2}>{rightIcon}</ButtonIcon>}
+      {rightIcon && <ButtonIcon ml={2}>{rightIcon}</ButtonIcon>}
     </>
   );
 
