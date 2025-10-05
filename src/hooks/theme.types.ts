@@ -53,6 +53,7 @@ export interface ThemeProps {
     };
   };
   backoundColor: string;
+  backoundColorLight: string;
   borderColor: string;
   textColor: string;
   card: string;

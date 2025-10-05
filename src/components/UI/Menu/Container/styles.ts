@@ -11,7 +11,7 @@ import {
 
 import type { IMenuStyles } from './types';
 
-export const Container = styled('div')<IMenuStyles>(
+export const Container = styled.div<IMenuStyles>(
   border,
   background,
   flexbox,

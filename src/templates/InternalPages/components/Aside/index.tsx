@@ -48,6 +48,10 @@ export const Aside = () => {
   const [user, loading] = useAuthState(auth);
   const { toggleTheme, theme } = useTheme();
 
+  const [getPathActived, setAthActived] = useState<string>(
+    window.location.pathname
+  );
+
   const [name, setName] = useState<string>('');
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -94,8 +98,8 @@ export const Aside = () => {
         const data = doc.docs[0].data();
         setEmail(data.email);
         setFullName(data.name);
-        const fullname = data.name.split(' ');
-        setName(fullname[0]);
+        const firstName = data.name.split(' ');
+        setName(firstName[0]);
       } catch (err) {
         console.error(err);
         alert('Erro ao acessar os dados do usuário!');
@@ -119,7 +123,7 @@ export const Aside = () => {
 
   return (
     <Container menuIsOpen={toggleMenu}>
-      <section>
+      <UiBox>
         <Header>
           <Logo />
         </Header>
@@ -129,9 +133,8 @@ export const Aside = () => {
             <MenuItem
               key={item.path}
               to={item.path}
-              className={
-                window.location.pathname === item.path ? 'actived' : ''
-              }
+              onClick={() => setAthActived(item.path)}
+              className={getPathActived === item.path ? 'actived' : ''}
               title={item.text}
             >
               {item.icon}
@@ -139,7 +142,7 @@ export const Aside = () => {
             </MenuItem>
           ))}
         </MenuContainer>
-      </section>
+      </UiBox>
 
       <UiFlex flexDirection="column" justifyContent="center">
         <UiButtonGroup

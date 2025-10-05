@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import Card from '../../../components/UI/Card/styles';
+import Card from '@/components/UI/Card/styles';
 
 const animate = keyframes`
   0% {
@@ -70,6 +70,4 @@ export const LegendItem = styled.li`
   &.output:before  {
     background-color: ${(props) => props.theme.general.colors.success};
   }
-
-  @media(max-width: ${(props) => props.theme.general.sizes.medium}) {}
 `;

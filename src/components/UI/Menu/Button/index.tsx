@@ -1,16 +1,17 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useEffect } from 'react';
 
-import type { IUiMenuItem } from './types';
-import { Container } from './styles';
+import { Container as Button } from '@/components/UI/Button/styles';
 
-export const UiMenuItem = ({
+import type { IMenuButtonProps } from './types';
+
+export const UiMenuButton = ({
+  as: As,
   children,
-  icon,
-  onPositionChange,
-  size = 'md',
+  onTogglePosition,
   ...rest
-}: IUiMenuItem) => {
+}: IMenuButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const Element = As || Button;
 
   useEffect(() => {
     const updateMenuPosition = () => {
@@ -18,11 +19,11 @@ export const UiMenuItem = ({
         const { bottom } = buttonRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        if (onPositionChange) {
-          onPositionChange('bottom');
+        if (onTogglePosition) {
+          onTogglePosition('bottom');
 
           if (windowHeight - bottom < 100) {
-            onPositionChange('top');
+            onTogglePosition('top');
           }
         }
       }
@@ -34,18 +35,16 @@ export const UiMenuItem = ({
     return () => {
       window.removeEventListener('resize', updateMenuPosition);
     };
-  }, [onPositionChange]);
+  }, [onTogglePosition]);
 
   return (
-    <Container
-      alignItems="center"
-      display="inline-flex"
-      role="menuitem"
-      size={size}
+    <Element
+      position="relative"
+      onClick={onTogglePosition}
+      ref={buttonRef}
       {...rest}
     >
-      {icon}
-      {children}
-    </Container>
+      <span>{children}</span>
+    </Element>
   );
 };

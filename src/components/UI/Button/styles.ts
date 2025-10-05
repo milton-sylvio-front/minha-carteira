@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { space as spacement } from 'styled-system';
 import { darken, rgba } from 'polished';
 
 import {
@@ -9,7 +10,7 @@ import {
   space,
 } from '@/styles/themes/general';
 
-import type { IButtonProps } from './types';
+import type { IButtonProps, IButtonIcon } from './types';
 
 const VARIANT = {
   primary: css`
@@ -42,11 +43,11 @@ const VARIANT = {
   `,
   ghost: css`
     background-color: transparent;
-    color: ${(props) => props.theme.textColor};
+    color: ${({ theme }) => theme.textColor};
 
     &:hover,
     &:focus {
-      color: ${(props) => rgba(props.theme.textColor, 0.5)};
+      color: ${({ theme }) => rgba(theme.textColor, 0.5)};
     }
   `,
 };
@@ -70,7 +71,6 @@ export const Container = styled.button<IButtonProps>`
   display: flex;
   font-size: ${fontSizes[2]};
   font-weight: ${fontWeights.normal};
-  height: 2.5rem;
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: 1.5;
@@ -80,11 +80,10 @@ export const Container = styled.button<IButtonProps>`
   user-select: none;
   vertical-align: middle;
 
-  ${(props) => props.variant && VARIANT[props.variant]};
-  ${(props) => props.fullWidth && FULL_WIDTH}
-  ${(props) =>
-    props.borderRadius &&
-    `border-radius: ${BORDER_RADIUS[props.borderRadius]}`};
+  ${({ variant }) => variant && VARIANT[variant]};
+  ${({ fullWidth }) => fullWidth && FULL_WIDTH}
+  ${({ borderRadius }) =>
+    borderRadius && `border-radius: ${BORDER_RADIUS[borderRadius]}`};
 
   &[disabled] {
     cursor: not-allowed;
@@ -95,4 +94,10 @@ export const Container = styled.button<IButtonProps>`
       box-shadow: none;
     }
   }
+`;
+
+export const ButtonIcon = styled.span<IButtonIcon>`
+  ${spacement};
+  align-items: center;
+  display: flex;
 `;

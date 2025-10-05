@@ -1,0 +1,38 @@
+export const MOCK_DATA = [
+  {
+    titulo: 'Conta de luz',
+    categoria: 'Casa',
+    data: '10/11/2024',
+    tipo: 'Saída',
+    frequencia: 'Recorrente',
+    valor: 'R$ 5.999,00',
+    situacao: 'PAGA',
+  },
+  {
+    titulo: 'Conserto relógio',
+    categoria: 'Outros',
+    data: '21/11/2024',
+    tipo: 'Saída',
+    frequencia: 'Eventual',
+    valor: 'R$ 127,53',
+    situacao: 'A PAGAR',
+  },
+  {
+    titulo: 'Conta de luz',
+    categoria: 'Casa',
+    data: '10/11/2024',
+    tipo: 'Saída',
+    frequencia: 'Recorrente',
+    valor: 'R$ 5.999,00',
+    situacao: 'PAGA',
+  },
+  {
+    titulo: 'Conserto relógio',
+    categoria: 'Outros',
+    data: '21/11/2024',
+    tipo: 'Saída',
+    frequencia: 'Eventual',
+    valor: 'R$ 127,53',
+    situacao: 'A PAGAR',
+  },
+];

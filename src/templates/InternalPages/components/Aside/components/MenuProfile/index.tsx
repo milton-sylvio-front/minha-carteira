@@ -10,18 +10,22 @@ import {
 import { auth, signOut } from '@/helpers/utils/firebase';
 import { PATHS } from '@/helpers/configs/paths';
 import {
-  UiBox,
   UiDivider,
   UiIconButton,
+  UiMenu,
+  UiMenuButton,
   UiMenuItem,
   UiMenuList,
 } from '@/components/UI';
+import type { IMenuButtonPositionMenu } from '@/components/UI/Menu/Button/types';
 
 const { SIGN_IN } = PATHS;
 
 export const MenuProfile = () => {
   const navigate = useNavigate();
   const [toggleMenuProfile, setToggleMenuProfile] = useState<boolean>(false);
+  const [positionMenu, setPositionMenu] =
+    useState<IMenuButtonPositionMenu>('top');
 
   const handlerMenuProfile = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -40,32 +44,37 @@ export const MenuProfile = () => {
   };
 
   return (
-    <UiBox>
-      <UiIconButton
+    <UiMenu>
+      <UiMenuButton
         aria-label="Menu do perfil"
+        as={UiIconButton}
+        onTogglePosition={() => setPositionMenu(positionMenu)}
         onClick={handlerMenuProfile}
-        isRound
         icon={<MdMoreVert />}
+        variant="ghost"
       />
 
-      <UiMenuList
-        bottom="100%"
-        isOpen={toggleMenuProfile}
-        left="150px"
-        marginBottom="-32px"
-        // onClose={() => handlerMenuClick(false)}
-      >
-        <UiMenuItem icon={<MdPersonOutline />} title="Meu Perfil">
+      <UiMenuList isOpen={toggleMenuProfile} position={positionMenu}>
+        <UiMenuItem icon={<MdPersonOutline />} size="sm" title="Meu Perfil">
           Meu perfil
         </UiMenuItem>
-        <UiMenuItem icon={<MdSettingsSuggest />} title="Configurações">
+        <UiMenuItem
+          icon={<MdSettingsSuggest />}
+          size="sm"
+          title="Configurações"
+        >
           Configurações
         </UiMenuItem>
         <UiDivider />
-        <UiMenuItem icon={<MdExitToApp />} onClick={handleSignOut} title="Sair">
+        <UiMenuItem
+          icon={<MdExitToApp />}
+          size="sm"
+          onClick={handleSignOut}
+          title="Sair"
+        >
           Sair
         </UiMenuItem>
       </UiMenuList>
-    </UiBox>
+    </UiMenu>
   );
 };
