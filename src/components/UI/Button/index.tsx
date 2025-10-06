@@ -29,7 +29,7 @@ export const UiButton = ({
       variant={variant}
       {...rest}
     >
-      {icon}
+      {icon && !isLoading}
       {isLoading ? <Spinner /> : <ButtonContent />}
     </Container>
   );

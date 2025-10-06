@@ -1,20 +1,15 @@
 import styled from 'styled-components';
-import { position, system } from 'styled-system';
+import { position } from 'styled-system';
 import { rgba } from 'polished';
 
 import { bordersRadius, colors } from '@/styles/themes/general';
+import { transform } from '@/helpers/utils/system';
 
 import type { IUiMenuList } from './types';
 
-const customTransform = system({
-  transform: {
-    property: 'transform',
-  },
-});
-
 export const Container = styled.div<IUiMenuList>`
   ${position};
-  ${customTransform}
+  ${transform}
 
   background-color: ${({ theme }) => theme.backoundColor};
   border-radius: ${bordersRadius.normal};
@@ -25,8 +20,8 @@ export const Container = styled.div<IUiMenuList>`
   z-index: 5555;
   left: 0%;
 
-  ${({ position }) => position === 'top' && `bottom: 100%;`};
-  ${({ position }) => position === 'bottom' && `top: 100%;`};
+  ${({ positionMenu }) => positionMenu === 'top' && `bottom: 100%;`};
+  ${({ positionMenu }) => positionMenu === 'bottom' && `top: 100%;`};
 
   > a:first-child {
     border-top-left-radius: ${bordersRadius.normal};

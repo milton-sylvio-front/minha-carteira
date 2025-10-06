@@ -54,6 +54,7 @@ export interface ThemeProps {
   };
   backoundColor: string;
   backoundColorLight: string;
+  backoundColorDark: string;
   borderColor: string;
   textColor: string;
   card: string;

@@ -1,17 +1,13 @@
 import type { HTMLAttributes } from 'react';
 
+import type { TranformProps } from '@/helpers/utils/types';
+
 export type IIMenuListPosition = 'top' | 'bottom';
 
-// export interface IDropdownProps {
-//   buttonText?: string;
-//   children: React.ReactNode;
-//   icon?: React.ReactElement;
-//   isOpen: boolean;
-//   onToggle: () => void;
-// }
-
-export interface IUiMenuList extends HTMLAttributes<HTMLDivElement> {
+export interface IUiMenuList
+  extends TranformProps,
+    HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   isOpen: boolean;
-  position?: IIMenuListPosition;
+  positionMenu?: IIMenuListPosition;
 }

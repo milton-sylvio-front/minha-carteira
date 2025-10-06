@@ -54,7 +54,7 @@ export const MenuProfile = () => {
         variant="ghost"
       />
 
-      <UiMenuList isOpen={toggleMenuProfile} position={positionMenu}>
+      <UiMenuList isOpen={toggleMenuProfile} positionMenu={positionMenu}>
         <UiMenuItem icon={<MdPersonOutline />} size="sm" title="Meu Perfil">
           Meu perfil
         </UiMenuItem>

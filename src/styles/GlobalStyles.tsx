@@ -9,8 +9,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background-color: ${(props) => props.theme.backoundColor};
-    color: ${(props) => props.theme.textColor};
+    background-color: ${({ theme }) => theme.backoundColor};
+    color: ${({ theme }) => theme.textColor};
     font-size: ${fontSizes[2]};
   }
 

@@ -2,23 +2,24 @@ import general from './general';
 
 const mode = 'dark';
 
-const backoundColor = general.colors.blue.dark;
+const backoundColor = general.colors.blue.normal;
 const backoundColorLight = general.colors.blue.light;
+const backoundColorDark = general.colors.blue.dark;
 const textColor = general.colors.white;
-const borderColor = general.colors.blue.light;
+const borderColor = backoundColorLight;
 
 // COMPONENTES
-const card = general.colors.blue.light;
+const card = backoundColorLight;
 const scrollbar = {
-  thumb: general.colors.blue.light,
-  track: general.colors.blue.normal,
+  thumb: backoundColorLight,
+  track: backoundColor,
 };
-const dropdown = general.colors.blue.normal;
-const aside = general.colors.blue.normal;
-const header = general.colors.blue.normal;
+const dropdown = backoundColor;
+const aside = backoundColorLight;
+const header = backoundColor;
 const input = {
-  borderColor: general.colors.blue.light,
-  bg: general.colors.blue.dark,
+  borderColor: backoundColorLight,
+  bg: backoundColorDark,
   color: general.colors.white,
 };
 
@@ -26,6 +27,7 @@ const dark = {
   aside,
   backoundColor,
   backoundColorLight,
+  backoundColorDark,
   borderColor,
   card,
   dropdown,

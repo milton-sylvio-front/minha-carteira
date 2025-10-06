@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import {
-  MdArrowDownward,
-  MdArrowUpward,
   MdArticle,
+  MdCategory,
   MdDashboard,
-  MdNoteAdd,
   MdOutlineWbSunny,
 } from 'react-icons/md';
 import { FiMoon } from 'react-icons/fi';
@@ -41,7 +39,7 @@ import { getFirstAndLastLettersOfName } from './utils';
 
 import { MenuProfile } from './components/MenuProfile';
 
-const { DASHBOARD, ENTRY, NEW_REGISTER, OUTPUT, TRANSACTIONS } = PATHS;
+const { DASHBOARD, CATEGORIES, TRANSACTIONS } = PATHS;
 
 export const Aside = () => {
   const { toggleMenu } = useMenuMobile();
@@ -66,24 +64,14 @@ export const Aside = () => {
       icon: <MdDashboard />,
     },
     {
-      path: NEW_REGISTER.url,
-      text: NEW_REGISTER.title,
-      icon: <MdNoteAdd />,
-    },
-    {
-      path: ENTRY.url,
-      text: ENTRY.title,
-      icon: <MdArrowUpward />,
-    },
-    {
-      path: OUTPUT.url,
-      text: OUTPUT.title,
-      icon: <MdArrowDownward />,
-    },
-    {
       path: TRANSACTIONS.url,
       text: TRANSACTIONS.title,
       icon: <MdArticle />,
+    },
+    {
+      path: CATEGORIES.url,
+      text: CATEGORIES.title,
+      icon: <MdCategory />,
     },
   ];
 

@@ -2,7 +2,6 @@ import { Route, Routes as Switch } from 'react-router-dom';
 
 import Dashboard from '@/views/Dashboard';
 import List from '@/views/List';
-import NewRegister from '@/views/NewRegister';
 import SignIn from '@/views/SignIn';
 import SignUp from '@/views/SignUp';
 import RecoveryPassword from '@/views/RecoveryPassword';
@@ -15,8 +14,7 @@ import { PrivateRoute } from './PrivateRoute';
 const {
   DASHBOARD,
   HOME,
-  LISTING,
-  NEW_REGISTER,
+  CATEGORIES,
   RECOVERY_PASSWORD,
   SIGN_IN,
   SIGN_UP,
@@ -27,8 +25,7 @@ const Routes = () => (
   <Switch>
     <Route path={HOME.url} element={<PrivateRoute />}>
       <Route path={DASHBOARD.url} element={<Dashboard />} />
-      <Route path={LISTING.url} element={<List />} />
-      <Route path={NEW_REGISTER.url} element={<NewRegister />} />
+      <Route path={CATEGORIES.url} element={<List />} />
       <Route path={TRANSACTIONS.url} element={<Transactions />} />
     </Route>
     <Route path={SIGN_IN.url} Component={SignIn} />

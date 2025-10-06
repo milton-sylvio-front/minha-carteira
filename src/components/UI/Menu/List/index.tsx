@@ -6,7 +6,7 @@ import { Container } from './styles';
 export const UiMenuList = ({
   children,
   isOpen,
-  position = 'bottom',
+  positionMenu = 'bottom',
   ...rest
 }: IUiMenuList) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -32,7 +32,7 @@ export const UiMenuList = ({
       <Container
         id="menu-list"
         ref={ref}
-        position={position}
+        positionMenu={positionMenu}
         isOpen={isOpen}
         {...rest}
       >

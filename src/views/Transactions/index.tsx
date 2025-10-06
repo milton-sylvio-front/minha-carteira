@@ -23,6 +23,7 @@ import {
   UiMenuButton,
   UiMenuItem,
   UiMenuList,
+  UiModal,
 } from '@/components/UI';
 import type { IMenuButtonPositionMenu } from '@/components/UI/Menu/Button/types';
 
@@ -30,6 +31,8 @@ import { Table, Th, Td } from './styles';
 import { MOCK_DATA } from './mock';
 
 export const Transactions = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   const [positionMenu, setPositionMenu] =
     useState<IMenuButtonPositionMenu>('bottom');
@@ -56,7 +59,11 @@ export const Transactions = () => {
             <UiButton leftIcon={<MdSort />} variant="outline">
               Ordenar
             </UiButton>
-            <UiButton variant="primary" leftIcon={<MdOutlineAdd />}>
+            <UiButton
+              variant="primary"
+              leftIcon={<MdOutlineAdd />}
+              onClick={() => setOpenModal(true)}
+            >
               Adicionar nova
             </UiButton>
           </UiBox>
@@ -107,7 +114,8 @@ export const Transactions = () => {
 
                     <UiMenuList
                       isOpen={openDropdownIdx === idx}
-                      position={positionMenu}
+                      positionMenu={positionMenu}
+                      transform="translate(-85%)"
                     >
                       <UiMenuItem icon={<MdCheck />} size="sm" title="Efetivar">
                         Efetivar
@@ -127,6 +135,12 @@ export const Transactions = () => {
           </tbody>
         </Table>
       </UiBox>
+
+      <UiModal isOpen={openModal} onClose={() => setOpenModal(false)}>
+        <h2>Título do Modal</h2>
+        <p>Conteúdo do modal aqui.</p>
+        <button onClick={() => setOpenModal(false)}>Fechar</button>
+      </UiModal>
     </>
   );
 };
