@@ -1,7 +1,13 @@
 import { Container } from './styles';
 
-import type { ButtonGroupProps } from './types';
+import type { IButtonGroupProps } from './types';
 
-export const UiButtonGroup = ({ children, className }: ButtonGroupProps) => (
-  <Container className={className}>{children}</Container>
+export const UiButtonGroup = ({
+  children,
+  fullWidth = false,
+  ...rest
+}: IButtonGroupProps) => (
+  <Container fullWidth={fullWidth} {...rest}>
+    {children}
+  </Container>
 );

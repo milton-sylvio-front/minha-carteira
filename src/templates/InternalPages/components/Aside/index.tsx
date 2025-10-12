@@ -134,15 +134,15 @@ export const Aside = () => {
 
       <UiFlex flexDirection="column" justifyContent="center">
         <UiButtonGroup
+          aria-label="Seleção de tema"
           className="btn-group-toggle"
           role="group"
-          aria-label="Basic outlined example"
         >
           <UiRadioButton
             name="myRadioGroup"
+            onChange={handleChangeTheme}
             options={themeOptions}
             selectedValue={getTheme}
-            onChange={handleChangeTheme}
           />
         </UiButtonGroup>
 

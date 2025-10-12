@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+
+import { bordersRadius } from '@/styles/themes/general';
+
 import type { ISkeleton } from './types';
 
 import {
@@ -8,15 +11,13 @@ import {
 
 export const Skeleton = styled.div<ISkeleton>`
   background-clip: padding-box;
-  border-radius: ${(props) => props.theme.general.bordersRadius.normal};
+  border-radius: ${bordersRadius.normal};
   box-shadow: none;
   flex-shrink: 0;
+  height: ${({ height }) => height};
   pointer-events: none;
   user-select: none;
-  height: ${(props) => props.height};
-  width: ${(props) => props.width};
-  ${(props) =>
-    props.variant === 'pulse'
-      ? SkeletonAnimationPulse
-      : SkeletonAnimationShine};
+  width: ${({ width }) => width};
+  ${({ variant }) =>
+    variant === 'pulse' ? SkeletonAnimationPulse : SkeletonAnimationShine};
 `;

@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes/general';
 
-export const Container = styled.div`
+import type { IButtonGroupProps } from './types';
+
+export const Container = styled.div<IButtonGroupProps>`
   display: inline-flex;
   justify-content: space-evenly;
   gap: 0;
+
+  ${({ fullWidth }) => fullWidth && `width: 100%;`}
 
   &.btn-group-toggle {
     border-radius: 0.25rem;

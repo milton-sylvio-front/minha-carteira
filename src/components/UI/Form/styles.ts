@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { rgba, math } from 'polished';
 
+import { colors, fontSizes, space, sizes } from '@/styles/themes/general';
+
 export const FormContainer = styled.div`
   display: flex;
   justify-content: space-around;
@@ -19,7 +21,7 @@ export const FormContainer = styled.div`
     align-items: flex-end;
   }
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
+  @media (max-width: ${sizes.small}) {
     flex-direction: column;
 
     > div {
@@ -29,32 +31,30 @@ export const FormContainer = styled.div`
 `;
 
 export const FormGroup = styled.div`
-  padding: ${(props) => props.theme.general.space[0]}
-    ${(props) => props.theme.general.space[1]};
-  margin-bottom: ${(props) => props.theme.general.space[3]};
+  margin-bottom: ${space[3]};
   width: 100%;
 `;
 
 export const FormErrorMessage = styled.div`
-  color: ${(props) => props.theme.general.colors.danger};
-  font-size: ${(props) => props.theme.general.fontSizes[0]};
-  margin-top: ${(props) => props.theme.general.space[1]};
+  color: ${colors.danger};
+  font-size: ${fontSizes[0]};
+  margin-top: ${space[1]};
 `;
 
 export const FormLabel = styled.label`
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${(props) => props.theme.general.space[1]};
+  margin-bottom: ${space[1]};
 
   small {
-    color: ${(props) => rgba(props.theme.textColor, 0.7)};
+    color: ${({ theme }) => rgba(theme.textColor, 0.7)};
     cursor: pointer;
-    font-size: ${(props) => math(`${props.theme.general.fontSizes[0]} - 2`)};
+    font-size: ${math(`${fontSizes[0]} - 2`)};
     text-transform: uppercase;
 
     &:hover {
-      color: ${(props) => props.theme.general.colors.primary};
+      color: ${colors.primary};
     }
   }
 `;

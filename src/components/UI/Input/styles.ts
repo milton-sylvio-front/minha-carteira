@@ -36,8 +36,8 @@ export const Container = styled.div<IInputStylesProps>`
     display: inline-block;
     font-size: ${fontSizes[1]};
     height: 40px;
-    padding-left: ${space[1]};
-    padding-right: ${space[1]};
+    padding-inline-start: ${space[4]};
+    padding-inline-end: ${space[4]};
     transition:
       border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
@@ -49,7 +49,7 @@ export const Container = styled.div<IInputStylesProps>`
       color: ${({ theme }) => theme.input.color};
     }
 
-    ::-webkit-calendar-picker-indicator {
+    &[type='date']::-webkit-calendar-picker-indicator {
       filter: invert(${({ theme }) => (theme.mode === 'dark' ? 1 : '50%')});
     }
 

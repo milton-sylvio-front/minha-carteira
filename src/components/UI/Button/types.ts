@@ -4,6 +4,7 @@ import type { SpaceProps } from 'styled-system';
 export interface IButtonIcon extends SpaceProps {}
 
 export type IButtonBorderRadiusSizes = 'sm' | 'md' | 'lg' | 'full';
+export type IButtonSizes = 'sm' | 'md' | 'lg';
 export type IButtonVariants = 'primary' | 'secondary' | 'outline' | 'ghost';
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -15,4 +16,5 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   leftIcon?: React.ReactElement;
   isLoading?: boolean;
   variant?: IButtonVariants;
+  size?: IButtonSizes;
 }

@@ -19,7 +19,7 @@ export { UiIconButton } from './IconButton';
 export { UiInput } from './Input';
 export { UiLoading } from './Loading';
 export * from './Menu';
-export { UiModal } from './Modal';
+export * from './Modal';
 export { UiRadioButton } from './RadioButton';
 export * from './Skeleton';
 export { UiToggleSwitch } from './ToggleSwitch';

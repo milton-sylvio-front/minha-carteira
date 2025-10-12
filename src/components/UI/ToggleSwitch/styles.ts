@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+import {
+  bordersRadius,
+  colors,
+  fontSizes,
+  sizes,
+  space,
+} from '@/styles/themes/general';
+
 export const Container = styled.div`
   align-items: center;
   display: flex;
@@ -7,17 +15,17 @@ export const Container = styled.div`
 `;
 
 export const ToggleSwitchLabel = styled.span`
-  font-size: ${(props) => props.theme.general.fontSizes[1]};
+  font-size: ${fontSizes[1]};
 
-  @media (max-width: ${(props) => props.theme.general.sizes.small}) {
-    font-size: ${(props) => props.theme.general.fontSizes[0]};
+  @media (max-width: ${sizes.small}) {
+    font-size: ${fontSizes[0]};
   }
 `;
 
 export const ToggleSwitchContainer = styled.label`
   display: inline-block;
   height: 14px;
-  margin: 0 10px;
+  margin: ${space[0]} ${space[3]} ${space[0]} ${space[0]};
   position: relative;
   width: 40px;
 
@@ -29,7 +37,7 @@ export const ToggleSwitchContainer = styled.label`
 `;
 
 export const ToggleSwitchSpan = styled.span`
-  background-color: ${(props) => props.theme.general.colors.primary};
+  background-color: ${({ theme }) => theme.backoundColorDark};
   border-radius: 20px;
   bottom: 0;
   cursor: pointer;
@@ -40,13 +48,13 @@ export const ToggleSwitchSpan = styled.span`
   transition: 0.4s;
 
   &:before {
-    background-color: ${(props) => props.theme.general.colors.white};
-    border-radius: ${(props) => props.theme.general.bordersRadius.rounded};
+    background-color: ${colors.white};
+    border-radius: ${bordersRadius.rounded};
     bottom: -3px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.45);
     content: '';
     height: 20px;
-    left: 2px;
+    left: 0;
     position: absolute;
     transition: 0.4s;
     width: 20px;
@@ -55,7 +63,7 @@ export const ToggleSwitchSpan = styled.span`
 
 export const ToggleSwitchInput = styled.input`
   &:checked + .switch-slider {
-    background-color: ${(props) => props.theme.general.colors.secondary};
+    background-color: ${colors.primary};
 
     &:before {
       transform: translateX(20px);

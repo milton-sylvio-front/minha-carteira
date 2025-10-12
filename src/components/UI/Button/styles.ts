@@ -12,7 +12,7 @@ import {
 
 import type { IButtonProps, IButtonIcon } from './types';
 
-const VARIANT = {
+const VARIANTS = {
   primary: css`
     background-color: ${colors.primary};
     color: ${colors.white};
@@ -52,38 +52,50 @@ const VARIANT = {
   `,
 };
 
-const BORDER_RADIUS = {
+const BORDERS_RADIUS = {
   sm: bordersRadius.small,
   md: bordersRadius.normal,
   lg: bordersRadius.large,
   full: bordersRadius.rounded,
 };
 
-const FULL_WIDTH = css`
-  text-align: center;
-  width: 100%;
-`;
+const SIZES = {
+  sm: css`
+    font-size: ${fontSizes[0]};
+    padding: ${space[1]} ${space[3]};
+  `,
+  md: css`
+    font-size: ${fontSizes[2]};
+    padding: ${space[2]} ${space[5]};
+  `,
+  lg: css`
+    font-size: ${fontSizes[3]};
+    padding: ${space[3]} ${space[6]};
+  `,
+};
 
-export const Container = styled.button<IButtonProps>`
+export const Container = styled.button<Partial<IButtonProps>>`
   align-items: center;
   border-radius: ${bordersRadius.normal};
   border: 1px solid transparent;
   display: flex;
-  font-size: ${fontSizes[2]};
+
   font-weight: ${fontWeights.normal};
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: 1.5;
-  padding: ${space[2]} ${space[5]};
+
   text-align: center;
   transition: all 0.15s ease-in-out;
   user-select: none;
   vertical-align: middle;
 
-  ${({ variant }) => variant && VARIANT[variant]};
-  ${({ fullWidth }) => fullWidth && FULL_WIDTH}
+  ${({ variant }) => variant && VARIANTS[variant]};
+  ${({ fullWidth }) => fullWidth && `width: 100%;`}
   ${({ borderRadius }) =>
-    borderRadius && `border-radius: ${BORDER_RADIUS[borderRadius]}`};
+    borderRadius && `border-radius: ${BORDERS_RADIUS[borderRadius]}`};
+
+  ${({ size }) => size && SIZES[size]};
 
   &[disabled] {
     cursor: not-allowed;

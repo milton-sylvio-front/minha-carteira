@@ -1,6 +1,6 @@
 import type { ReactNode, HTMLAttributes } from 'react';
 
-export interface ButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
+export interface IButtonGroupProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
-  className?: string;
+  fullWidth?: boolean;
 }

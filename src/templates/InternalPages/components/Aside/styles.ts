@@ -23,7 +23,7 @@ export const Container = styled.aside<IContainerProps>`
   grid-area: AS;
   height: 100vh;
   justify-content: space-between;
-  max-width: 250px;
+  max-width: 225px;
   z-index: 1;
 
   @media (max-width: ${sizes.small}) {
@@ -81,17 +81,17 @@ export const MenuItem = styled(Link)`
 
   &:hover {
     background-color: ${({ theme }) => darken(0.05, theme.aside)};
-    padding-left: 20px;
+    padding-left: ${space[5]};
     text-decoration: none;
   }
 
   &.actived {
     background-color: ${colors.primary};
-    color: ${({ theme }) => theme.textColor};
-  }
+    color: ${colors.white};
 
-  &.actived:hover {
-    padding-left: ${space[3]};
+    &:hover {
+      padding-left: ${space[3]};
+    }
   }
 
   > svg {

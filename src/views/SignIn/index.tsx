@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { MdEmail, MdLock } from 'react-icons/md';
 import { useNavigate, Link } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import {
   FormErrorMessage,
@@ -55,7 +56,7 @@ const SignIn = () => {
     }
   };
 
-  const inputPassw = (field) => (
+  const inputPassw = (field: FieldValues) => (
     <UiInput
       className={errors?.password && 'error'}
       icon={MdLock}
@@ -65,7 +66,7 @@ const SignIn = () => {
     />
   );
 
-  const inputEmail = (field) => (
+  const inputEmail = (field: FieldValues) => (
     <UiInput className={errors?.email && 'error'} icon={MdEmail} {...field} />
   );
 

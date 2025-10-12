@@ -2,6 +2,7 @@ import type { IRadioButtonProps } from './types';
 import { Label, Radio } from './styles';
 
 export const UiRadioButton = ({
+  disabled = false,
   name,
   options,
   selectedValue,
@@ -16,7 +17,7 @@ export const UiRadioButton = ({
     <>
       {options.map((option, i) => (
         <Label
-          className={`${size} ${selectedValue === option.value ? 'active' : ''}`}
+          className={`${disabled && 'disabled'} ${size} ${selectedValue === option.value ? 'active' : ''}`}
           key={i}
         >
           <Radio

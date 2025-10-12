@@ -6,12 +6,14 @@ export const Label = styled.label`
   border-radius: inherit;
   cursor: pointer;
   display: flex;
+  justify-content: center;
   margin: 0 0.125rem;
   padding: ${space[2]} ${space[3]};
   transition:
     color 0.15s ease-in-out,
     background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
+  width: 100%;
 
   &.sm {
     font-size: ${fontSizes[1]};
@@ -34,6 +36,14 @@ export const Label = styled.label`
       color 0.15s ease-in-out,
       background-color 0.15s ease-in-out,
       border-color 0.15s ease-in-out;
+
+    &.disabled {
+      background-color: ${({ theme }) => theme.backoundColorDark};
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
   }
 
   > svg {

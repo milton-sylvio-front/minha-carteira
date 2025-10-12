@@ -1,20 +1,28 @@
 import { initializeApp } from 'firebase/app';
 import {
-  getAuth,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
+  getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 import {
-  getFirestore,
-  query,
-  getDocs,
-  collection,
-  where,
   addDoc,
+  collection,
+  doc,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  startAfter,
+  endBefore,
+  where,
+  DocumentSnapshot,
+  getCountFromServer,
 } from 'firebase/firestore';
 
 import firebaseConfig from '../../helpers/configs/firebase.config';
@@ -24,17 +32,25 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export {
-  auth,
-  getAuth,
-  db,
   addDoc,
+  auth,
   collection,
   createUserWithEmailAndPassword,
+  DocumentSnapshot,
+  db,
+  doc,
+  getAuth,
   getDocs,
+  getCountFromServer,
+  limit,
   onAuthStateChanged,
+  orderBy,
   query,
   sendPasswordResetEmail,
+  setDoc,
   signInWithEmailAndPassword,
   signOut,
+  startAfter,
+  endBefore,
   where,
 };
