@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
+  MdArrowForwardIos,
+  MdArrowBackIos,
   MdMoreVert,
   MdCheck,
   MdEdit,
@@ -31,21 +34,28 @@ import formatDate from '@/helpers/utils/formatDate';
 
 import { Modal } from './components/Modal';
 import { PageLoading } from './components/PageLoading';
-import { useTransactions } from './hooks/useTransactions';
+// import { useTransactions } from './hooks/useTransactions';
 import { usePaginatedQueryWithUrl } from './hooks/usePaginatedQueryWithUrl';
 
 import { TRANSACTIONS_ARR, TITLES_TABLE } from './utils/arrays';
 
 import { Table, Th, Td } from './styles';
 
+import { PAGE_SIZE } from './utils/constants';
+import { formatNumberPage, isObjectEmpty } from './utils/utils';
+
 export const Transactions = () => {
-  const { get, error } = useTransactions();
-  const { data, loadingPage, nextPage, previousPage, page, totalItems } =
-    usePaginatedQueryWithUrl({
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { data, loadingPage, fetchPage, totalItems } = usePaginatedQueryWithUrl(
+    {
       orderField: 'created',
       orderDirection: 'desc',
-      pageSize: 10,
-    });
+      pageSize: PAGE_SIZE,
+    }
+  );
+
+  const page = Number(searchParams.get('pagina')) || 1;
 
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -53,15 +63,25 @@ export const Transactions = () => {
   const [positionMenu, setPositionMenu] =
     useState<IMenuButtonPositionMenu>('bottom');
 
-  useEffect(() => {
-    get();
-  }, [get]);
+  const setPage = (p: number) => setSearchParams({ pagina: String(p + 1) });
+  const nextPage = () => setSearchParams({ pagina: String(page + 1) });
+  const previousPage = () =>
+    page > 1 && setSearchParams({ pagina: String(page - 1) });
 
   useEffect(() => {
-    if (updateList) get();
-  }, [get, updateList]);
+    fetchPage(page);
+    // eslint-disable-next-line
+  }, [page]);
 
-  console.log('Transactions > get > data:', data);
+  useEffect(() => {
+    if (updateList) fetchPage(1);
+    // eslint-disable-next-line
+  }, [page, updateList]);
+
+  const isLastPage = page * PAGE_SIZE >= totalItems;
+  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+
+  console.log('data:', data);
 
   const setType = (type: string) => {
     const getType = TRANSACTIONS_ARR.types
@@ -78,6 +98,8 @@ export const Transactions = () => {
   };
 
   const getActions = (status: boolean) => setUpdateList(status);
+
+  const getPage = Number(searchParams.get('pagina')) || 1;
 
   return (
     <>
@@ -115,97 +137,133 @@ export const Transactions = () => {
               </UiBox>
             </UiFlex>
 
-            <Table>
-              <thead>
-                <tr>
-                  {TITLES_TABLE.map((title, i) => (
-                    <Th key={i}>{title}</Th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, idx) => (
-                  <tr key={item.id}>
-                    <Td>{item.description}</Td>
-                    <Td>{item.created}</Td>
-                    <Td>{formatDate(item.date)}</Td>
-                    <Td>{setType(item.type)}</Td>
-                    <Td>{setFrequency(item.frequency)}</Td>
-                    <Td>{formatCurrency(item.amount)}</Td>
-                    <Td>
-                      <UiBadge
-                        colorType={item.paid ? 'success' : 'danger'}
-                        size="sm"
-                      >
-                        {item.paid ? 'PAGA' : 'A PAGAR'}
-                      </UiBadge>
-                    </Td>
-                    <Td>
-                      <UiMenu>
-                        <UiMenuButton
-                          aria-label={item.description}
-                          as={UiIconButton}
-                          onTogglePosition={() => setPositionMenu(positionMenu)}
-                          onClick={() =>
-                            setOpenDropdownIdx(
-                              openDropdownIdx === idx ? null : idx
-                            )
-                          }
-                          icon={<MdMoreVert />}
-                          variant="ghost"
-                        />
-
-                        <UiMenuList
-                          isOpen={openDropdownIdx === idx}
-                          positionMenu={positionMenu}
-                          transform="translate(-85%)"
-                        >
-                          <UiMenuItem
-                            icon={<MdCheck />}
-                            size="sm"
-                            title="Efetivar"
-                          >
-                            Efetivar
-                          </UiMenuItem>
-                          <UiMenuItem
-                            icon={<MdEdit />}
-                            size="sm"
-                            title="Editar"
-                          >
-                            Editar
-                          </UiMenuItem>
-                          <UiDivider />
-                          <UiMenuItem
-                            icon={<MdDelete />}
-                            size="sm"
-                            title="Apagar"
-                          >
-                            Apagar
-                          </UiMenuItem>
-                        </UiMenuList>
-                      </UiMenu>
-                    </Td>
+            {isObjectEmpty(data) ? (
+              <h2>Não há dados no momento</h2>
+            ) : (
+              <Table>
+                <thead>
+                  <tr>
+                    {TITLES_TABLE.map((title, i) => (
+                      <Th key={i}>{title}</Th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </Table>
+                </thead>
+                <tbody>
+                  {data.map((item, idx) => (
+                    <tr key={item.id}>
+                      <Td>{item.description}</Td>
+                      <Td>{item.created}</Td>
+                      <Td>{formatDate(item.date)}</Td>
+                      <Td>{setType(item.type)}</Td>
+                      <Td>{setFrequency(item.frequency)}</Td>
+                      <Td>{formatCurrency(item.amount)}</Td>
+                      <Td>
+                        <UiBadge
+                          colorType={item.paid ? 'success' : 'danger'}
+                          size="sm"
+                        >
+                          {item.paid ? 'PAGA' : 'A PAGAR'}
+                        </UiBadge>
+                      </Td>
+                      <Td>
+                        <UiMenu>
+                          <UiMenuButton
+                            aria-label={item.description}
+                            as={UiIconButton}
+                            onTogglePosition={() =>
+                              setPositionMenu(positionMenu)
+                            }
+                            onClick={() =>
+                              setOpenDropdownIdx(
+                                openDropdownIdx === idx ? null : idx
+                              )
+                            }
+                            icon={<MdMoreVert />}
+                            variant="ghost"
+                          />
 
-            <UiBox
-              display="flex"
-              alignItems="center"
-              gridGap={2}
-              justifyContent="flex-end"
-              mb={4}
-              mt={2}
-            >
-              <UiButton size="sm" onClick={previousPage} disabled={page <= 1}>
-                Anterior
-              </UiButton>
-              <UiButton size="sm" onClick={nextPage}>
-                Próxima
-              </UiButton>
-              <small>Total: {totalItems}</small>
-            </UiBox>
+                          <UiMenuList
+                            isOpen={openDropdownIdx === idx}
+                            positionMenu={positionMenu}
+                            transform="translate(-85%)"
+                          >
+                            <UiMenuItem
+                              icon={<MdCheck />}
+                              size="sm"
+                              title="Efetivar"
+                            >
+                              Efetivar
+                            </UiMenuItem>
+                            <UiMenuItem
+                              icon={<MdEdit />}
+                              size="sm"
+                              title="Editar"
+                            >
+                              Editar
+                            </UiMenuItem>
+                            <UiDivider />
+                            <UiMenuItem
+                              icon={<MdDelete />}
+                              size="sm"
+                              title="Apagar"
+                            >
+                              Apagar
+                            </UiMenuItem>
+                          </UiMenuList>
+                        </UiMenu>
+                      </Td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            )}
+
+            {!isObjectEmpty(data) && (
+              <UiBox
+                display="flex"
+                alignItems="center"
+                gridGap={2}
+                justifyContent="flex-end"
+                mb={4}
+                mt={2}
+              >
+                <UiButton
+                  disabled={page <= 1}
+                  leftIcon={<MdArrowBackIos />}
+                  onClick={previousPage}
+                  size="sm"
+                  title="Anterior"
+                >
+                  Anterior
+                </UiButton>
+
+                {new Array(totalPages).fill(null).map((items, idx) => (
+                  <UiButton
+                    key={items + idx}
+                    disabled={getPage === formatNumberPage(idx)}
+                    onClick={() => setPage(idx)}
+                    title={`Página ${formatNumberPage(idx)}`}
+                    variant={
+                      getPage === formatNumberPage(idx) ? 'primary' : 'outline'
+                    }
+                    size="sm"
+                  >
+                    {formatNumberPage(idx)}
+                  </UiButton>
+                ))}
+
+                <UiButton
+                  disabled={isLastPage}
+                  onClick={nextPage}
+                  rightIcon={<MdArrowForwardIos />}
+                  size="sm"
+                  title="Próxima"
+                >
+                  Próxima
+                </UiButton>
+                <small>Total: {totalItems}</small>
+              </UiBox>
+            )}
           </UiBox>
         </>
       )}

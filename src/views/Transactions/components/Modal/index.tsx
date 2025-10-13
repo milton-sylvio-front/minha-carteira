@@ -32,7 +32,7 @@ export interface IProps extends Partial<IModalProps> {
 }
 
 export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
-  const btnCancelRef = useRef(null);
+  const btnCancelRef = useRef<HTMLButtonElement>(null);
   const [paid, setPaid] = useState<boolean>(false);
   const [types, setTypes] = useState<string>(TRANSACTIONS_ARR.types[0].value);
   const [frequencies, setFrequencies] = useState<string>(
@@ -57,10 +57,11 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
         paid: false,
       });
 
+      onSuccess(true);
+
       setTimeout(() => {
-        onSuccess(true);
         if (btnCancelRef.current) {
-          btnCancelRef?.current?.click();
+          btnCancelRef.current.click();
         }
       }, 2500);
     }

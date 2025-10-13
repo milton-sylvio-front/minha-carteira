@@ -50,7 +50,5 @@ export const insertFinancialRegister = async (data: IDataTransactionsProps) => {
     ...data,
   });
 
-  console.log('insertFinancialRegister > id:', id);
-
   return id;
 };

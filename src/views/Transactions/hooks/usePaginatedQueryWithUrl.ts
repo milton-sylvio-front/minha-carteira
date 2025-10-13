@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import {
@@ -31,9 +30,7 @@ export function usePaginatedQueryWithUrl({
 }: UsePaginatedQueryParams) {
   const cursors = useRef<Map<number, DocumentSnapshot | null>>(new Map());
   const [user, loading] = useAuthState(auth);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = Number(searchParams.get('page')) || 1;
   const setCollection = collection(db, COLLECTION_NAME);
   const setCondition = where('userId', '==', user?.uid);
   const setOrderBy = orderBy(orderField, orderDirection);
@@ -47,6 +44,24 @@ export function usePaginatedQueryWithUrl({
     setLoading(true);
 
     if (!loading) {
+      const all = query(setCollection, setCondition);
+      const totals = await getCountFromServer(all);
+      setTotalItems(totals.data().count);
+
+      const totalPages = Math.ceil(totals.data().count / pageSize);
+
+      console.log('totalItems:', totalItems);
+      console.log('targetPage:', targetPage);
+      console.log('totalPages:', totalPages);
+
+      // if (targetPage > totalPages) {
+      //   setTotalItems(0);
+      //   setData([]);
+      //   setLoading(false);
+
+      //   return;
+      // }
+
       let q;
       if (targetPage === 1) {
         q = query(setCollection, setCondition, /*setOrderBy,*/ setLimitPerPage);
@@ -55,7 +70,7 @@ export function usePaginatedQueryWithUrl({
         q = query(
           setCollection,
           setCondition,
-          // setOrderBy,
+          setOrderBy,
           startAfter(cursor!),
           setLimitPerPage
         );
@@ -69,50 +84,14 @@ export function usePaginatedQueryWithUrl({
         snapshot.docs[snapshot.docs.length - 1] || null
       );
 
-      const qt = query(setCollection, setCondition);
-      const items = await getCountFromServer(qt);
-      setTotalItems(items.data().count);
-
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchPage(page);
-    // eslint-disable-next-line
-  }, [page, orderField, orderDirection, pageSize]);
-
-  const nextPage = () => setSearchParams({ p: String(page + 1) });
-  const previousPage = () =>
-    page > 1 && setSearchParams({ page: String(page - 1) });
-
-  return { data, loadingPage, nextPage, previousPage, page, totalItems };
+  return {
+    data,
+    loadingPage,
+    totalItems,
+    fetchPage,
+  };
 }
-
-// Uso no componente
-// function MyComponent() {
-//   const { data, loading, nextPage, previousPage, page } =
-//     usePaginatedQueryWithUrl({
-//       db,
-//       collectionName: 'posts',
-//       orderField: 'createdAt',
-//       orderDirection: 'desc',
-//       pageSize: 10,
-//     })
-
-//   return (
-//     <div>
-//       <h2>Página {page}</h2>
-//       {loading && <p>Carregando...</p>}
-//       <ul>
-//         {data.map((item) => (
-//           <li key={item.id}>{item.title}</li>
-//         ))}
-//       </ul>
-//       <button onClick={previousPage} disabled={page <= 1}>
-//         Anterior
-//       </button>
-//       <button onClick={nextPage}>Próxima</button>
-//     </div>
-//   )
-// }

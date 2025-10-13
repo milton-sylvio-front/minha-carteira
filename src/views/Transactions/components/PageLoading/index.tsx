@@ -2,7 +2,7 @@ import { UiBox, UiFlex, UiSkeleton } from '@/components/UI';
 
 export const PageLoading = () => (
   <UiBox>
-    <UiSkeleton width="180px" height="37px" />
+    <UiSkeleton width="220px" height="37px" />
     <UiFlex alignItems="center" justifyContent="space-between" mb={4} mt={4}>
       <UiSkeleton width="350px" height="40px" />
 
@@ -16,7 +16,7 @@ export const PageLoading = () => (
     <table>
       <thead>
         <tr>
-          {[0, 1, 2, 3, 4, 5, 6].map((i) => (
+          {new Array(7).fill(null).map((i) => (
             <th key={i}>
               <UiSkeleton width="50%" height="20px" />
             </th>
@@ -26,10 +26,9 @@ export const PageLoading = () => (
     </table>
 
     <UiBox display="grid" gridGap={2} gridAutoFlow="row">
-      <UiSkeleton width="100%" height="46px" />
-      <UiSkeleton width="100%" height="46px" />
-      <UiSkeleton width="100%" height="46px" />
-      <UiSkeleton width="100%" height="46px" />
+      {new Array(3).fill(null).map((i) => (
+        <UiSkeleton key={i} width="100%" height="46px" />
+      ))}
     </UiBox>
   </UiBox>
 );

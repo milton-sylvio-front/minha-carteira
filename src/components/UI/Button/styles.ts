@@ -62,11 +62,11 @@ const BORDERS_RADIUS = {
 const SIZES = {
   sm: css`
     font-size: ${fontSizes[0]};
-    padding: ${space[1]} ${space[3]};
+    padding: ${space[1]} ${space[2]};
   `,
   md: css`
     font-size: ${fontSizes[2]};
-    padding: ${space[2]} ${space[5]};
+    padding: ${space[2]} ${space[4]};
   `,
   lg: css`
     font-size: ${fontSizes[3]};
@@ -79,12 +79,10 @@ export const Container = styled.button<Partial<IButtonProps>>`
   border-radius: ${bordersRadius.normal};
   border: 1px solid transparent;
   display: flex;
-
   font-weight: ${fontWeights.normal};
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: 1.5;
-
   text-align: center;
   transition: all 0.15s ease-in-out;
   user-select: none;
