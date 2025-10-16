@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import { bordersRadius, sizes, space } from '@/styles/themes/general';
 
 export const Container = styled.main`
   grid-area: CT;
   height: 100vh;
   overflow-y: auto;
-  padding: ${(props) => props.theme.general.space[7]};
+  padding: ${space[7]} ${space[7]} ${space[7]} ${space[1]};
   position: relative;
   z-index: 1;
 
@@ -14,24 +15,25 @@ export const Container = styled.main`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.scrollbar.thumb};
-    border-radius: ${(props) => props.theme.general.bordersRadius.large};
-  }
-  ::-webkit-scrollbar-track {
-    background-color: ${(props) => props.theme.scrollbar.track};
+    background-color: ${({ theme }) => theme.scrollbar.thumb};
+    border-radius: ${bordersRadius.large};
   }
 
-  @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
-    padding: ${(props) => props.theme.general.space[4]};
+  ::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.scrollbar.track};
+  }
+
+  @media (max-width: ${sizes.medium}) {
+    padding: ${space[4]};
   }
 `;
 
 export const Overlay = styled.div`
-  @media (max-width: ${(props) => props.theme.general.sizes.medium}) {
+  @media (max-width: ${sizes.medium}) {
     z-index: 2;
 
     &.overlay {
-      background-color: ${(props) => rgba(props.theme.backoundColor, 0.85)};
+      background-color: ${({ theme }) => rgba(theme.backoundColor, 0.85)};
       position: absolute;
       left: 0;
       top: 0;

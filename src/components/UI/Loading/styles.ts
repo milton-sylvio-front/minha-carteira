@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+import { colors } from '@/styles/themes/general';
 
 const text = keyframes`
   0% {
@@ -46,8 +47,8 @@ const loading = keyframes`
 
   90% {
     transform: translateX(0px);
-  }
     width: 100%;
+  }
 
   100% {
     transform: translateX(0px);
@@ -97,7 +98,7 @@ export const Content = styled.div`
 
 export const Title = styled.p`
   animation: ${text} 3.5s ease both infinite;
-  color: ${(props) => props.theme.general.colors.secondary};
+  color: ${colors.primary};
   font-size: 12px;
   letter-spacing: 1px;
   margin: 0;
@@ -107,7 +108,7 @@ export const Title = styled.p`
 
 export const BarLoading = styled.span`
   animation: ${loading} 3.5s ease both infinite;
-  background-color: ${(props) => props.theme.general.colors.secondary};
+  background-color: ${colors.primary};
   border-radius: 50px;
   bottom: 0;
   display: block;
@@ -118,8 +119,7 @@ export const BarLoading = styled.span`
 
   &:before {
     animation: ${loadingBefore} 3.5s ease both infinite;
-    background-color: ${(props) =>
-      darken(0.15, props.theme.general.colors.secondary)};
+    background-color: ${darken(0.15, colors.primary)};
     border-radius: inherit;
     content: '';
     height: 100%;

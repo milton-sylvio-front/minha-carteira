@@ -19,7 +19,6 @@ import {
   UiRadioButton,
   UiToggleSwitch,
 } from '@/components/UI';
-import type { IModalProps } from '@/components/UI/Modal/Modal/types';
 
 import { REQUIRED_FIELD } from '@/helpers/utils/constants';
 
@@ -27,9 +26,7 @@ import { TRANSACTIONS_ARR } from '../../utils/arrays';
 import { useTransactions } from '../../hooks/useTransactions';
 import type { IDataTransactionsProps } from '../../types';
 
-export interface IProps extends Partial<IModalProps> {
-  onSuccess: (isSuccess: boolean) => void;
-}
+import type { IProps } from './types';
 
 export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
   const btnCancelRef = useRef<HTMLButtonElement>(null);
@@ -38,7 +35,7 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
   const [frequencies, setFrequencies] = useState<string>(
     TRANSACTIONS_ARR.frequencies[0].value
   );
-  const { add, error, loadingPage, success } = useTransactions();
+  const { insert, error, loadingPage, success } = useTransactions();
   const {
     control,
     handleSubmit,
@@ -85,7 +82,7 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
         type: types,
       };
 
-      add(data);
+      insert(data);
     }
   };
 

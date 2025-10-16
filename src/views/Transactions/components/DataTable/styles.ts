@@ -8,11 +8,6 @@ import {
   space,
 } from '@/styles/themes/general';
 
-export const Actions = styled.div`
-  display: flex;
-  gap: ${space[3]};
-`;
-
 export const Table = styled.table`
   border-collapse: separate;
   border-spacing: ${space[0]} ${space[2]};
@@ -27,7 +22,9 @@ export const Th = styled.th`
   color: ${({ theme }) => theme.textColor};
   font-size: ${fontSizes[0]};
   padding: ${space[2]} ${space[3]};
+  letter-spacing: 0.025rem;
   text-align: left;
+  text-transform: uppercase;
 `;
 
 export const Td = styled.td`
