@@ -1,4 +1,5 @@
 import { UiBox, UiFlex, UiSkeleton } from '@/components/UI';
+import { PAGE_SIZE } from '../../utils/constants';
 
 export const PageLoading = () => (
   <UiBox>
@@ -26,7 +27,7 @@ export const PageLoading = () => (
     </table>
 
     <UiBox display="grid" gridGap={2} gridAutoFlow="row">
-      {new Array(3).fill(null).map((i) => (
+      {new Array(PAGE_SIZE).fill(null).map((i) => (
         <UiSkeleton key={i} width="100%" height="46px" />
       ))}
     </UiBox>

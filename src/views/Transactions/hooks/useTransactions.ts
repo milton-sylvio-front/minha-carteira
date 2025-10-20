@@ -21,6 +21,7 @@ import { COLLECTION_NAME } from '../utils/constants';
 import { TIMEOUT } from '@/helpers/utils/constants';
 
 import type { IDataTransactionsProps, IGetDataProps } from '../types';
+import { isObjectEmpty } from '../utils/utils';
 
 export function useTransactions() {
   const cursors = useRef<Map<number, DocumentSnapshot | null>>(new Map());
@@ -60,12 +61,16 @@ export function useTransactions() {
 
         let q;
         if (targetPage === 1) {
-          q = query(setCollection, setCondition, setOrderBy, setLimitPerPage);
+          q = query(
+            setCollection,
+            setCondition,
+            /*setOrderBy,*/ setLimitPerPage
+          );
         } else {
           const cursor = cursors.current.get(targetPage - 1);
           q = query(
             setCollection,
-            setCondition,
+            // setCondition,
             setOrderBy,
             startAfter(cursor!),
             setLimitPerPage
@@ -96,7 +101,7 @@ export function useTransactions() {
     setError('');
 
     try {
-      if (!loading) {
+      if (!loading && !isObjectEmpty(data)) {
         const infos = { ...data, userId: user?.uid };
         const response = await addDoc(setCollection, {
           ...infos,
@@ -116,11 +121,11 @@ export function useTransactions() {
 
   return {
     data,
-    loadingPage,
-    totalItems,
     error,
-    success,
     fetch,
     insert,
+    loadingPage,
+    success,
+    totalItems,
   };
 }

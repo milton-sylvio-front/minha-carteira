@@ -11,6 +11,7 @@ export const UiModalHeader = ({
 }: IModalHeaderProps) => (
   <Container>
     <Title>{children}</Title>
+
     <UiIconButton
       aria-label="Fechar"
       icon={<MdClose />}

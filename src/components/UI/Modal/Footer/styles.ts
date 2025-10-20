@@ -7,6 +7,7 @@ export const ModalFooter = styled.footer`
   flex-direction: row;
   gap: ${space[2]};
   justify-content: flex-end;
+  margin-top: ${space[8]};
   position: relative;
   width: 100%;
 `;

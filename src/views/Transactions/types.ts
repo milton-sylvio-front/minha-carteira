@@ -1,5 +1,5 @@
 export interface IDataTransactionsProps {
-  amount: number;
+  amount: number | null;
   created: number;
   date: string;
   description: string;

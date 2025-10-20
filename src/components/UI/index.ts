@@ -11,6 +11,7 @@ export { UiButton } from './Button';
 export { UiButtonGroup } from './ButtonGroup';
 export { UiCard } from './Card';
 export { UiCloseButton } from './CloseButton';
+export { UiCircularProgress } from './CircularProgress';
 export { UiContainer } from './Container';
 export { UiDivider } from './Divider';
 export { UiDropdown } from './Dropdown';

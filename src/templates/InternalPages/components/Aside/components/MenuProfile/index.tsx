@@ -27,13 +27,14 @@ export const MenuProfile = () => {
   const [positionMenu, setPositionMenu] =
     useState<IMenuButtonPositionMenu>('top');
 
-  const handlerMenuProfile = (event: { preventDefault: () => void }) => {
+  const handlerMenuProfile = (event: React.MouseEvent) => {
     event.preventDefault();
     setToggleMenuProfile(!toggleMenuProfile);
   };
 
-  const handleSignOut = (event: { preventDefault: () => void }) => {
+  const handleSignOut = (event: React.MouseEvent) => {
     event.preventDefault();
+
     signOut(auth)
       .then(() => {
         navigate(SIGN_IN.url);

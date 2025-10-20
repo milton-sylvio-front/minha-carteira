@@ -22,7 +22,7 @@ export const UiAlert = ({
     setAlert(message);
   }, [message]);
 
-  const handleClose = (e: { preventDefault: () => void }) => {
+  const handleClose = (e: MouseEvent) => {
     e.preventDefault();
     setAlert('');
   };

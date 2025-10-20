@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import {
   MdOutlineFilterAlt,
   MdSort,
@@ -89,10 +90,19 @@ export const Transactions = () => {
               </UiBox>
             </UiFlex>
 
-            {isObjectEmpty(data) ? <EmptyData /> : <DataTable data={data} />}
+            {isObjectEmpty(data) ? (
+              <EmptyData
+                description="Cadastre ao menos uma transação para visualizar os dados"
+                title="Ainda não existem transações"
+              />
+            ) : (
+              <DataTable data={data} />
+            )}
           </UiBox>
 
-          {!isObjectEmpty(data) && <Pagination totalItems={totalItems} />}
+          {!isObjectEmpty(data) && totalItems > PAGE_SIZE && (
+            <Pagination totalItems={totalItems} />
+          )}
         </>
       )}
 

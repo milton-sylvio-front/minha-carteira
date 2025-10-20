@@ -1,6 +1,6 @@
 export const DEFAULT_MASK_OPTIONS = {
   prefix: 'R$ ',
-  suffix: '',
+  suffix: '00',
   includeThousandsSeparator: true,
   thousandsSeparatorSymbol: '.',
   allowDecimal: true,

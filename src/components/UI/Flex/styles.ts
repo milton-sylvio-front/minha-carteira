@@ -3,7 +3,6 @@ import { flexbox, layout, space } from 'styled-system';
 import type { IFlex } from './types';
 
 export const Container = styled.div<IFlex>`
-  display: flex;
   ${flexbox};
   ${layout};
   ${space};
