@@ -32,8 +32,8 @@ export const Transactions = () => {
 
   useEffect(() => {
     fetch({
-      orderField: 'created',
-      orderDirection: 'desc',
+      orderField: 'paid',
+      orderDirection: 'asc',
       pageSize: PAGE_SIZE,
       targetPage: page,
     });
@@ -43,8 +43,8 @@ export const Transactions = () => {
   useEffect(() => {
     if (updateList) {
       fetch({
-        orderField: 'created',
-        orderDirection: 'desc',
+        orderField: 'paid',
+        orderDirection: 'asc',
         pageSize: PAGE_SIZE,
         targetPage: 1,
       });
@@ -70,33 +70,39 @@ export const Transactions = () => {
                   id="busca-transacao"
                   name="busca-transacao"
                   placeholder="Busque por uma transação"
+                  inputSize="sm"
                 />
               </UiBox>
 
               <UiBox display="grid" gridGap={2} gridAutoFlow="column">
-                <UiButton leftIcon={<MdOutlineFilterAlt />} variant="outline">
+                <UiButton
+                  leftIcon={<MdOutlineFilterAlt />}
+                  size="sm"
+                  variant="outline"
+                >
                   Filtrar
                 </UiButton>
-                <UiButton leftIcon={<MdSort />} variant="outline">
+                <UiButton leftIcon={<MdSort />} size="sm" variant="outline">
                   Ordenar
                 </UiButton>
                 <UiButton
-                  variant="primary"
                   leftIcon={<MdOutlineAdd />}
                   onClick={() => setOpenModal(true)}
+                  size="sm"
+                  variant="primary"
                 >
                   Adicionar nova
                 </UiButton>
               </UiBox>
             </UiFlex>
 
-            {isObjectEmpty(data) ? (
+            {!isObjectEmpty(data) ? (
+              <DataTable data={data} />
+            ) : (
               <EmptyData
                 description="Cadastre ao menos uma transação para visualizar os dados"
                 title="Ainda não existem transações"
               />
-            ) : (
-              <DataTable data={data} />
             )}
           </UiBox>
 

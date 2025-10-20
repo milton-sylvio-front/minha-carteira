@@ -8,6 +8,7 @@ import { DEFAULT_MASK_OPTIONS } from './constants';
 export const CurrencyInput = ({
   typeInput = 'text',
   maskOptions,
+  className,
   ...inputProps
 }: ICurrencyInput) => {
   const currencyMask = createNumberMask({
@@ -15,5 +16,12 @@ export const CurrencyInput = ({
     ...maskOptions,
   });
 
-  return <MaskedInput mask={currencyMask} type={typeInput} {...inputProps} />;
+  return (
+    <MaskedInput
+      className={className}
+      mask={currencyMask}
+      type={typeInput}
+      {...inputProps}
+    />
+  );
 };

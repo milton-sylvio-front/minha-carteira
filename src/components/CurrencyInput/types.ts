@@ -1,4 +1,6 @@
-export interface ICurrencyInput {
+import type { IInputProps } from '@/components/UI/Input/types';
+
+export interface ICurrencyInput extends IInputProps {
   maskOptions?: {
     prefix: string;
     suffix: string;
@@ -13,4 +15,5 @@ export interface ICurrencyInput {
     integerLimit: number;
   };
   typeInput?: string;
+  className?: string;
 }

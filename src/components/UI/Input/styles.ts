@@ -16,7 +16,6 @@ export const Container = styled.div<IInputStylesProps>`
 
   align-items: center;
   display: flex;
-  height: 40px;
   margin: ${space[0]} ${space[0]} ${space[0]};
   position: relative;
   width: 100%;
@@ -33,17 +32,33 @@ export const Container = styled.div<IInputStylesProps>`
     border-radius: ${bordersRadius.normal};
     border: 1px solid ${({ theme }) => theme.input.borderColor};
     color: ${({ theme }) => theme.input.color};
-    display: inline-block;
+    display: inline-flex;
     font-size: ${fontSizes[1]};
-    height: 40px;
-    padding-inline-start: ${space[4]};
-    padding-inline-end: ${space[4]};
     transition:
       border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
     width: 100%;
 
-    ${({ showIcon }) => showIcon && `padding-left: ${space[9]};`};
+    &.input-sm {
+      font-size: ${fontSizes[0]};
+      padding: ${space[2]} ${space[2]};
+      height: 30px;
+      ${({ showIcon }) => showIcon && `padding-left: ${space[8]};`};
+    }
+
+    &.input-md {
+      font-size: ${fontSizes[1]};
+      padding: ${space[3]} ${space[3]};
+      height: 40px;
+      ${({ showIcon }) => showIcon && `padding-left: ${space[9]};`};
+    }
+
+    &.input-lg {
+      font-size: ${fontSizes[3]};
+      padding: ${space[4]} ${space[4]};
+      height: 50px;
+      ${({ showIcon }) => showIcon && `padding-left: ${space[10]};`};
+    }
 
     ::-webkit-datetime-edit {
       color: ${({ theme }) => theme.input.color};

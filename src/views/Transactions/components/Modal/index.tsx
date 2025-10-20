@@ -139,6 +139,7 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
       disabled={loadingPage}
       id="amount"
       maskInput={CurrencyInput}
+      inputSize="md"
       placeholder="R$ XX.XXX,XX"
       {...field}
     />
