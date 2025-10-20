@@ -53,24 +53,20 @@ export function useTransactions() {
     setLoadingPage(true);
     setError('');
 
-    try {
-      if (!loading) {
+    if (!loading && user?.uid) {
+      try {
         const all = query(setCollection, setCondition);
         const totals = await getCountFromServer(all);
         setTotalItems(totals.data().count);
 
         let q;
         if (targetPage === 1) {
-          q = query(
-            setCollection,
-            setCondition,
-            /*setOrderBy,*/ setLimitPerPage
-          );
+          q = query(setCollection, setCondition, setOrderBy, setLimitPerPage);
         } else {
           const cursor = cursors.current.get(targetPage - 1);
           q = query(
             setCollection,
-            // setCondition,
+            setCondition,
             setOrderBy,
             startAfter(cursor!),
             setLimitPerPage
@@ -86,12 +82,12 @@ export function useTransactions() {
         );
 
         setLoadingPage(false);
+      } catch (err) {
+        console.error('Erro no useTransactions (fetch):', err);
+        setError(err?.toString() || '');
+      } finally {
+        timeout();
       }
-    } catch (err) {
-      console.error('Erro no useTransactions (fetch):', err);
-      setError(err?.toString() || '');
-    } finally {
-      timeout();
     }
   };
 
