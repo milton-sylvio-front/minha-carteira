@@ -24,7 +24,7 @@ export const Container = styled.aside<IContainerProps>`
   height: 100vh;
   justify-content: space-between;
   max-width: 225px;
-  z-index: 1;
+  z-index: 2;
 
   @media (max-width: ${sizes.small}) {
     align-items: center;

@@ -64,7 +64,7 @@ const SIZES = {
     font-size: ${fontSizes[0]};
     letter-spacing: 0.5px;
     line-height: 1;
-    padding: ${space[2]} ${space[2]};
+    padding: ${space[2]} ${space[3]};
   `,
   md: css`
     font-size: ${fontSizes[2]};

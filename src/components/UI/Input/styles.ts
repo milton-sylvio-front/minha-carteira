@@ -33,7 +33,6 @@ export const Container = styled.div<IInputStylesProps>`
     border: 1px solid ${({ theme }) => theme.input.borderColor};
     color: ${({ theme }) => theme.input.color};
     display: inline-flex;
-    font-size: ${fontSizes[1]};
     transition:
       border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
