@@ -8,7 +8,6 @@ export const Container = styled.main`
   overflow-y: auto;
   padding: ${space[7]} ${space[7]} ${space[7]} ${space[1]};
   position: relative;
-  z-index: 1;
 
   ::-webkit-scrollbar {
     width: 10px;

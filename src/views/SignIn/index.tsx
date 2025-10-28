@@ -17,7 +17,7 @@ import {
 import AuthTemplate from '@/templates/Auth';
 
 import { PATHS } from '@/helpers/configs/paths';
-import { REQUIRED_FIELD } from '@/helpers/utils/constants';
+import { REQUIRED_FIELD } from '@/helpers/utils';
 
 import { useSignIn } from './useSignIn';
 import type { IUserData } from './types';

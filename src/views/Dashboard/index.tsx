@@ -1,22 +1,21 @@
 import { useState, useMemo } from 'react';
 
-import { BarBox, LineBox, PieBox } from '../../components/Charts';
-import ColorCard from '../../components/ColorCard';
-import ContentHeader from '../../components/ContentHeader';
-import MessageCard from '../../components/MessageCard';
-import { UiContainer, UiDropdown } from '../../components/UI';
+import { BarBox, LineBox, PieBox } from '@/components/Charts';
+import { ContentHeader } from '@/components/ContentHeader';
+import ColorCard from '@/components/ColorCard';
+import MessageCard from '@/components/MessageCard';
+import { UiContainer, UiDropdown } from '@/components/UI';
 
-import gains from '../../repositories/gains';
-import expenses from '../../repositories/expenses';
+import gains from '@/repositories/gains';
+import expenses from '@/repositories/expenses';
 
-import monthsList from '../../helpers/utils/months';
-import formatCurrency from '../../helpers/utils/formatCurrency';
+import { MONTHS_NAME_ARR, formatCurrency } from '@/helpers/utils';
 
-import happyIcon from '../../assets/icons/happy.svg';
-import sadIcon from '../../assets/icons/sad.svg';
-import opsIcon from '../../assets/icons/ops.svg';
+import happyIcon from '@/assets/icons/happy.svg';
+import sadIcon from '@/assets/icons/sad.svg';
+import opsIcon from '@/assets/icons/ops.svg';
 
-import { colors } from '../../styles/themes/general';
+import { colors } from '@/styles/themes/general';
 
 import { Content, ContainerColorsCards } from './styles';
 
@@ -32,7 +31,7 @@ const Dashboard = () => {
 
   const months = useMemo(
     () =>
-      monthsList.map((month, index) => ({
+      MONTHS_NAME_ARR.map((month, index) => ({
         value: index + 1,
         label: month,
       })),
@@ -162,60 +161,57 @@ const Dashboard = () => {
 
   const historyData = useMemo(
     () =>
-      monthsList
-        .map((_, month) => {
-          let amountEntry = 0;
+      MONTHS_NAME_ARR.map((_, month) => {
+        let amountEntry = 0;
 
-          gains.forEach((gain) => {
-            const date = new Date(gain.date);
-            const gainMonth = date.getMonth();
-            const gainYear = date.getFullYear();
+        gains.forEach((gain) => {
+          const date = new Date(gain.date);
+          const gainMonth = date.getMonth();
+          const gainYear = date.getFullYear();
 
-            if (gainMonth === month && gainYear === yearSelected) {
-              try {
-                amountEntry += Number(gain.amount);
-              } catch {
-                throw new Error(
-                  'O valor de entrada é inválido, por favor, verifique o valor'
-                );
-              }
+          if (gainMonth === month && gainYear === yearSelected) {
+            try {
+              amountEntry += Number(gain.amount);
+            } catch {
+              throw new Error(
+                'O valor de entrada é inválido, por favor, verifique o valor'
+              );
             }
-          });
+          }
+        });
 
-          let amountOutput = 0;
+        let amountOutput = 0;
 
-          expenses.forEach((expense) => {
-            const date = new Date(expense?.date || '');
-            const expenseMonth = date.getMonth();
-            const expenseYear = date.getFullYear();
+        expenses.forEach((expense) => {
+          const date = new Date(expense?.date || '');
+          const expenseMonth = date.getMonth();
+          const expenseYear = date.getFullYear();
 
-            if (expenseMonth === month && expenseYear === yearSelected) {
-              try {
-                amountOutput += Number(expense?.amount);
-              } catch {
-                throw new Error(
-                  'O valor de saída é inválido, por favor, verifique o valor'
-                );
-              }
+          if (expenseMonth === month && expenseYear === yearSelected) {
+            try {
+              amountOutput += Number(expense?.amount);
+            } catch {
+              throw new Error(
+                'O valor de saída é inválido, por favor, verifique o valor'
+              );
             }
-          });
+          }
+        });
 
-          return {
-            monthNumber: month,
-            month: monthsList[month].substr(0, 3),
-            amountEntry,
-            amountOutput,
-          };
-        })
-        .filter((item) => {
-          const currentMonth = new Date().getMonth();
-          const currentYear = new Date().getFullYear();
-          return (
-            (yearSelected === currentYear &&
-              item.monthNumber <= currentMonth) ||
-            yearSelected < currentYear
-          );
-        }),
+        return {
+          monthNumber: month,
+          month: MONTHS_NAME_ARR[month].substr(0, 3),
+          amountEntry,
+          amountOutput,
+        };
+      }).filter((item) => {
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        return (
+          (yearSelected === currentYear && item.monthNumber <= currentMonth) ||
+          yearSelected < currentYear
+        );
+      }),
     [yearSelected]
   );
 

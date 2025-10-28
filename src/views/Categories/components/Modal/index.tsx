@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
 
-import { CurrencyInput } from '@/components/CurrencyInput';
 import {
-  FormContainer,
   FormErrorMessage,
   FormGroup,
   FormLabel,
@@ -19,84 +18,87 @@ import {
   UiModalFooter,
   UiModalHeader,
   UiRadioButton,
-  UiToggleSwitch,
+  UiSelect,
 } from '@/components/UI';
 
-import { REQUIRED_FIELD } from '@/helpers/utils';
+import { REQUIRED_FIELD } from '@/helpers/utils/constants';
 
-import { TRANSACTIONS_ARR } from '../../utils/arrays';
-import { clearFormatValue } from '../../utils/utils';
-import { useTransactions } from '../../hooks/useTransactions';
-import type { IDataTransactionsProps } from '../../types';
+import { CATEGORIES_ARR } from '../../utils/arrays';
+import { useCategories } from '../../hooks/useCategories';
+import type { IDataCategoriesProps, ICategoryType } from '../../types';
 
 import type { IProps } from './types';
 
 export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
-  const [newInsert, setNewInsert] = useState<boolean>(true);
-  const [status, setStatus] = useState<'success' | 'error'>('success');
-  const [paid, setPaid] = useState<boolean>(false);
-  const [alert, setAlert] = useState<boolean>(false);
-  const [types, setTypes] = useState<string>(TRANSACTIONS_ARR.types[0].value);
-  const [frequencies, setFrequencies] = useState<string>(
-    TRANSACTIONS_ARR.frequencies[0].value
-  );
-  const { insert, error, loadingPage, success } = useTransactions();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { insert, error, loadingPage, success } = useCategories();
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<IDataTransactionsProps>();
+  } = useForm<IDataCategoriesProps>();
+
+  const [newInsert, setNewInsert] = useState<boolean>(true);
+  const [status, setStatus] = useState<'success' | 'error'>('success');
+  const [alert, setAlert] = useState<boolean>(false);
+  const [types, setTypes] = useState<ICategoryType>(CATEGORIES_ARR[0].value);
 
   const resetForm = {
-    amount: undefined,
-    date: '',
     description: '',
-    frequency: TRANSACTIONS_ARR.frequencies[0].value,
-    type: TRANSACTIONS_ARR.types[0].value,
+    type: CATEGORIES_ARR[0].value,
+    parentCategory: '',
   };
 
+  console.log('success:', success);
+
   useEffect(() => {
-    if (error || success) {
+    if (success) {
       onSuccess(true);
     }
-  }, [error, onSuccess, success]);
+  }, [success]);
 
   useEffect(() => {
     if ((error || success) && newInsert && !loadingPage) {
       const statusOnSubmit = success ? 'success' : 'error';
       setStatus(statusOnSubmit);
-      setPaid(false);
+
       reset(resetForm);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error, loadingPage, newInsert, reset, success]);
 
   useEffect(() => {
+    const handleRemoveParam = () => {
+      const newSearchParams = new URLSearchParams(searchParams.toString());
+      newSearchParams.delete('acao');
+      setSearchParams(newSearchParams);
+    };
+
     if (!isOpen) {
-      setPaid(false);
       reset(resetForm);
       onSuccess(false);
       setNewInsert(true);
+      handleRemoveParam();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, onSuccess, reset]);
 
-  const onSubmit = (values: IDataTransactionsProps) => {
-    if (values.description && values.amount && values.date) {
+  const onSubmit = (values: IDataCategoriesProps) => {
+    if (values.description) {
       const data = {
-        amount: clearFormatValue(values.amount),
         created: new Date().getTime(),
-        date: values.date,
         description: values.description,
-        frequency: frequencies,
-        paid: paid,
+        parentCategory: values.parentCategory,
         type: types,
+        actived: true,
+        system: true,
       };
 
       insert(data);
       setNewInsert(false);
+      onSuccess(false);
       setAlert(true);
     }
   };
@@ -109,7 +111,6 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
     );
 
   const handlerTypeOnchange = (value: string) => setTypes(value);
-  const handlerFrequenciesOnchange = (value: string) => setFrequencies(value);
 
   const inputDescription = (field: FieldValues) => (
     <UiInput
@@ -122,24 +123,13 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
     />
   );
 
-  const inputDate = (field: FieldValues) => (
-    <UiInput
-      className={errors?.date && 'error'}
+  const selectParentCategory = (field: FieldValues) => (
+    <UiSelect
+      className={errors?.parentCategory && 'error'}
       disabled={loadingPage}
-      id="date"
-      type="date"
-      placeholder="__/__/____"
-      {...field}
-    />
-  );
-
-  const inputAmount = (field: FieldValues) => (
-    <UiInput
-      className={errors?.amount && 'error'}
-      disabled={loadingPage}
-      id="amount"
-      maskInput={CurrencyInput}
-      placeholder="R$ XX.XXX,XX"
+      id="parentCategory"
+      options={[]}
+      defaultValue=""
       {...field}
     />
   );
@@ -148,16 +138,16 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
     e.preventDefault();
 
     setNewInsert(true);
-    setPaid(false);
     reset(resetForm);
     setAlert(false);
+    onSuccess(false);
   };
 
   return (
     <UiModal isOpen={!!isOpen} onClose={() => onClose} size="sm">
       <form onSubmit={handleSubmit(onSubmit)}>
         <UiModalHeader onClickClose={onClose}>
-          Adicionar nova transação
+          Adicionar nova categoria
         </UiModalHeader>
 
         <UiModalContent>
@@ -201,7 +191,7 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
                 >
                   <UiRadioButton
                     name="type"
-                    options={TRANSACTIONS_ARR.types}
+                    options={CATEGORIES_ARR}
                     onChange={handlerTypeOnchange}
                     selectedValue={types}
                     disabled={loadingPage}
@@ -210,63 +200,19 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
                 </UiButtonGroup>
               </FormGroup>
 
-              <FormContainer>
-                <FormGroup>
-                  <FormLabel htmlFor="date">Data</FormLabel>
-
-                  <Controller
-                    name="date"
-                    render={({ field }) => inputDate(field)}
-                    control={control}
-                    rules={{
-                      required: REQUIRED_FIELD,
-                    }}
-                  />
-
-                  <FormErrorMessage>{errors?.date?.message}</FormErrorMessage>
-                </FormGroup>
-
-                <FormGroup>
-                  <FormLabel htmlFor="amount">Valor</FormLabel>
-                  <Controller
-                    name="amount"
-                    render={({ field }) => inputAmount(field)}
-                    control={control}
-                    rules={{
-                      required: REQUIRED_FIELD,
-                      min: 0.01,
-                    }}
-                  />
-
-                  <FormErrorMessage>{errors?.amount?.message}</FormErrorMessage>
-                </FormGroup>
-              </FormContainer>
-
               <FormGroup>
-                <FormLabel>Frequência</FormLabel>
+                <FormLabel htmlFor="parentCategory">Categoria Pai</FormLabel>
 
-                <UiButtonGroup
-                  aria-label="Tipos de frequência"
-                  className="btn-group-toggle"
-                  role="group"
-                  fullWidth
-                >
-                  <UiRadioButton
-                    name="frequency"
-                    options={TRANSACTIONS_ARR.frequencies}
-                    onChange={handlerFrequenciesOnchange}
-                    selectedValue={frequencies}
-                    disabled={loadingPage}
-                    size="md"
-                  />
-                </UiButtonGroup>
+                <Controller
+                  name="parentCategory"
+                  render={({ field }) => selectParentCategory(field)}
+                  control={control}
+                />
+
+                <FormErrorMessage>
+                  {errors?.parentCategory?.message}
+                </FormErrorMessage>
               </FormGroup>
-
-              <UiToggleSwitch
-                checked={paid}
-                onChange={() => setPaid(!paid)}
-                labelRight="Paga"
-              />
             </>
           )}
         </UiModalContent>

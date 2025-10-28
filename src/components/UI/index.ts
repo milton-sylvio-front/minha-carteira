@@ -4,6 +4,7 @@ export {
   FormGroup,
   FormLabel,
 } from './Form/styles';
+export { UiTable, UiTh, UiTd } from './Table/styles';
 export { UiAlert } from './Alert';
 export { UiBadge } from './Badge';
 export { UiBox } from './Box';
@@ -22,6 +23,7 @@ export { UiLoading } from './Loading';
 export * from './Menu';
 export * from './Modal';
 export { UiRadioButton } from './RadioButton';
+export { UiSelect } from './Select';
 export * from './Skeleton';
 export { UiToggleSwitch } from './ToggleSwitch';
 export { UiVStack } from './VStack';

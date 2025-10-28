@@ -15,14 +15,12 @@ import {
 } from '@/components/UI';
 import type { IMenuButtonPositionMenu } from '@/components/UI/Menu/Button/types';
 
-import { formatCurrency, formatDate } from '@/helpers/utils';
+import { CATEGORIES_ARR, TITLES_TABLE } from '../../utils/arrays';
 
-import { TRANSACTIONS_ARR, TITLES_TABLE } from '../../utils/arrays';
-
-import type { IDataTransactionsProps } from '../../types';
+import type { IDataCategoriesProps } from '../../types';
 
 export interface IProps {
-  data: IDataTransactionsProps[];
+  data: IDataCategoriesProps[];
 }
 
 export const DataTable = ({ data }: IProps) => {
@@ -31,21 +29,11 @@ export const DataTable = ({ data }: IProps) => {
     useState<IMenuButtonPositionMenu>('bottom');
 
   const setType = (type: string) => {
-    const getType = TRANSACTIONS_ARR.types
-      .filter((t) => t.value === type)
-      .map((t) => t.label);
-    return getType;
-  };
-
-  const setFrequency = (frequency: string) => {
-    const getFrequency = TRANSACTIONS_ARR.frequencies
-      .filter((t) => t.value === frequency)
-      .map((t) => t.label);
-    return getFrequency;
+    return CATEGORIES_ARR.filter((t) => t.value === type).map((t) => t.label);
   };
 
   return (
-    <UiTable width="100%">
+    <UiTable width="auto">
       <thead>
         <tr>
           {TITLES_TABLE.map((title, i) => (
@@ -57,14 +45,14 @@ export const DataTable = ({ data }: IProps) => {
         {data.map((item, idx) => (
           <tr key={item.id}>
             <UiTd>{item.description}</UiTd>
-            <UiTd>{item.created}</UiTd>
-            <UiTd>{formatDate(item.date)}</UiTd>
-            <UiTd>{setType(item.type)}</UiTd>
-            <UiTd>{setFrequency(item.frequency)}</UiTd>
-            <UiTd>{formatCurrency(Number(item.amount))}</UiTd>
+            {/* <UiTd>{item.created}</UiTd> */}
+            <UiTd>{item.parentCategory || '--'}</UiTd>
             <UiTd>
-              <UiBadge colorType={item.paid ? 'success' : 'danger'} size="sm">
-                {item.paid ? 'PAGA' : 'A PAGAR'}
+              <UiBadge
+                colorType={item.type === 'gains' ? 'success' : 'danger'}
+                size="sm"
+              >
+                {setType(item.type)}
               </UiBadge>
             </UiTd>
             <UiTd>

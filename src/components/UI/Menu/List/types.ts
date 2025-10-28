@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-import type { TranformProps } from '@/helpers/utils/types';
+import type { TranformProps } from '@/types/types';
 
 export type IIMenuListPosition = 'top' | 'bottom';
 

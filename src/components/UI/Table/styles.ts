@@ -8,17 +8,17 @@ import {
   space,
 } from '@/styles/themes/general';
 
-export const Table = styled.table`
+export const UiTable = styled.table`
   border-collapse: separate;
   border-spacing: ${space[0]} ${space[2]};
-  width: 100%;
+  /* width: 100%; */
 
   tr:hover td {
     background-color: ${({ theme }) => darken(0.05, theme.backoundColorLight)};
   }
 `;
 
-export const Th = styled.th`
+export const UiTh = styled.th`
   color: ${({ theme }) => theme.textColor};
   font-size: ${fontSizes[0]};
   padding: ${space[2]} ${space[3]};
@@ -27,7 +27,7 @@ export const Th = styled.th`
   text-transform: uppercase;
 `;
 
-export const Td = styled.td`
+export const UiTd = styled.td`
   background-color: ${({ theme }) => theme.backoundColorLight};
   color: ${({ theme }) => theme.textColor};
   padding: ${space[3]};

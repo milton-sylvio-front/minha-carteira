@@ -14,7 +14,7 @@ import Logo from '@/components/Logo';
 import { UiBox, UiButtonGroup, UiFlex, UiRadioButton } from '@/components/UI';
 
 import { useMenuMobile } from '@/hooks/menu';
-import { useTheme } from '@/hooks/theme';
+import { useTheme } from '@/styles/hooks/useTheme';
 import {
   auth,
   collection,

@@ -2,7 +2,7 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 
 import GlobalStyles from '@/styles/GlobalStyles';
-import { useTheme } from '@/hooks/theme';
+import { useTheme } from '@/styles/hooks/useTheme';
 
 import Routes from '@/routes';
 

@@ -28,3 +28,18 @@ export const NEW_REGISTER_ARR = {
     },
   ],
 };
+
+export const MONTHS_NAME_ARR = [
+  'Janeiro',
+  'Fevereiro',
+  'Março',
+  'Abril',
+  'Maio',
+  'Junho',
+  'Julho',
+  'Agosto',
+  'Setembro',
+  'Outubro',
+  'Novembro',
+  'Dezembro',
+];

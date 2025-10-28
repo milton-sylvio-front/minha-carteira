@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-
 import {
   MdOutlineFilterAlt,
   MdSort,
@@ -8,18 +7,18 @@ import {
   MdOutlineSearch,
 } from 'react-icons/md';
 
-import ContentHeader from '@/components/ContentHeader';
+import { ContentHeader } from '@/components/ContentHeader';
 import { EmptyData } from '@/components/EmptyData';
 import { UiBox, UiFlex, UiButton, UiInput } from '@/components/UI';
+import { Pagination } from '@/components/Pagination';
 
 import { DataTable } from './components/DataTable';
 import { Modal } from './components/Modal';
 import { PageLoading } from './components/PageLoading';
-import { Pagination } from './components/Pagination';
 import { useTransactions } from './hooks/useTransactions';
 
 import { PAGE_SIZE } from './utils/constants';
-import { isObjectEmpty } from './utils/utils';
+import { isObjectEmpty } from '@/helpers/utils';
 
 export const Transactions = () => {
   const [searchParams] = useSearchParams();
@@ -54,60 +53,70 @@ export const Transactions = () => {
 
   const getActions = (status: boolean) => setUpdateList(status);
 
+  const AddButton = () => (
+    <UiButton
+      leftIcon={<MdOutlineAdd />}
+      onClick={() => setOpenModal(true)}
+      size="sm"
+      variant="primary"
+    >
+      Adicionar nova
+    </UiButton>
+  );
+
   return (
     <>
       {loadingPage ? (
         <PageLoading />
       ) : (
         <>
-          <ContentHeader title="Transações" />
+          <ContentHeader title="Transações">
+            {isObjectEmpty(data) && <AddButton />}
+          </ContentHeader>
 
-          <UiBox>
-            <UiFlex alignItems="center" justifyContent="space-between" mb={4}>
-              <UiBox maxWidth="350px" width="100%">
-                <UiInput
-                  icon={MdOutlineSearch}
-                  id="busca-transacao"
-                  name="busca-transacao"
-                  placeholder="Busque por uma transação"
-                  inputSize="sm"
-                />
-              </UiBox>
+          {isObjectEmpty(data) ? (
+            <EmptyData
+              description="Cadastre ao menos uma transação para visualizar os dados"
+              title="Ainda não existem transações"
+            />
+          ) : (
+            <UiBox>
+              <UiFlex alignItems="center" justifyContent="space-between" mb={4}>
+                <UiBox maxWidth="350px" width="100%">
+                  <UiInput
+                    icon={MdOutlineSearch}
+                    id="busca-transacao"
+                    name="busca-transacao"
+                    placeholder="Busque por uma transação"
+                    inputSize="sm"
+                  />
+                </UiBox>
 
-              <UiBox display="grid" gridGap={2} gridAutoFlow="column">
-                <UiButton
-                  leftIcon={<MdOutlineFilterAlt />}
-                  size="sm"
-                  variant="outline"
-                >
-                  Filtrar
-                </UiButton>
-                <UiButton leftIcon={<MdSort />} size="sm" variant="outline">
-                  Ordenar
-                </UiButton>
-                <UiButton
-                  leftIcon={<MdOutlineAdd />}
-                  onClick={() => setOpenModal(true)}
-                  size="sm"
-                  variant="primary"
-                >
-                  Adicionar nova
-                </UiButton>
-              </UiBox>
-            </UiFlex>
+                <UiBox display="grid" gridGap={2} gridAutoFlow="column">
+                  <UiButton
+                    leftIcon={<MdOutlineFilterAlt />}
+                    size="sm"
+                    variant="outline"
+                  >
+                    Filtrar
+                  </UiButton>
+                  <UiButton leftIcon={<MdSort />} size="sm" variant="outline">
+                    Ordenar
+                  </UiButton>
+                  <AddButton />
+                </UiBox>
+              </UiFlex>
 
-            {!isObjectEmpty(data) ? (
               <DataTable data={data} />
-            ) : (
-              <EmptyData
-                description="Cadastre ao menos uma transação para visualizar os dados"
-                title="Ainda não existem transações"
-              />
-            )}
-          </UiBox>
+            </UiBox>
+          )}
 
           {!isObjectEmpty(data) && totalItems > PAGE_SIZE && (
-            <Pagination totalItems={totalItems} />
+            <Pagination
+              description="Transações"
+              pageSize={PAGE_SIZE}
+              totalItems={totalItems}
+            />
           )}
         </>
       )}

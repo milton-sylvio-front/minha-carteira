@@ -13,3 +13,7 @@ export const ERROR_MESSAGES = {
 export const TIMEOUT = 3500;
 
 export const REQUIRED_FIELD = 'Campo obrigatório';
+
+export const CONFIGS = {
+  minhaCarteira: '@minha-carteira:',
+};

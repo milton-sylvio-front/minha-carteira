@@ -2,8 +2,6 @@
 import { useRef, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { TIMEOUT, isObjectEmpty } from '@/helpers/utils';
-import type { IGetDataProps } from '@/types/types';
 import {
   addDoc,
   auth,
@@ -18,11 +16,13 @@ import {
   limit,
   getCountFromServer,
 } from '@/helpers/utils/firebase';
+import { TIMEOUT, isObjectEmpty } from '@/helpers/utils';
+import type { IGetDataProps } from '@/types/types';
 
+import type { IDataCategoriesProps } from '../types';
 import { COLLECTION_NAME } from '../utils/constants';
-import type { IDataTransactionsProps } from '../types';
 
-export function useTransactions() {
+export function useCategories() {
   const cursors = useRef<Map<number, DocumentSnapshot | null>>(new Map());
   const [user, loading] = useAuthState(auth);
 
@@ -90,7 +90,7 @@ export function useTransactions() {
     }
   };
 
-  const insert = async (data: IDataTransactionsProps) => {
+  const insert = async (data: IDataCategoriesProps) => {
     setLoadingPage(true);
     setSuccess('');
     setError('');
@@ -107,7 +107,7 @@ export function useTransactions() {
         }
       }
     } catch (err) {
-      console.error('Erro no useTransactions (add):', err);
+      console.error('Erro no useCategories (insert):', err);
       setError(err?.toString() || '');
     } finally {
       timeout();

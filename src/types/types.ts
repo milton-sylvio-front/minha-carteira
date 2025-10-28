@@ -11,3 +11,12 @@ export interface ICssTransform {
 export interface TranformProps {
   transform?: string;
 }
+
+export type IGetDataorderDirection = 'asc' | 'desc';
+
+export interface IGetDataProps {
+  orderField: string;
+  orderDirection?: IGetDataorderDirection;
+  pageSize: number;
+  targetPage: number;
+}

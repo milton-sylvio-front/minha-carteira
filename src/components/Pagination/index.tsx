@@ -3,18 +3,20 @@ import { useSearchParams } from 'react-router-dom';
 
 import { UiBox, UiButton, UiFlex } from '@/components/UI';
 
-import { PAGE_SIZE } from '../../utils/constants';
+import { formatNumberPage } from '@/helpers/utils';
 
-import { formatNumberPage } from '../../utils/utils';
+import type { IPagination } from './types';
 
-import type { IProps } from './types';
-
-export const Pagination = ({ totalItems }: IProps) => {
+export const Pagination = ({
+  totalItems,
+  pageSize,
+  description,
+}: IPagination) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get('pagina')) || 1;
-  const isLastPage = page * PAGE_SIZE >= totalItems;
-  const totalPages = Math.ceil(totalItems / PAGE_SIZE);
+  const isLastPage = page * pageSize >= totalItems;
+  const totalPages = Math.ceil(totalItems / pageSize);
 
   const setPage = (p: number) => setSearchParams({ pagina: String(p + 1) });
   const nextPage = () => setSearchParams({ pagina: String(page + 1) });
@@ -29,7 +31,9 @@ export const Pagination = ({ totalItems }: IProps) => {
       mb={4}
       mt={2}
     >
-      <small>Total de transações: {totalItems}</small>
+      <small>
+        Total de {description}: {totalItems}
+      </small>
 
       <UiBox display="flex" gridGap={2}>
         <UiButton

@@ -1,20 +1,20 @@
 import { Route, Routes as Switch } from 'react-router-dom';
 
 import Dashboard from '@/views/Dashboard';
-import List from '@/views/List';
 import SignIn from '@/views/SignIn';
 import SignUp from '@/views/SignUp';
 import RecoveryPassword from '@/views/RecoveryPassword';
 import { Transactions } from '@/views/Transactions';
+import { Categories } from '@/views/Categories';
 
 import { PATHS } from '@/helpers/configs/paths';
 
 import { PrivateRoute } from './PrivateRoute';
 
 const {
+  CATEGORIES,
   DASHBOARD,
   HOME,
-  CATEGORIES,
   RECOVERY_PASSWORD,
   SIGN_IN,
   SIGN_UP,
@@ -25,7 +25,7 @@ const Routes = () => (
   <Switch>
     <Route path={HOME.url} element={<PrivateRoute />}>
       <Route path={DASHBOARD.url} element={<Dashboard />} />
-      <Route path={CATEGORIES.url} element={<List />} />
+      <Route path={CATEGORIES.url} element={<Categories />} />
       <Route path={TRANSACTIONS.url} element={<Transactions />} />
     </Route>
     <Route path={SIGN_IN.url} Component={SignIn} />

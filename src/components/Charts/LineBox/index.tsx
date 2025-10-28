@@ -7,11 +7,11 @@ import {
   XAxis,
 } from 'recharts';
 
-import formatCurrency from '../../../helpers/utils/formatCurrency';
+import { formatCurrency } from '@/helpers/utils';
 
 import { Container, Header, Legends, LegendItem } from './styles';
 
-import { ILineBoxProps } from './types';
+import type { ILineBoxProps } from './types';
 
 export const LineBox = ({
   data,
