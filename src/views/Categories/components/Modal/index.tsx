@@ -29,7 +29,7 @@ import type { IDataCategoriesProps, ICategoryType } from '../../types';
 
 import type { IProps } from './types';
 
-export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
+export const Modal = ({ data, isOpen, onClose, onSuccess }: IProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { insert, error, loadingPage, success } = useCategories();
   const {
@@ -50,13 +50,27 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
     parentCategory: '',
   };
 
-  console.log('success:', success);
+  const subcategories = data.map((cat) => ({
+    value: String(cat?.id),
+    label: String(cat?.description),
+  }));
+
+  console.log('data:', data);
+
+  const subCategoriesArr = [
+    {
+      value: '',
+      label: 'Selecione uma opção',
+    },
+    ...subcategories,
+  ];
+  console.log('subCategoriesArr:', subCategoriesArr);
 
   useEffect(() => {
     if (success) {
       onSuccess(true);
     }
-  }, [success]);
+  }, [onSuccess, success]);
 
   useEffect(() => {
     if ((error || success) && newInsert && !loadingPage) {
@@ -128,10 +142,14 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
       className={errors?.parentCategory && 'error'}
       disabled={loadingPage}
       id="parentCategory"
-      options={[]}
-      defaultValue=""
       {...field}
-    />
+    >
+      {subCategoriesArr.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </UiSelect>
   );
 
   const handlerOnNewInsert = (e: React.MouseEvent) => {

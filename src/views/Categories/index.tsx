@@ -39,6 +39,8 @@ export const Categories = () => {
     // eslint-disable-next-line
   }, [page]);
 
+  console.log('updateList:', updateList);
+
   useEffect(() => {
     if (updateList) {
       fetch({
@@ -49,7 +51,7 @@ export const Categories = () => {
       });
     }
     // eslint-disable-next-line
-  }, [page, updateList]);
+  }, [PAGE_SIZE, updateList]);
 
   const getActions = (status: boolean) => setUpdateList(status);
 
@@ -135,15 +137,18 @@ export const Categories = () => {
               totalItems={totalItems}
             />
           )}
+
+          {!isObjectEmpty(data) && (
+            <Modal
+              data={data}
+              isOpen={openModal}
+              onClose={() => setOpenModal(false)}
+              onSuccess={getActions}
+              size="sm"
+            />
+          )}
         </>
       )}
-
-      <Modal
-        isOpen={openModal}
-        onClose={() => setOpenModal(false)}
-        onSuccess={getActions}
-        size="sm"
-      />
     </>
   );
 };

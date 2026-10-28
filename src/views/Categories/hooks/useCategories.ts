@@ -60,12 +60,12 @@ export function useCategories() {
 
         let q;
         if (targetPage === 1) {
-          q = query(setCollection, setCondition, setOrderBy, setLimitPerPage);
+          q = query(setCollection, /* setOrderBy,*/ setLimitPerPage);
         } else {
           const cursor = cursors.current.get(targetPage - 1);
           q = query(
             setCollection,
-            setCondition,
+            // setCondition,
             setOrderBy,
             startAfter(cursor!),
             setLimitPerPage
@@ -73,7 +73,14 @@ export function useCategories() {
         }
 
         const snapshot = await getDocs(q);
-        setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        const getData = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        getData.filter((itens) => itens?.userId === user?.uid);
+
+        setData(getData);
 
         cursors.current.set(
           targetPage,
