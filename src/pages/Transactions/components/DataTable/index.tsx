@@ -23,9 +23,11 @@ import type { IDataTransactionsProps } from '../../types';
 
 export interface IProps {
   data: IDataTransactionsProps[];
+  onDelete: (transaction: IDataTransactionsProps) => void;
+  onEdit: (transaction: IDataTransactionsProps) => void;
 }
 
-export const DataTable = ({ data }: IProps) => {
+export const DataTable = ({ data, onDelete, onEdit }: IProps) => {
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   const [positionMenu, setPositionMenu] =
     useState<IMenuButtonPositionMenu>('bottom');
@@ -88,11 +90,27 @@ export const DataTable = ({ data }: IProps) => {
                   <UiMenuItem icon={<MdCheck />} size="sm" title="Efetivar">
                     Efetivar
                   </UiMenuItem>
-                  <UiMenuItem icon={<MdEdit />} size="sm" title="Editar">
+                  <UiMenuItem
+                    icon={<MdEdit />}
+                    onClick={() => {
+                      setOpenDropdownIdx(null);
+                      onEdit(item);
+                    }}
+                    size="sm"
+                    title="Editar"
+                  >
                     Editar
                   </UiMenuItem>
                   <UiDivider />
-                  <UiMenuItem icon={<MdDelete />} size="sm" title="Apagar">
+                  <UiMenuItem
+                    icon={<MdDelete />}
+                    onClick={() => {
+                      setOpenDropdownIdx(null);
+                      onDelete(item);
+                    }}
+                    size="sm"
+                    title="Apagar"
+                  >
                     Apagar
                   </UiMenuItem>
                 </UiMenuList>

@@ -1,5 +1,11 @@
-import type { IModalProps } from '@/components/UI/Modal/Modal/types';
+import type { IDataTransactionsProps } from '../../types';
 
-export interface IProps extends Partial<IModalProps> {
+export type TransactionModalMode = 'create' | 'edit' | 'delete';
+
+export interface IProps {
+  isOpen: boolean;
+  mode?: TransactionModalMode;
+  onClose: () => void;
   onSuccess: (isSuccess: boolean) => void;
+  transaction?: IDataTransactionsProps;
 }

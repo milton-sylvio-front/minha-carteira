@@ -9,6 +9,7 @@ import {
   FormGroup,
   FormLabel,
   UiAlert,
+  UiBox,
   UiButton,
   UiButtonGroup,
   UiCircularProgress,
@@ -25,13 +26,26 @@ import {
 import { REQUIRED_FIELD } from '@/helpers/utils';
 
 import { TRANSACTIONS_ARR } from '../../utils/arrays';
-import { clearFormatValue } from '../../utils/utils';
+import { clearFormatValue, toCurrencyMask } from '../../utils/utils';
 import { useTransactions } from '../../hooks/useTransactions';
-import type { IDataTransactionsProps } from '../../types';
 
 import type { IProps } from './types';
 
-export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
+type FormValues = {
+  amount: string;
+  date: string;
+  description: string;
+  frequency: string;
+  type: string;
+};
+
+export const Modal = ({
+  isOpen,
+  mode = 'create',
+  onClose,
+  onSuccess,
+  transaction,
+}: IProps) => {
   const [newInsert, setNewInsert] = useState<boolean>(true);
   const [status, setStatus] = useState<'success' | 'error'>('success');
   const [paid, setPaid] = useState<boolean>(false);
@@ -40,16 +54,17 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
   const [frequencies, setFrequencies] = useState<string>(
     TRANSACTIONS_ARR.frequencies[0].value
   );
-  const { insert, error, loadingPage, success } = useTransactions();
+  const { insert, update, remove, error, loadingPage, success } =
+    useTransactions();
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<IDataTransactionsProps>();
+  } = useForm<FormValues>();
 
   const resetForm = {
-    amount: undefined,
+    amount: '',
     date: '',
     description: '',
     frequency: TRANSACTIONS_ARR.frequencies[0].value,
@@ -58,47 +73,83 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
 
   useEffect(() => {
     if (error || success) {
+      setStatus(success ? 'success' : 'error');
       onSuccess(true);
     }
   }, [error, onSuccess, success]);
 
   useEffect(() => {
-    if ((error || success) && newInsert && !loadingPage) {
+    if ((error || success) && newInsert && !loadingPage && mode === 'create') {
       const statusOnSubmit = success ? 'success' : 'error';
       setStatus(statusOnSubmit);
       setPaid(false);
       reset(resetForm);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error, loadingPage, newInsert, reset, success]);
+  }, [error, loadingPage, mode, newInsert, reset, success]);
 
   useEffect(() => {
     if (!isOpen) {
       setPaid(false);
+      setTypes(TRANSACTIONS_ARR.types[0].value);
+      setFrequencies(TRANSACTIONS_ARR.frequencies[0].value);
       reset(resetForm);
       onSuccess(false);
       setNewInsert(true);
+      setAlert(false);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, onSuccess, reset]);
 
-  const onSubmit = (values: IDataTransactionsProps) => {
+  useEffect(() => {
+    if (!isOpen || mode !== 'edit' || !transaction) return;
+
+    setTypes(transaction.type);
+    setFrequencies(transaction.frequency);
+    setPaid(!!transaction.paid);
+    setNewInsert(true);
+    setAlert(false);
+    reset({
+      amount: toCurrencyMask(Number(transaction.amount)),
+      date: transaction.date,
+      description: transaction.description,
+      frequency: transaction.frequency,
+      type: transaction.type,
+    });
+  }, [isOpen, mode, reset, transaction]);
+
+  const onSubmit = (values: FormValues) => {
     if (values.description && values.amount && values.date) {
       const data = {
         amount: clearFormatValue(values.amount),
-        created: new Date().getTime(),
         date: values.date,
         description: values.description,
         frequency: frequencies,
-        paid: paid,
+        paid,
         type: types,
       };
 
-      insert(data);
+      if (mode === 'edit' && transaction?.id) {
+        update(transaction.id, data);
+      } else {
+        insert({
+          ...data,
+          created: new Date().getTime(),
+        });
+      }
+
       setNewInsert(false);
       setAlert(true);
     }
+  };
+
+  const onDelete = () => {
+    if (!transaction?.id) return;
+
+    remove(transaction.id);
+    setNewInsert(false);
+    setAlert(true);
   };
 
   const Alert = () =>
@@ -153,12 +204,22 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
     setAlert(false);
   };
 
+  const modalTitle =
+    mode === 'delete'
+      ? 'Excluir transação'
+      : mode === 'edit'
+        ? 'Editar transação'
+        : 'Adicionar nova transação';
+
+  const handleFormSubmit =
+    mode === 'delete'
+      ? (event: React.FormEvent) => event.preventDefault()
+      : handleSubmit(onSubmit);
+
   return (
-    <UiModal isOpen={!!isOpen} onClose={() => onClose} size="sm">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <UiModalHeader onClickClose={onClose}>
-          Adicionar nova transação
-        </UiModalHeader>
+    <UiModal isOpen={!!isOpen} onClose={onClose} size="sm">
+      <form onSubmit={handleFormSubmit}>
+        <UiModalHeader onClickClose={onClose}>{modalTitle}</UiModalHeader>
 
         <UiModalContent>
           <Alert />
@@ -171,6 +232,12 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
             >
               <UiCircularProgress type={status} />
             </UiFlex>
+          ) : mode === 'delete' ? (
+            <UiBox>
+              Tem certeza que deseja excluir a transação{' '}
+              <strong>{transaction?.description}</strong>? Essa ação não pode
+              ser desfeita.
+            </UiBox>
           ) : (
             <>
               <FormGroup>
@@ -279,14 +346,26 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
                   fullWidth
                   onClick={onClose}
                   title="Cancelar"
+                  type="button"
                   variant="outline"
                 >
                   Cancelar
                 </UiButton>
 
-                <UiButton fullWidth type="submit" title="Salvar">
-                  Salvar
-                </UiButton>
+                {mode === 'delete' ? (
+                  <UiButton
+                    fullWidth
+                    onClick={onDelete}
+                    title="Excluir"
+                    type="button"
+                  >
+                    Excluir
+                  </UiButton>
+                ) : (
+                  <UiButton fullWidth type="submit" title="Salvar">
+                    Salvar
+                  </UiButton>
+                )}
               </>
             ) : (
               <>
@@ -294,19 +373,22 @@ export const Modal = ({ isOpen, onClose, onSuccess }: IProps) => {
                   fullWidth
                   onClick={onClose}
                   title="Fechar"
+                  type="button"
                   variant="outline"
                 >
                   Fechar
                 </UiButton>
 
-                <UiButton
-                  fullWidth
-                  onClick={handlerOnNewInsert}
-                  type="button"
-                  title="Nova"
-                >
-                  Nova
-                </UiButton>
+                {mode === 'create' && (
+                  <UiButton
+                    fullWidth
+                    onClick={handlerOnNewInsert}
+                    type="button"
+                    title="Nova"
+                  >
+                    Nova
+                  </UiButton>
+                )}
               </>
             ))}
         </UiModalFooter>

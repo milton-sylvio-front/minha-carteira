@@ -20,6 +20,8 @@ import { PageLoading } from './components/PageLoading';
 import { useTransactions } from './hooks/useTransactions';
 
 import { PAGE_SIZE } from './utils/constants';
+import type { IDataTransactionsProps } from './types';
+import type { TransactionModalMode } from './components/Modal/types';
 
 export const Transactions = () => {
   const [searchParams] = useSearchParams();
@@ -29,6 +31,10 @@ export const Transactions = () => {
 
   const [updateList, setUpdateList] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<TransactionModalMode>('create');
+  const [selectedTransaction, setSelectedTransaction] = useState<
+    IDataTransactionsProps | undefined
+  >();
 
   useEffect(() => {
     fetch({
@@ -46,7 +52,7 @@ export const Transactions = () => {
         orderField: 'paid',
         orderDirection: 'asc',
         pageSize: PAGE_SIZE,
-        targetPage: 1,
+        targetPage: page,
       });
     }
     // eslint-disable-next-line
@@ -54,10 +60,21 @@ export const Transactions = () => {
 
   const getActions = (status: boolean) => setUpdateList(status);
 
+  const openTransactionModal = (
+    mode: TransactionModalMode,
+    transaction?: IDataTransactionsProps
+  ) => {
+    setModalMode(mode);
+    setSelectedTransaction(transaction);
+    setOpenModal(true);
+  };
+
+  const closeTransactionModal = () => setOpenModal(false);
+
   const AddButton = () => (
     <UiButton
       leftIcon={<MdOutlineAdd />}
-      onClick={() => setOpenModal(true)}
+      onClick={() => openTransactionModal('create')}
       size="sm"
       variant="primary"
     >
@@ -108,7 +125,15 @@ export const Transactions = () => {
                 </UiBox>
               </UiFlex>
 
-              <DataTable data={data} />
+              <DataTable
+                data={data}
+                onDelete={(transaction) =>
+                  openTransactionModal('delete', transaction)
+                }
+                onEdit={(transaction) =>
+                  openTransactionModal('edit', transaction)
+                }
+              />
             </UiBox>
           )}
 
@@ -124,9 +149,10 @@ export const Transactions = () => {
 
       <Modal
         isOpen={openModal}
-        onClose={() => setOpenModal(false)}
+        mode={modalMode}
+        onClose={closeTransactionModal}
         onSuccess={getActions}
-        size="sm"
+        transaction={selectedTransaction}
       />
     </>
   );

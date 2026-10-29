@@ -17,6 +17,9 @@ import {
   DocumentSnapshot,
   limit,
   getCountFromServer,
+  doc,
+  updateDoc,
+  deleteDoc,
 } from '@/helpers/utils/firebase';
 
 import { COLLECTION_NAME } from '../utils/constants';
@@ -90,6 +93,56 @@ export function useTransactions() {
     }
   };
 
+  const update = async (
+    id: string,
+    data: Pick<
+      IDataTransactionsProps,
+      'amount' | 'date' | 'description' | 'frequency' | 'type'
+    > & { paid: boolean }
+  ) => {
+    setLoadingPage(true);
+    setSuccess('');
+    setError('');
+
+    try {
+      if (!loading && id && !isObjectEmpty(data)) {
+        const ref = doc(db, COLLECTION_NAME, id);
+        await updateDoc(ref, {
+          amount: data.amount,
+          date: data.date,
+          description: data.description,
+          frequency: data.frequency,
+          paid: data.paid,
+          type: data.type,
+        });
+        setSuccess('Registro atualizado com sucesso!');
+      }
+    } catch (err) {
+      console.error('Erro no useTransactions (update):', err);
+      setError(err?.toString() || '');
+    } finally {
+      timeout();
+    }
+  };
+
+  const remove = async (id: string) => {
+    setLoadingPage(true);
+    setSuccess('');
+    setError('');
+
+    try {
+      if (!loading && id) {
+        await deleteDoc(doc(db, COLLECTION_NAME, id));
+        setSuccess('Registro excluído com sucesso!');
+      }
+    } catch (err) {
+      console.error('Erro no useTransactions (delete):', err);
+      setError(err?.toString() || '');
+    } finally {
+      timeout();
+    }
+  };
+
   const insert = async (data: IDataTransactionsProps) => {
     setLoadingPage(true);
     setSuccess('');
@@ -120,7 +173,9 @@ export function useTransactions() {
     fetch,
     insert,
     loadingPage,
+    remove,
     success,
     totalItems,
+    update,
   };
 }
