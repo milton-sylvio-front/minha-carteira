@@ -14,6 +14,9 @@ import { EmptyData } from '@/components/EmptyData';
 import { UiBox, UiFlex, UiButton, UiInput } from '@/components/UI';
 import { Pagination } from '@/components/Pagination';
 
+import { useCategories } from '@/pages/Categories/hooks/useCategories';
+import { PAGE_SIZE as CATEGORIES_PAGE_SIZE } from '@/pages/Categories/utils/constants';
+
 import { DataTable } from './components/DataTable';
 import { Modal } from './components/Modal';
 import { PageLoading } from './components/PageLoading';
@@ -26,6 +29,7 @@ import type { TransactionModalMode } from './components/Modal/types';
 export const Transactions = () => {
   const [searchParams] = useSearchParams();
   const { data, loadingPage, fetch, totalItems } = useTransactions();
+  const { data: categories, fetch: fetchCategories } = useCategories();
 
   const page = Number(searchParams.get('pagina')) || 1;
 
@@ -45,6 +49,16 @@ export const Transactions = () => {
     });
     // eslint-disable-next-line
   }, [page]);
+
+  useEffect(() => {
+    fetchCategories({
+      orderField: 'description',
+      orderDirection: 'asc',
+      pageSize: CATEGORIES_PAGE_SIZE,
+      targetPage: 1,
+    });
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (updateList) {
@@ -126,6 +140,7 @@ export const Transactions = () => {
               </UiFlex>
 
               <DataTable
+                categories={categories}
                 data={data}
                 onDelete={(transaction) =>
                   openTransactionModal('delete', transaction)

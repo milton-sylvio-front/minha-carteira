@@ -22,8 +22,19 @@ import {
   deleteDoc,
 } from '@/helpers/utils/firebase';
 
+import type { IDataCategoriesProps } from '@/pages/Categories/types';
+
 import { COLLECTION_NAME } from '../utils/constants';
 import type { IDataTransactionsProps } from '../types';
+
+const getCategories = async (): Promise<IDataCategoriesProps[]> => {
+  const snapshot = await getDocs(collection(db, 'Categories'));
+
+  return snapshot.docs.map((item) => ({
+    id: item.id,
+    ...(item.data() as Omit<IDataCategoriesProps, 'id'>),
+  }));
+};
 
 export function useTransactions() {
   const cursors = useRef<Map<number, DocumentSnapshot | null>>(new Map());
@@ -33,6 +44,7 @@ export function useTransactions() {
   const setCondition = where('userId', '==', user?.uid);
 
   const [data, setData] = useState<any[]>([]);
+  const [categories, setCategories] = useState<IDataCategoriesProps[]>([]);
   const [loadingPage, setLoadingPage] = useState<boolean>(false);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [error, setError] = useState<string>('');
@@ -44,6 +56,7 @@ export function useTransactions() {
     }, TIMEOUT);
   };
 
+  // Grava todas as alterações de uma vez só no Firestore
   const fetch = async ({
     orderField,
     orderDirection = 'asc',
@@ -83,6 +96,9 @@ export function useTransactions() {
           snapshot.docs[snapshot.docs.length - 1] || null
         );
 
+        const categoriesData = await getCategories();
+        setCategories(categoriesData);
+
         setLoadingPage(false);
       } catch (err) {
         console.error('Erro no useTransactions (fetch):', err);
@@ -97,7 +113,7 @@ export function useTransactions() {
     id: string,
     data: Pick<
       IDataTransactionsProps,
-      'amount' | 'date' | 'description' | 'frequency' | 'type'
+      'amount' | 'date' | 'description' | 'frequency' | 'idCategory' | 'type'
     > & { paid: boolean }
   ) => {
     setLoadingPage(true);
@@ -112,6 +128,7 @@ export function useTransactions() {
           date: data.date,
           description: data.description,
           frequency: data.frequency,
+          idCategory: data.idCategory,
           paid: data.paid,
           type: data.type,
         });
@@ -167,11 +184,19 @@ export function useTransactions() {
     }
   };
 
+  const listCategories = async () => {
+    const categoriesData = await getCategories();
+    setCategories(categoriesData);
+    return categoriesData;
+  };
+
   return {
     data,
+    categories,
     error,
     fetch,
     insert,
+    listCategories,
     loadingPage,
     remove,
     success,

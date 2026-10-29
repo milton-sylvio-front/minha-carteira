@@ -13,6 +13,7 @@ import {
   UiButton,
   UiButtonGroup,
   UiCircularProgress,
+  UiSelect,
   UiFlex,
   UiInput,
   UiModal,
@@ -37,6 +38,8 @@ type FormValues = {
   description: string;
   frequency: string;
   type: string;
+  idCategory: string;
+  category: string;
 };
 
 export const Modal = ({
@@ -54,8 +57,16 @@ export const Modal = ({
   const [frequencies, setFrequencies] = useState<string>(
     TRANSACTIONS_ARR.frequencies[0].value
   );
-  const { insert, update, remove, error, loadingPage, success } =
-    useTransactions();
+  const {
+    insert,
+    update,
+    remove,
+    error,
+    loadingPage,
+    success,
+    categories,
+    listCategories,
+  } = useTransactions();
   const {
     control,
     handleSubmit,
@@ -70,6 +81,13 @@ export const Modal = ({
     frequency: TRANSACTIONS_ARR.frequencies[0].value,
     type: TRANSACTIONS_ARR.types[0].value,
   };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    listCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   useEffect(() => {
     if (error || success) {
@@ -115,6 +133,7 @@ export const Modal = ({
       date: transaction.date,
       description: transaction.description,
       frequency: transaction.frequency,
+      idCategory: transaction.idCategory ?? '',
       type: transaction.type,
     });
   }, [isOpen, mode, reset, transaction]);
@@ -125,6 +144,7 @@ export const Modal = ({
         amount: clearFormatValue(values.amount),
         date: values.date,
         description: values.description,
+        idCategory: values.idCategory,
         frequency: frequencies,
         paid,
         type: types,
@@ -171,6 +191,25 @@ export const Modal = ({
       placeholder="Ex.: Conta de água"
       {...field}
     />
+  );
+
+  const selectCategory = (field: FieldValues) => (
+    <UiSelect
+      className={errors?.idCategory && 'error'}
+      disabled={loadingPage}
+      id="idCategory"
+      {...field}
+    >
+      {categories.map((category) => (
+        <option
+          key={category.id}
+          selected={category.id === (field.value || transaction?.idCategory)}
+          value={category.id}
+        >
+          {category.description}
+        </option>
+      ))}
+    </UiSelect>
   );
 
   const inputDate = (field: FieldValues) => (
@@ -254,6 +293,23 @@ export const Modal = ({
 
                 <FormErrorMessage>
                   {errors?.description?.message}
+                </FormErrorMessage>
+              </FormGroup>
+
+              <FormGroup>
+                <FormLabel htmlFor="idCategory">Categoria</FormLabel>
+
+                <Controller
+                  name="idCategory"
+                  render={({ field }) => selectCategory(field)}
+                  control={control}
+                  rules={{
+                    required: REQUIRED_FIELD,
+                  }}
+                />
+
+                <FormErrorMessage>
+                  {errors?.idCategory?.message}
                 </FormErrorMessage>
               </FormGroup>
 

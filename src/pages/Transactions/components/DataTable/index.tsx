@@ -17,17 +17,20 @@ import type { IMenuButtonPositionMenu } from '@/components/UI/Menu/Button/types'
 
 import { formatCurrency, formatDate } from '@/helpers/utils';
 
+import type { IDataCategoriesProps } from '@/pages/Categories/types';
+
 import { TRANSACTIONS_ARR, TITLES_TABLE } from '../../utils/arrays';
 
 import type { IDataTransactionsProps } from '../../types';
 
 export interface IProps {
+  categories: IDataCategoriesProps[];
   data: IDataTransactionsProps[];
   onDelete: (transaction: IDataTransactionsProps) => void;
   onEdit: (transaction: IDataTransactionsProps) => void;
 }
 
-export const DataTable = ({ data, onDelete, onEdit }: IProps) => {
+export const DataTable = ({ categories, data, onDelete, onEdit }: IProps) => {
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   const [positionMenu, setPositionMenu] =
     useState<IMenuButtonPositionMenu>('bottom');
@@ -46,6 +49,15 @@ export const DataTable = ({ data, onDelete, onEdit }: IProps) => {
     return getFrequency;
   };
 
+  const getCategoryName = (categoryId?: string) => {
+    console.log('categoryId:', categoryId);
+
+    if (!categoryId) return '--';
+
+    const category = categories.find((item) => item.id === categoryId);
+    return category?.description || '--';
+  };
+
   return (
     <UiTable width="100%">
       <thead>
@@ -59,7 +71,7 @@ export const DataTable = ({ data, onDelete, onEdit }: IProps) => {
         {data.map((item, idx) => (
           <tr key={item.id}>
             <UiTd>{item.description}</UiTd>
-            <UiTd>{item.created}</UiTd>
+            <UiTd>{getCategoryName(item.idCategory)}</UiTd>
             <UiTd>{formatDate(item.date)}</UiTd>
             <UiTd>{setType(item.type)}</UiTd>
             <UiTd>{setFrequency(item.frequency)}</UiTd>

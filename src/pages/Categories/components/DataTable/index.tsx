@@ -32,6 +32,13 @@ export const DataTable = ({ data }: IProps) => {
     return CATEGORIES_ARR.filter((t) => t.value === type).map((t) => t.label);
   };
 
+  const getParentName = (parentId?: string) => {
+    if (!parentId) return '--';
+
+    const parent = data.find((category) => category.id === parentId);
+    return parent?.description || '--';
+  };
+
   return (
     <UiTable width="auto">
       <thead>
@@ -46,7 +53,7 @@ export const DataTable = ({ data }: IProps) => {
           <tr key={item.id}>
             <UiTd>{item.description}</UiTd>
             {/* <UiTd>{item.created}</UiTd> */}
-            <UiTd>{item.parentCategory || '--'}</UiTd>
+            <UiTd>{getParentName(item.parentCategory)}</UiTd>
             <UiTd>
               <UiBadge
                 colorType={item.type === 'gains' ? 'success' : 'danger'}
