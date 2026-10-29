@@ -1,5 +1,5 @@
 import { Cell, Pie, PieChart, ResponsiveContainer } from 'recharts';
-
+import type { IPieChart } from './types';
 import {
   Container,
   SideLeft,
@@ -7,8 +7,6 @@ import {
   LegendContainer,
   Legend,
 } from './styles';
-
-import { IPieChart } from './types';
 
 export const PieBox = ({ data }: IPieChart) => (
   <Container>

@@ -1,14 +1,14 @@
 import { useState, useCallback } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { TIMEOUT } from '../../helpers/utils/constants';
+import { TIMEOUT } from '@/helpers/utils/constants';
 import {
   addDoc,
   auth,
   collection,
   createUserWithEmailAndPassword,
   db,
-} from '../../helpers/utils/firebase';
+} from '@/helpers/utils/firebase';
 
 export const useSignUp = () => {
   const [loader, setLoader] = useState<boolean>(false);
@@ -22,7 +22,7 @@ export const useSignUp = () => {
   };
 
   const getError = (code: string) => {
-    const type = {
+    const type: Record<string, string> = {
       'auth/email-already-in-use': 'E-mail já cadastrado!',
     };
 
@@ -30,7 +30,7 @@ export const useSignUp = () => {
   };
 
   const register = useCallback(
-    async (email: string, password: string, name: string, phone: string ) => {
+    async (email: string, password: string, name: string, phone: string) => {
       setLoader(true);
       setError('');
 

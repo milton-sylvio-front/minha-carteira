@@ -1,11 +1,11 @@
 import { Route, Routes as Switch } from 'react-router-dom';
 
-import Dashboard from '@/views/Dashboard';
-import SignIn from '@/views/SignIn';
-import SignUp from '@/views/SignUp';
-import RecoveryPassword from '@/views/RecoveryPassword';
-import { Transactions } from '@/views/Transactions';
-import { Categories } from '@/views/Categories';
+import Dashboard from '@/pages/Dashboard';
+import SignIn from '@/pages/SignIn';
+import SignUp from '@/pages/SignUp';
+import RecoveryPassword from '@/pages/RecoveryPassword';
+import { Transactions } from '@/pages/Transactions';
+import { Categories } from '@/pages/Categories';
 
 import { PATHS } from '@/helpers/configs/paths';
 
@@ -24,7 +24,9 @@ const {
 const Routes = () => (
   <Switch>
     <Route path={HOME.url} element={<PrivateRoute />}>
+      <Route path={HOME.url} element={<Dashboard />} />
       <Route path={DASHBOARD.url} element={<Dashboard />} />
+
       <Route path={CATEGORIES.url} element={<Categories />} />
       <Route path={TRANSACTIONS.url} element={<Transactions />} />
     </Route>

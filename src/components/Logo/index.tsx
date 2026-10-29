@@ -1,8 +1,8 @@
-import symbolLogo from '../../assets/images/logo.svg';
+import symbolLogo from '@/assets/images/logo.svg';
 
 import { Container } from './styles';
 
-const Logo = () => (
+export const Logo = () => (
   <Container className="logo">
     <img src={symbolLogo} alt="Minha Carteira" />
 
@@ -11,5 +11,3 @@ const Logo = () => (
     </span>
   </Container>
 );
-
-export default Logo;

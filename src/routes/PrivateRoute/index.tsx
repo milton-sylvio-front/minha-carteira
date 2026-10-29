@@ -1,16 +1,15 @@
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import InternalPagesTemplate from '@/templates/InternalPages';
+import { InternalPagesTemplate } from '@/templates/InternalPages';
 import { UiLoading } from '@/components/UI';
 
-import { auth } from '@/helpers/utils/firebase';
+import { useAuthSession } from '@/hooks/useAuthSession';
 import { PATHS } from '@/helpers/configs/paths';
 
 const { SIGN_IN } = PATHS;
 
 export const PrivateRoute = () => {
-  const [user, loading] = useAuthState(auth);
+  const { user, loading } = useAuthSession();
 
   const PrivateComponents = () => (
     <InternalPagesTemplate>
@@ -18,11 +17,13 @@ export const PrivateRoute = () => {
     </InternalPagesTemplate>
   );
 
-  return loading ? (
-    <UiLoading />
-  ) : user ? (
-    <PrivateComponents />
-  ) : (
-    <Navigate to={SIGN_IN.url} replace />
-  );
+  if (loading) {
+    return <UiLoading />;
+  }
+
+  if (!user) {
+    return <Navigate to={SIGN_IN.url} replace />;
+  }
+
+  return <PrivateComponents />;
 };

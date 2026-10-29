@@ -1,7 +1,7 @@
 import { MdMenu, MdClose } from 'react-icons/md';
 
 import { useMenuMobile } from '@/hooks/menu';
-import Logo from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 
 import { Container, MenuMobile, ContainerActionsMobile } from './styles';
 

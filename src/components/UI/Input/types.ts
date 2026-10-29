@@ -11,7 +11,7 @@ export interface IInputProps
   extends Omit<LayoutProps, 'height' | 'size' | 'width'>,
     Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   icon?: React.ComponentType;
-  maskInput?: React.ComponentType;
+  maskInput?: React.ElementType;
   mask?: (string | RegExp)[];
   inputSize?: IInputPropsSizes;
 }

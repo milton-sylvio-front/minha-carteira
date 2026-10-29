@@ -7,6 +7,8 @@ import {
   MdOutlineSearch,
 } from 'react-icons/md';
 
+import { isObjectEmpty } from '@/helpers/utils';
+
 import { ContentHeader } from '@/components/ContentHeader';
 import { EmptyData } from '@/components/EmptyData';
 import { UiBox, UiFlex, UiButton, UiInput } from '@/components/UI';
@@ -18,7 +20,6 @@ import { PageLoading } from './components/PageLoading';
 import { useTransactions } from './hooks/useTransactions';
 
 import { PAGE_SIZE } from './utils/constants';
-import { isObjectEmpty } from '@/helpers/utils';
 
 export const Transactions = () => {
   const [searchParams] = useSearchParams();

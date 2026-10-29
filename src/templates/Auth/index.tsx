@@ -1,8 +1,8 @@
-import Logo from '../../components/Logo';
+import { Logo } from '@/components/Logo';
 
 import { Container, ContainerSignin, ContainerForm } from './styles';
 
-import { IAuthTemplate } from './types';
+import type { IAuthTemplate } from './types';
 
 const AuthTemplate = ({ children }: IAuthTemplate) => (
   <Container>

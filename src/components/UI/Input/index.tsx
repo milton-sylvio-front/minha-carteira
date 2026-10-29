@@ -11,7 +11,7 @@ export const UiInput = ({
   ...rest
 }: IInputProps) => {
   const getIcon = !!Icon;
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const setClassName = `${className} input-${inputSize}`;
 

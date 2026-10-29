@@ -32,6 +32,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 export {
+  app,
   addDoc,
   auth,
   collection,

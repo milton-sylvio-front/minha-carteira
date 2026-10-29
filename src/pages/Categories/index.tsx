@@ -36,10 +36,7 @@ export const Categories = () => {
       pageSize: PAGE_SIZE,
       targetPage: page,
     });
-    // eslint-disable-next-line
   }, [page]);
-
-  console.log('updateList:', updateList);
 
   useEffect(() => {
     if (updateList) {
@@ -50,8 +47,7 @@ export const Categories = () => {
         targetPage: 1,
       });
     }
-    // eslint-disable-next-line
-  }, [PAGE_SIZE, updateList]);
+  }, [updateList]);
 
   const getActions = (status: boolean) => setUpdateList(status);
 

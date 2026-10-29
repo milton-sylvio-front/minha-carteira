@@ -4,7 +4,7 @@ import { BarBox, LineBox, PieBox } from '@/components/Charts';
 import { ContentHeader } from '@/components/ContentHeader';
 import ColorCard from '@/components/ColorCard';
 import MessageCard from '@/components/MessageCard';
-import { UiContainer, UiDropdown } from '@/components/UI';
+import { UiContainer, UiSelect } from '@/components/UI';
 
 import gains from '@/repositories/gains';
 import expenses from '@/repositories/expenses';
@@ -238,7 +238,7 @@ const Dashboard = () => {
       });
 
     const total = amountRecurrent + amountEventual;
-    const calcPercents = (value, totalValue) =>
+    const calcPercents = (value: number, totalValue: number) =>
       Number(((value / totalValue) * 100).toFixed(1)) | 0;
     const recurrentPercent = calcPercents(amountRecurrent, total);
     const eventualPercent = calcPercents(amountEventual, total);
@@ -285,7 +285,7 @@ const Dashboard = () => {
         }
       });
 
-    const calcPercents = (value, totalValue) =>
+    const calcPercents = (value: number, totalValue: number) =>
       Number(((value / totalValue) * 100).toFixed(1)) | 0;
 
     const total = amountRecurrent + amountEventual;
@@ -333,16 +333,26 @@ const Dashboard = () => {
   return (
     <UiContainer>
       <ContentHeader title="Dashboard">
-        <UiDropdown
-          options={months}
+        <UiSelect
           onChange={(e) => handleMonthSelected(e.target.value)}
           defaultValue={monthSelected}
-        />
-        <UiDropdown
-          options={years}
+        >
+          {months.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </UiSelect>
+        <UiSelect
           onChange={(e) => handleYearSelected(e.target.value)}
           defaultValue={yearSelected}
-        />
+        >
+          {years.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </UiSelect>
       </ContentHeader>
 
       <Content>

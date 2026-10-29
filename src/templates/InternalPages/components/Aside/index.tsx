@@ -10,7 +10,7 @@ import { FiMoon } from 'react-icons/fi';
 
 import { PATHS } from '@/helpers/configs/paths';
 
-import Logo from '@/components/Logo';
+import { Logo } from '@/components/Logo';
 import { UiBox, UiButtonGroup, UiFlex, UiRadioButton } from '@/components/UI';
 
 import { useMenuMobile } from '@/hooks/menu';

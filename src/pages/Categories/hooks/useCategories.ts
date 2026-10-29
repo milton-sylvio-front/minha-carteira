@@ -75,7 +75,7 @@ export function useCategories() {
         const snapshot = await getDocs(q);
         const getData = snapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data(),
+          ...(doc.data() as IDataCategoriesProps),
         }));
 
         getData.filter((itens) => itens?.userId === user?.uid);

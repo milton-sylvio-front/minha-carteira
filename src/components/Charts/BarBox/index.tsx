@@ -1,5 +1,5 @@
 import { ResponsiveContainer, BarChart, Bar, Cell, XAxis } from 'recharts';
-
+import type { IBarBoxProps } from './types';
 import {
   Container,
   SideLeft,
@@ -7,8 +7,6 @@ import {
   LegendContainer,
   Legend,
 } from './styles';
-
-import { IBarBoxProps } from './types';
 
 export const BarBox = ({ title, data }: IBarBoxProps) => (
   <Container>

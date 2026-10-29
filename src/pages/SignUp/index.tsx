@@ -21,6 +21,8 @@ import AuthTemplate from '../../templates/Auth';
 import type { IUserData } from './types';
 import { useSignUp } from './useSignUp';
 import { REGEX_MASK_PHONE } from './constants';
+import type { IInputProps } from '@/components/UI/Input/types';
+import type { JSX } from 'react/jsx-runtime';
 
 const { DASHBOARD, SIGN_IN } = PATHS;
 
@@ -37,7 +39,7 @@ const SignUp = () => {
   useEffect(() => {
     if (loading) return;
     if (user) navigate(DASHBOARD.url);
-  }, [user, loading]);
+  }, [user, loading, navigate]);
 
   const toggleType = () => {
     setPasswordShow(passwordShow ? false : true);
@@ -49,13 +51,13 @@ const SignUp = () => {
     }
   };
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: IUserData) => {
     if (values.email && values.password && values.name && values.phone) {
       register(values.email, values.password, values.name, values.phone);
     }
   };
 
-  const inputPassw = (field) => (
+  const inputPassw = (field: JSX.IntrinsicAttributes & IInputProps) => (
     <UiInput
       className={errors?.password && 'error'}
       icon={MdLock}
@@ -65,7 +67,7 @@ const SignUp = () => {
     />
   );
 
-  const inputPhone = (field) => (
+  const inputPhone = (field: JSX.IntrinsicAttributes & IInputProps) => (
     <UiInput
       icon={MdPhone}
       className={errors?.phone && 'error'}
@@ -77,13 +79,13 @@ const SignUp = () => {
     />
   );
 
-  const inputName = (field) => (
+  const inputName = (field: JSX.IntrinsicAttributes & IInputProps) => (
     <UiInput
       className={errors?.name && 'error'}
       icon={MdPerson}
-      {...field}
       id="name"
       type="text"
+      {...field}
     />
   );
 

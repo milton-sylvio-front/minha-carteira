@@ -1,8 +1,8 @@
-import ImageEmptyData from '@/assets/images/empty-data.svg?react';
+import type React from 'react';
+import ImageEmptyData from '../../assets/images/empty-data.svg?react';
 import { UiFlex } from '@/components/UI';
 
 import { Description, Title } from './styles';
-import type React from 'react';
 
 export interface IProps {
   title: string;
